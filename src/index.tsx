@@ -6,7 +6,7 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const VerifaiCoreReactNative = NativeModules.VerifaiCoreReactNative
+NativeModules.VerifaiCore
   ? NativeModules.VerifaiCoreReactNative
   : new Proxy(
       {},
@@ -17,6 +17,6 @@ const VerifaiCoreReactNative = NativeModules.VerifaiCoreReactNative
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return VerifaiCoreReactNative.multiply(a, b);
-}
+
+const { VerifaiCore } = NativeModules;
+export { VerifaiCore };

@@ -1,4 +1,4 @@
-package com.verifaicorereactnative;
+package com.verifai.corereactnative;
 
 import androidx.annotation.NonNull;
 
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class VerifaiCoreReactNativePackage implements ReactPackage {
+public class VerifaiCorePackage implements ReactPackage {
     @NonNull
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new VerifaiCoreReactNativeModule(reactContext));
+        modules.add(new VerifaiCoreModule(reactContext));
         return modules;
     }
 
