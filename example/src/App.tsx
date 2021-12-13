@@ -2,10 +2,9 @@ import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
 import { VerifaiCore } from 'verifai-core-react-native';
+import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
-  const licence = `=== Verifai Licence file V2 ===`
-
   return (
     <View style={styles.container}>
       <Button
@@ -13,7 +12,7 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
-            VerifaiCore.start(licence)
+            VerifaiCore.start(VERIFAI_LICENCE)
           }
         }
       />
