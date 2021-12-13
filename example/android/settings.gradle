@@ -1,6 +1,6 @@
-rootProject.name = 'VerifaiCoreReactNativeExample'
+rootProject.name = 'Example'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
 
-include ':verifaicorereactnative'
-project(':verifaicorereactnative').projectDir = new File(rootProject.projectDir, '../../android')
+include ':core'
+project(':core').projectDir = new File(rootProject.projectDir, '../../android')
