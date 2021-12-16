@@ -1,5 +1,5 @@
 {
-  "name": "verifai-core-react-native",
+  "name": "verifai-react-native-sdk",
   "version": "0.1.0",
   "description": "Verifai Core module binding for React Native",
   "main": "lib/commonjs/index",

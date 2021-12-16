@@ -2,5 +2,5 @@ rootProject.name = 'Example'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
 
-include ':core'
-project(':core').projectDir = new File(rootProject.projectDir, '../../android')
+include ':android-sdk'
+project(':android-sdk').projectDir = new File(rootProject.projectDir, '../../android')

@@ -1,4 +1,4 @@
-package com.verifai.corereactnative;
+package com.verifai.reactnative.core;
 
 import android.app.Activity;
 import android.os.Build;
@@ -17,6 +17,7 @@ import com.verifai.core.Verifai;
 import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
 import com.facebook.react.bridge.Callback;
+import com.verifai.reactnative.ConvertDataUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +28,12 @@ import org.json.JSONObject;
  * https://reactnative.dev/docs/native-modules-android#callbacks
  * Maybe this can be done differently when TurboModules are out
  */
-@ReactModule(name = VerifaiCoreModule.NAME)
-public class VerifaiCoreModule extends ReactContextBaseJavaModule {
-    public static final String NAME = "VerifaiCore";
+@ReactModule(name = CoreModule.NAME)
+public class CoreModule extends ReactContextBaseJavaModule {
+    public static final String NAME = "Core";
     public static final String TAG = "V-CORE";
 
-    public VerifaiCoreModule(ReactApplicationContext reactContext) {
+    public CoreModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 

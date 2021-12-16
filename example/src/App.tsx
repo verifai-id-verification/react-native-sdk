@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { VerifaiCore } from 'verifai-core-react-native';
+import { Core } from 'verifai-react-native-sdk';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
@@ -16,10 +16,10 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
-            VerifaiCore.setOnSuccess(onSuccess)
-            VerifaiCore.setOnCancelled(onCancelled)
-            VerifaiCore.setOnError(onError)
-            VerifaiCore.start(VERIFAI_LICENCE)
+            Core.setOnSuccess(onSuccess)
+            Core.setOnCancelled(onCancelled)
+            Core.setOnError(onError)
+            Core.start(VERIFAI_LICENCE)
           }
         }
       />

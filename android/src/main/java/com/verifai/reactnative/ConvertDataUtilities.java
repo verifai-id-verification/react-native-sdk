@@ -1,4 +1,4 @@
-package com.verifai.corereactnative;
+package com.verifai.reactnative;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
