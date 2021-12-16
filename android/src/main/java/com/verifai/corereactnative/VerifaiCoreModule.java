@@ -14,7 +14,14 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.verifai.core.Verifai;
 import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
+import com.facebook.react.bridge.Callback;
 
+/**
+ * Wrapper class for the core module
+ * Callbacks have to be set one by one because:
+ * https://reactnative.dev/docs/native-modules-android#callbacks
+ * Maybe this can be done differently when TurboModules are out
+ */
 @ReactModule(name = VerifaiCoreModule.NAME)
 public class VerifaiCoreModule extends ReactContextBaseJavaModule {
     public static final String NAME = "VerifaiCore";
@@ -23,6 +30,18 @@ public class VerifaiCoreModule extends ReactContextBaseJavaModule {
     public VerifaiCoreModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
+
+    private Callback _onSuccess = null;
+    @ReactMethod
+    public void setOnSuccess(Callback onSuccess) { _onSuccess = onSuccess; }
+
+    private Callback _onCancelled = null;
+    @ReactMethod
+    public void setOnCancelled(Callback onCancelled) { _onCancelled = onCancelled; }
+
+    private Callback _onError = null;
+    @ReactMethod
+    public void setOnError(Callback onError) { _onError = onError; }
 
     @Override
     @NonNull
@@ -38,27 +57,34 @@ public class VerifaiCoreModule extends ReactContextBaseJavaModule {
             Log.e(TAG, "No activity running");
             return;
         }
-        Log.d(TAG, "licence:" + licence);
+        if (_onSuccess == null) {
+            Log.e(TAG, "No onSuccess callback has been set");
+            return;
+        }
+        if (_onCancelled == null) {
+            Log.e(TAG, "No onCancelled callback has been set");
+            return;
+        }
+        if (_onError == null) {
+            Log.e(TAG, "No onError callback has been set");
+            return;
+        }
+
         Verifai.setLicence(activity, licence);
         VerifaiResultListener resultListener = new VerifaiResultListener() {
             @Override
             public void onSuccess(@NonNull VerifaiResult verifaiResult) {
-                // Handle the result.
-                // Please consult the general docs for more information regarding the
-                // result object and its contents.
+                _onSuccess.invoke("success");
             }
 
             @Override
             public void onCanceled() {
-                // What to do when the user cancels the SDK route.
-                // This will mostly be triggered because of the user pressing the back
-                // button or locking the phone in certain states.
-                // The user can restart Verifai from the start. No errors occurred.
+                _onCancelled.invoke();
             }
 
             @Override
             public void onError(Throwable throwable) {
-                Log.d("error", throwable.getMessage());
+                _onError.invoke(throwable.getMessage());
             }
         };
         Verifai.startScan(activity, resultListener);

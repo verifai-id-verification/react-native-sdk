@@ -5,6 +5,10 @@ import { VerifaiCore } from 'verifai-core-react-native';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
+  const onSuccess = (message: String) => { console.log(message) }
+  const onCancelled = () => { console.log("cancelled") }
+  const onError = (message: String) => { console.error(message) }
+
   return (
     <View style={styles.container}>
       <Button
@@ -12,6 +16,9 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
+            VerifaiCore.setOnSuccess(onSuccess)
+            VerifaiCore.setOnCancelled(onCancelled)
+            VerifaiCore.setOnError(onError)
             VerifaiCore.start(VERIFAI_LICENCE)
           }
         }
