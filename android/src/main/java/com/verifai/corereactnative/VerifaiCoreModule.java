@@ -10,11 +10,16 @@ import androidx.annotation.RequiresApi;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
+import com.google.gson.Gson;
 import com.verifai.core.Verifai;
 import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
 import com.facebook.react.bridge.Callback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Wrapper class for the core module
@@ -42,6 +47,8 @@ public class VerifaiCoreModule extends ReactContextBaseJavaModule {
     private Callback _onError = null;
     @ReactMethod
     public void setOnError(Callback onError) { _onError = onError; }
+
+    private final ConvertDataUtilities utils = new ConvertDataUtilities();
 
     @Override
     @NonNull
@@ -74,7 +81,14 @@ public class VerifaiCoreModule extends ReactContextBaseJavaModule {
         VerifaiResultListener resultListener = new VerifaiResultListener() {
             @Override
             public void onSuccess(@NonNull VerifaiResult verifaiResult) {
-                _onSuccess.invoke("success");
+                try {
+                    Gson gson = new Gson();
+                    String jsonResult = gson.toJson(verifaiResult);
+                    WritableMap returnMap = utils.convertJsonToMap(new JSONObject(jsonResult));
+                    _onSuccess.invoke(returnMap);
+                } catch (JSONException e) {
+                    onError(new Exception("Data conversion failed"));
+                }
             }
 
             @Override

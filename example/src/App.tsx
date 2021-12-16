@@ -5,7 +5,7 @@ import { VerifaiCore } from 'verifai-core-react-native';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
-  const onSuccess = (message: String) => { console.log(message) }
+  const onSuccess = (message: Object) => { console.log(JSON.stringify(message, null, 2)) }
   const onCancelled = () => { console.log("cancelled") }
   const onError = (message: String) => { console.error(message) }
 
