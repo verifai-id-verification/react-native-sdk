@@ -62,4 +62,5 @@ dependencies {
 
     api "com.verifai:core:4.8.2"
     implementation "com.verifai:liveness-check:4.8.2"
+    implementation "com.verifai:nfc:4.8.2"
 }

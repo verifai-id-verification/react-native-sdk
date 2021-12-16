@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Core, Liveness } from 'verifai-react-native-sdk';
+import { Core, Liveness, Nfc } from 'verifai-react-native-sdk';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {

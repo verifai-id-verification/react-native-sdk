@@ -1,4 +1,4 @@
-package com.verifai.reactnative.core;
+package com.verifai.reactnative.nfc;
 
 import android.app.Activity;
 import android.os.Build;
@@ -7,33 +7,35 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.google.gson.Gson;
-import com.verifai.core.Verifai;
-import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
-import com.facebook.react.bridge.Callback;
+import com.verifai.nfc.VerifaiNfc;
+import com.verifai.nfc.VerifaiNfcResultListener;
+import com.verifai.nfc.result.VerifaiNfcResult;
 import com.verifai.reactnative.ConvertDataUtilities;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Wrapper class for the core module
+ * Wrapper class for the nfc module
  * Callbacks have to be set one by one because:
  * https://reactnative.dev/docs/native-modules-android#callbacks
  * Maybe this can be done differently when TurboModules are out
  */
-@ReactModule(name = CoreModule.NAME)
-public class CoreModule extends ReactContextBaseJavaModule {
-    public static final String NAME = "Core";
-    public static final String TAG = "V-CORE";
+@ReactModule(name = NfcModule.NAME)
+public class NfcModule extends ReactContextBaseJavaModule {
+    public static final String NAME = "NFC";
+    public static final String TAG = "V-NFC";
 
-    public CoreModule(ReactApplicationContext reactContext) {
+    public NfcModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
@@ -68,7 +70,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
-    public void start(String licence) {
+    public void start() {
         Activity activity = getCurrentActivity();
         if (activity == null) {
             Log.e(TAG, "No activity running");
@@ -87,13 +89,12 @@ public class CoreModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        Verifai.setLicence(activity, licence);
-        VerifaiResultListener resultListener = new VerifaiResultListener() {
+        VerifaiNfcResultListener nfcResultListener = new VerifaiNfcResultListener() {
             @Override
-            public void onSuccess(@NonNull VerifaiResult verifaiResult) {
+            public void onResult(@NotNull VerifaiNfcResult result) {
                 try {
                     Gson gson = new Gson();
-                    String jsonResult = gson.toJson(verifaiResult);
+                    String jsonResult = gson.toJson(result);
                     WritableMap returnMap = utils.convertJsonToMap(new JSONObject(jsonResult));
                     _onSuccess.invoke(returnMap);
                 } catch (JSONException e) {
@@ -107,10 +108,11 @@ public class CoreModule extends ReactContextBaseJavaModule {
             }
 
             @Override
-            public void onError(Throwable throwable) {
+            public void onError(@NotNull Throwable throwable) {
                 _onError.invoke(throwable.getMessage());
             }
         };
-        Verifai.startScan(activity, resultListener);
+        VerifaiResult result = new VerifaiResult();
+        VerifaiNfc.start(activity, result, true, nfcResultListener);
     }
 }
