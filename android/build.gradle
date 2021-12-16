@@ -61,4 +61,5 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     api "com.verifai:core:4.8.2"
+    implementation "com.verifai:liveness-check:4.8.2"
 }

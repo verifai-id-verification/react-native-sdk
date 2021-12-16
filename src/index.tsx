@@ -1,13 +1,13 @@
 import { NativeModules, Platform } from 'react-native';
 
 const LINKING_ERROR =
-  `The package 'verifai-core-react-native' doesn't seem to be linked. Make sure: \n\n` +
+  `The package 'verifai-react-native-sdk' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-NativeModules.VerifaiCore
-  ? NativeModules.VerifaiCoreReactNative
+NativeModules.Core
+  ? NativeModules.Core
   : new Proxy(
       {},
       {
@@ -18,5 +18,5 @@ NativeModules.VerifaiCore
     );
 
 
-const { VerifaiCore } = NativeModules;
-export { VerifaiCore };
+const { Core, Liveness } = NativeModules;
+export { Core, Liveness };

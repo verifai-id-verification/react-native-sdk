@@ -1,13 +1,21 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Core } from 'verifai-react-native-sdk';
+import { Core, Liveness } from 'verifai-react-native-sdk';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
-  const onSuccess = (message: Object) => { console.log(JSON.stringify(message, null, 2)) }
-  const onCancelled = () => { console.log("cancelled") }
-  const onError = (message: String) => { console.error(message) }
+  const coreListener = {
+    onSuccess: (message: Object) => { console.log(JSON.stringify(message, null, 2)) },
+    onCancelled: () => { console.log("cancelled") },
+    onError: (message: String) => { console.error(message) },
+  }
+
+  const livenessListener = {
+    onSuccess: (message: Object) => { console.log(JSON.stringify(message, null, 2)) },
+    onCancelled: () => { console.log("cancelled") },
+    onError: (message: String) => { console.error(message) },
+  }
 
   return (
     <View style={styles.container}>
@@ -16,10 +24,23 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
-            Core.setOnSuccess(onSuccess)
-            Core.setOnCancelled(onCancelled)
-            Core.setOnError(onError)
+            Core.setOnSuccess(coreListener.onSuccess)
+            Core.setOnCancelled(coreListener.onCancelled)
+            Core.setOnError(coreListener.onError)
             Core.start(VERIFAI_LICENCE)
+          }
+        }
+      />
+
+      <Button
+        title="Start Liveness"
+        color="#ff576d"
+        onPress={
+          () => {
+            Liveness.setOnSuccess(livenessListener.onSuccess)
+            Liveness.setOnCancelled(livenessListener.onCancelled)
+            Liveness.setOnError(livenessListener.onError)
+            Liveness.start()
           }
         }
       />
