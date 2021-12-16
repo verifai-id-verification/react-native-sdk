@@ -1,4 +1,4 @@
-package com.verifai.reactnative.liveness;
+package com.verifai.reactnative;
 
 import android.app.Activity;
 import android.os.Build;
@@ -17,12 +17,9 @@ import com.google.gson.Gson;
 import com.verifai.liveness.VerifaiLiveness;
 import com.verifai.liveness.VerifaiLivenessCheckListener;
 import com.verifai.liveness.checks.CloseEyes;
-import com.verifai.liveness.checks.FaceMatching;
-import com.verifai.liveness.checks.Speech;
 import com.verifai.liveness.checks.Tilt;
 import com.verifai.liveness.checks.VerifaiLivenessCheck;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
-import com.verifai.reactnative.ConvertDataUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;

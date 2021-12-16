@@ -1,4 +1,4 @@
-package com.verifai.reactnative.nfc;
+package com.verifai.reactnative;
 
 import android.app.Activity;
 import android.os.Build;
@@ -18,7 +18,6 @@ import com.verifai.core.result.VerifaiResult;
 import com.verifai.nfc.VerifaiNfc;
 import com.verifai.nfc.VerifaiNfcResultListener;
 import com.verifai.nfc.result.VerifaiNfcResult;
-import com.verifai.reactnative.ConvertDataUtilities;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;

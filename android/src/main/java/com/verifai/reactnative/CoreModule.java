@@ -1,4 +1,4 @@
-package com.verifai.reactnative.core;
+package com.verifai.reactnative;
 
 import android.app.Activity;
 import android.os.Build;
@@ -17,7 +17,6 @@ import com.verifai.core.Verifai;
 import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
 import com.facebook.react.bridge.Callback;
-import com.verifai.reactnative.ConvertDataUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
