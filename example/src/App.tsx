@@ -13,6 +13,11 @@ export default function App() {
 
   const livenessListener = {
     onSuccess: (message: Object) => { console.log(JSON.stringify(message, null, 2)) },
+    onError: (message: String) => { console.error(message) },
+  }
+
+  const nfcListener = {
+    onSuccess: (message: Object) => { console.log(JSON.stringify(message, null, 2)) },
     onCancelled: () => { console.log("cancelled") },
     onError: (message: String) => { console.error(message) },
   }
@@ -38,9 +43,21 @@ export default function App() {
         onPress={
           () => {
             Liveness.setOnSuccess(livenessListener.onSuccess)
-            Liveness.setOnCancelled(livenessListener.onCancelled)
             Liveness.setOnError(livenessListener.onError)
             Liveness.start()
+          }
+        }
+      />
+
+      <Button
+        title="Start NFC"
+        color="#ff576d"
+        onPress={
+          () => {
+            Nfc.setOnSuccess(nfcListener.onSuccess)
+            Nfc.setOnCancelled(nfcListener.onCancelled)
+            Nfc.setOnError(nfcListener.onError)
+            Nfc.start()
           }
         }
       />
