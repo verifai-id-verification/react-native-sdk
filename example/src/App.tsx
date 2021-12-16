@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Core, Liveness, Nfc } from 'verifai-react-native-sdk';
+import { Core, Liveness, NFC } from 'verifai-react-native-sdk';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
@@ -54,10 +54,10 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
-            Nfc.setOnSuccess(nfcListener.onSuccess)
-            Nfc.setOnCancelled(nfcListener.onCancelled)
-            Nfc.setOnError(nfcListener.onError)
-            Nfc.start()
+            NFC.setOnSuccess(nfcListener.onSuccess)
+            NFC.setOnCancelled(nfcListener.onCancelled)
+            NFC.setOnError(nfcListener.onError)
+            NFC.start()
           }
         }
       />

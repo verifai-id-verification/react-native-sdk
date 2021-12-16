@@ -18,5 +18,5 @@ NativeModules.Core
     );
 
 
-const { Core, Liveness, Nfc } = NativeModules;
-export { Core, Liveness, Nfc };
+const { Core, Liveness, NFC } = NativeModules;
+export { Core, Liveness, NFC };

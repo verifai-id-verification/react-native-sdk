@@ -94,6 +94,8 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     Gson gson = new Gson();
                     String jsonResult = gson.toJson(verifaiResult);
                     WritableMap returnMap = utils.convertJsonToMap(new JSONObject(jsonResult));
+
+                    VerifaiResultSingleton.getInstance().setResult(verifaiResult);
                     _onSuccess.invoke(returnMap);
                 } catch (JSONException e) {
                     onError(new Exception("Data conversion failed"));

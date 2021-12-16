@@ -14,6 +14,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.google.gson.Gson;
+import com.verifai.core.Verifai;
 import com.verifai.core.result.VerifaiResult;
 import com.verifai.nfc.VerifaiNfc;
 import com.verifai.nfc.VerifaiNfcResultListener;
@@ -111,7 +112,7 @@ public class NfcModule extends ReactContextBaseJavaModule {
                 _onError.invoke(throwable.getMessage());
             }
         };
-        VerifaiResult result = new VerifaiResult();
-        VerifaiNfc.start(activity, result, true, nfcResultListener);
+        VerifaiResult result = VerifaiResultSingleton.getInstance().getResult();
+        VerifaiNfc.start(activity, result,true, nfcResultListener);
     }
 }
