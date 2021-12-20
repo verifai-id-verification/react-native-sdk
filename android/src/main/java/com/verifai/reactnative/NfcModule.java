@@ -113,6 +113,10 @@ public class NfcModule extends ReactContextBaseJavaModule {
             }
         };
         VerifaiResult result = VerifaiResultSingleton.getInstance().getResult();
+        if (result == null) {
+            _onError.invoke("No result from core module");
+            return;
+        }
         VerifaiNfc.start(activity, result,true, nfcResultListener);
     }
 }
