@@ -112,6 +112,8 @@ public class CoreModule extends ReactContextBaseJavaModule {
                 _onError.invoke(throwable.getMessage());
             }
         };
+
+        VerifaiResultSingleton.getInstance().setResult(null); // Reset possible previous result
         Verifai.startScan(activity, resultListener);
     }
 }
