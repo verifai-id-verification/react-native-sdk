@@ -11,13 +11,17 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.google.gson.Gson;
 import com.verifai.core.Verifai;
+import com.verifai.core.result.DocumentSpecificData;
 import com.verifai.core.result.VerifaiResult;
 import com.verifai.nfc.VerifaiNfc;
 import com.verifai.nfc.VerifaiNfcResultListener;
+import com.verifai.nfc.result.EdlData;
 import com.verifai.nfc.result.VerifaiNfcResult;
 
 import org.jetbrains.annotations.NotNull;
@@ -68,6 +72,75 @@ public class NfcModule extends ReactContextBaseJavaModule {
         return NAME;
     }
 
+    private ReadableMap convertNfcResult(VerifaiNfcResult result) {
+        Gson gson = new Gson();
+        WritableMap map = new WritableNativeMap();
+
+        map.putBoolean("originality", result.originality());
+        map.putBoolean("authenticity", result.authenticity());
+        map.putBoolean("confidentiality", result.confidentiality());
+
+        map.putBoolean("mrzMatch", result.getMrzMatch());
+        map.putBoolean("comSodMatch", result.getComSodMatch());
+        map.putString("bacStatus", result.getBacStatus().name());
+        map.putString("activeAuthenticationStatus", result.getActiveAuthenticationStatus().name());
+
+        map.putBoolean("documentCertificateValid", result.getDocumentCertificateValid());
+        map.putString("signingCertificateMatchesWithParent", result.getSigningCertificateMatchesWithParent().name());
+
+        map.putBoolean("scanCompleted", result.getScanCompleted());
+
+        map.putString("chipAuthenticationStatus", result.getChipAuthenticationStatus().name());
+        map.putBoolean("documentSignatureCorrect", result.getDocumentSignatureCorrect());
+
+        // photo: Bitmap? = null
+        try {
+            String jsonMrz = gson.toJson(result.getMrzData());
+            WritableMap mrzMap = utils.convertJsonToMap(new JSONObject(jsonMrz));
+            map.putMap("mrzData", mrzMap);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // dataGroups: HashMap<Int, NfcDocument.LdsFile>? = null
+        // documentCertificate: X509Certificate? = null
+        // documentSpecificData: DocumentSpecificData? = null
+        try {
+            DocumentSpecificData docData = result.getDocumentSpecificData();
+            if (docData instanceof EdlData) {
+                EdlData edlData = (EdlData) docData;
+                String jsonEdl = gson.toJson(edlData);
+                WritableMap edlMap = utils.convertJsonToMap(new JSONObject(jsonEdl));
+                map.putMap("documentSpecificData", edlMap);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        map.putString("type", result.getType());
+
+        // sodHashes: HashMap<Int, ByteArray>? = null
+        // sodData: ByteArray? = null
+        if (result.getFeaturePoints() != null) {
+            map.putInt("featurePoints", result.getFeaturePoints());
+        } else map.putNull("featurePoints");
+        // mimeBytes: ByteArray? = null
+        if (result.getAaDigestAlgorithm() != null) {
+            map.putString("aaDigestAlgorithm", result.getAaDigestAlgorithm());
+        } else map.putNull("aaDigestAlgorithm");
+        if (result.getChipAuthenticationOid() != null) {
+            map.putString("chipAuthenticationOid", result.getChipAuthenticationOid());
+        } else map.putNull("chipAuthenticationOid");
+        if (result.getChipAuthenticationAgreementAlgorithm() != null) {
+            map.putString("chipAuthenticationAgreementAlgorithm", result.getChipAuthenticationAgreementAlgorithm());
+        } else map.putNull("chipAuthenticationAgreementAlgorithm");
+        if (result.getChipAuthenticationPublicKeyAlgorithm() != null) {
+            map.putString("chipAuthenticationAgreementAlgorithm", result.getChipAuthenticationPublicKeyAlgorithm());
+        } else map.putNull("chipAuthenticationAgreementAlgorithm");
+        // signingCertificate: X509Certificate? = null
+
+        return map;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
     public void start() {
@@ -92,14 +165,8 @@ public class NfcModule extends ReactContextBaseJavaModule {
         VerifaiNfcResultListener nfcResultListener = new VerifaiNfcResultListener() {
             @Override
             public void onResult(@NotNull VerifaiNfcResult result) {
-                try {
-                    Gson gson = new Gson();
-                    String jsonResult = gson.toJson(result);
-                    WritableMap returnMap = utils.convertJsonToMap(new JSONObject(jsonResult));
-                    _onSuccess.invoke(returnMap);
-                } catch (JSONException e) {
-                    onError(new Exception("Data conversion failed"));
-                }
+                ReadableMap nfcResultMap = convertNfcResult(result);
+                _onSuccess.invoke(nfcResultMap);
             }
 
             @Override
