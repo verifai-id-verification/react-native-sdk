@@ -28,6 +28,7 @@ import com.verifai.liveness.checks.FaceMatching;
 import com.verifai.liveness.checks.Speech;
 import com.verifai.liveness.checks.Tilt;
 import com.verifai.liveness.checks.VerifaiLivenessCheck;
+import com.verifai.liveness.result.VerifaiFaceMatchingCheckResult;
 import com.verifai.liveness.result.VerifaiLivenessCheckResult;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
 import com.verifai.nfc.result.VerifaiNfcResult;
@@ -107,6 +108,17 @@ public class LivenessModule extends ReactContextBaseJavaModule {
                 checkMap.putString("name", "FaceMatching");
                 // FaceMatching has image that cannot be converted for now
             }
+
+            if (currentResult instanceof VerifaiFaceMatchingCheckResult) {
+                VerifaiFaceMatchingCheckResult faceMatchResult = (VerifaiFaceMatchingCheckResult) currentResult;
+                if (faceMatchResult.getConfidence() != null) {
+                    resMap.putDouble("confidence", faceMatchResult.getConfidence());
+                } else resMap.putNull("confidence");
+                if (faceMatchResult.getMatch() != null) {
+                    resMap.putBoolean("match", faceMatchResult.getMatch());
+                } else resMap.putNull("match");
+            }
+
             resMap.putMap("check", checkMap);
             list.pushMap(resMap);
         }
