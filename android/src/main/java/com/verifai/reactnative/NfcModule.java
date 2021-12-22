@@ -166,6 +166,7 @@ public class NfcModule extends ReactContextBaseJavaModule {
             @Override
             public void onResult(@NotNull VerifaiNfcResult result) {
                 ReadableMap nfcResultMap = convertNfcResult(result);
+                VerifaiNfcResultSingleton.getInstance().setResult(result);
                 _onSuccess.invoke(nfcResultMap);
             }
 
@@ -184,6 +185,8 @@ public class NfcModule extends ReactContextBaseJavaModule {
             _onError.invoke("No result from core module");
             return;
         }
+
+        VerifaiNfcResultSingleton.getInstance().setResult(null); // Reset possible previous result
         VerifaiNfc.start(activity, result,true, nfcResultListener);
     }
 }

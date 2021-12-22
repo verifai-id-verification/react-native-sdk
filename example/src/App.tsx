@@ -53,6 +53,9 @@ export default function App() {
               },
               {
                 "check": LivenessCheck.FaceMatching, "imageType": "doc"
+              },
+              {
+                "check": LivenessCheck.FaceMatching, "imageType": "nfc"
               }
             ])
           }

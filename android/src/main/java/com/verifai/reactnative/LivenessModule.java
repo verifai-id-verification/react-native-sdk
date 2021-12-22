@@ -30,6 +30,7 @@ import com.verifai.liveness.checks.Tilt;
 import com.verifai.liveness.checks.VerifaiLivenessCheck;
 import com.verifai.liveness.result.VerifaiLivenessCheckResult;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
+import com.verifai.nfc.result.VerifaiNfcResult;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -187,9 +188,21 @@ public class LivenessModule extends ReactContextBaseJavaModule {
                             if (argMap.hasKey("imageType")) {
                                 if (argMap.getType("imageType") == ReadableType.String) {
                                     String imageType = argMap.getString("imageType");
-                                    Bitmap image = null;
+                                    Bitmap image;
                                     if (imageType.equals("nfc")) {
-                                        Log.e("JJO", "TODO");
+                                        VerifaiNfcResult nfcResult = VerifaiNfcResultSingleton.getInstance().getResult();
+                                        if (nfcResult != null) {
+                                            image = nfcResult.getPhoto();
+                                            if (image != null) {
+                                                checks.add(new FaceMatching(activity, image));
+                                            } else {
+                                                _onError.invoke("NFC result has no image");
+                                                continue; // Skip
+                                            }
+                                        } else {
+                                            _onError.invoke("Result from nfc module is null");
+                                            return;
+                                        }
                                     } else if (imageType.equals("doc")) {
                                         VerifaiResult coreResult = VerifaiResultSingleton.getInstance().getResult();
                                         if (coreResult != null) {
@@ -213,7 +226,7 @@ public class LivenessModule extends ReactContextBaseJavaModule {
                                     return;
                                 }
                             } else {
-                                _onError.invoke("'Speech' should have 'speechRequirement' argument");
+                                _onError.invoke("'Face matching' should have 'imageType' argument");
                                 return;
                             }
                             break;
