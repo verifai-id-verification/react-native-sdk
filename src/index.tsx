@@ -17,6 +17,13 @@ NativeModules.Core
       }
     );
 
-
 const { Core, Liveness, NFC } = NativeModules;
-export { Core, Liveness, NFC };
+
+enum LivenessCheck {
+  CloseEyes = 0,
+  Tilt,
+  Speech,
+  FaceMatching,
+}
+
+export { Core, Liveness, NFC, LivenessCheck };
