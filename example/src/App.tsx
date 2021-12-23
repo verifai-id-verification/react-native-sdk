@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Core, Liveness, NFC, LivenessCheck } from 'verifai-react-native-sdk';
+import {
+  Core, Liveness, NFC,
+  LivenessCheck,
+  VerifaiInstructionScreenId,
+  VerifaiInstructionType
+} from 'verifai-react-native-sdk';
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
@@ -29,6 +34,21 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
+            Core.configure({
+              "enableVisualInspection": true,
+              "instructionScreenConfiguration": {
+                "showInstructionScreens": true,
+                // "instructionScreens": [
+                //   {
+                //     "screenId": VerifaiInstructionScreenId.MRZ_PRESENT_FLOW_INSTRUCTION,
+                //     "type": VerifaiInstructionType.MEDIA,
+                //     "args": [
+                //       "Verifai React Native SDK",
+                //     ]
+                //   },
+                // ]
+              }
+            })
             Core.setOnSuccess(coreListener.onSuccess)
             Core.setOnCancelled(coreListener.onCancelled)
             Core.setOnError(coreListener.onError)

@@ -26,4 +26,23 @@ enum LivenessCheck {
   FaceMatching,
 }
 
-export { Core, Liveness, NFC, LivenessCheck };
+enum VerifaiInstructionScreenId {
+  MRZ_PRESENT_FLOW_INSTRUCTION = 0, // Also known as MO1
+  MRZ_SCAN_FLOW_INSTRUCTION, // Also known as MO2
+  MRZ_NOT_DETECTED_HINT, // Also known as MO6, The blue hint instruction screen
+  DOCUMENT_PICKER_HELP // The question mark button in the document picker
+}
+
+enum VerifaiInstructionType {
+  DEFAULT = 0,
+  MEDIA,
+  WEB,
+  HIDDEN
+}
+
+export {
+  Core, Liveness, NFC,
+  LivenessCheck,
+  VerifaiInstructionScreenId,
+  VerifaiInstructionType
+};
