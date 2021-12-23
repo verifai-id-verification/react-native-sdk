@@ -144,7 +144,6 @@ public class LivenessModule extends ReactContextBaseJavaModule {
         }
 
         ArrayList<VerifaiLivenessCheck> checks = new ArrayList<>();
-//        checks.add(new Tilt(activity, -25));
         for (int i = 0; i < args.size(); i++) {
             ReadableType type = args.getType(i);
             if (type != ReadableType.Map) {
