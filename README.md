@@ -5,17 +5,37 @@ Verifai Core module binding for React Native
 ## Installation
 
 ```sh
-npm install verifai-core-react-native
+npm install verifai-react-native-sdk
 ```
 
 ## Usage
 
 ```js
-import { multiply } from "verifai-core-react-native";
+import {
+  Core, Liveness, NFC,
+  LivenessCheck,
+  VerifaiInstructionScreenId,
+  VerifaiInstructionType
+} from 'verifai-react-native-sdk';
 
-// ...
-
-const result = await multiply(3, 7);
+Core.configure({
+  "enableVisualInspection": true,
+  "instructionScreenConfiguration": {
+  "showInstructionScreens": false,
+  },
+  "extraValidators": [
+    {
+      "type": "VerifaiDocumentCountryWhitelistValidator",
+      "countryList": [
+        "NL"
+      ]
+    }
+  ]
+})
+Core.setOnSuccess(coreListener.onSuccess)
+Core.setOnCancelled(coreListener.onCancelled)
+Core.setOnError(coreListener.onError)
+Core.start(VERIFAI_LICENCE)
 ```
 
 ## Developing
