@@ -24,9 +24,25 @@ import com.verifai.core.VerifaiInstructionScreenConfiguration;
 import com.verifai.core.VerifaiInstructionScreenId;
 import com.verifai.core.VerifaiInstructionType;
 import com.verifai.core.VerifaiSingleInstructionScreen;
+import com.verifai.core.filters.VerifaiDocumentBlackListFilter;
+import com.verifai.core.filters.VerifaiDocumentFilter;
+import com.verifai.core.filters.VerifaiDocumentTypeWhiteListFilter;
+import com.verifai.core.filters.VerifaiDocumentWhiteListFilter;
+import com.verifai.core.internal.DocumentType;
 import com.verifai.core.listeners.VerifaiResultListener;
+import com.verifai.core.validators.VerifaiDocumentCountryBlackListValidator;
 import com.verifai.core.result.VerifaiResult;
 import com.facebook.react.bridge.Callback;
+import com.verifai.core.validators.VerifaiDocumentCountryWhiteListValidator;
+import com.verifai.core.validators.VerifaiDocumentHasMrzValidator;
+import com.verifai.core.validators.VerifaiDocumentIsDrivingLicenceValidator;
+import com.verifai.core.validators.VerifaiDocumentIsTravelDocumentValidator;
+import com.verifai.core.validators.VerifaiDocumentTypesValidator;
+import com.verifai.core.validators.VerifaiMrzAvailableValidator;
+import com.verifai.core.validators.VerifaiMrzCorrectValidator;
+import com.verifai.core.validators.VerifaiNFCKeyWhenAvailableValidator;
+import com.verifai.core.validators.VerifaiNfcKeyRequiredValidator;
+import com.verifai.core.validators.VerifaiValidatorInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +94,31 @@ public class CoreModule extends ReactContextBaseJavaModule {
         return NAME;
     }
 
+    private ArrayList<DocumentType> createDocumentTypeList(ReadableArray documentTypes) {
+        ArrayList<DocumentType> documentTypesList = new ArrayList<>();
+        if (documentTypes != null) {
+            for (int j = 0; j < documentTypes.size(); ++j) {
+                switch (documentTypes.getString(j)) {
+                    case "PASSPORT":
+                        documentTypesList.add(DocumentType.PASSPORT);
+                    case "IDENTITY_CARD":
+                        documentTypesList.add(DocumentType.IDENTITY_CARD);
+                    case "REFUGEE_TRAVEL_DOCUMENT":
+                        documentTypesList.add(DocumentType.REFUGEE_TRAVEL_DOCUMENT);
+                    case "EMERGENCY_PASSPORT":
+                        documentTypesList.add(DocumentType.EMERGENCY_PASSPORT);
+                    case "RESIDENCE_PERMIT_I":
+                        documentTypesList.add(DocumentType.RESIDENCE_PERMIT_I);
+                    case "RESIDENCE_PERMIT_II":
+                        documentTypesList.add(DocumentType.RESIDENCE_PERMIT_II);
+                    case "VISA":
+                        documentTypesList.add(DocumentType.VISA);
+                }
+            }
+        }
+        return documentTypesList;
+    }
+
     @ReactMethod
     public void configure(ReadableMap rnConfig) {
         try {
@@ -126,6 +167,113 @@ public class CoreModule extends ReactContextBaseJavaModule {
                 enableVisualInspection = rnConfig.getBoolean("enableVisualInspection");
             }
 
+            ArrayList<VerifaiValidatorInterface> validators = new ArrayList<>();
+            if (rnConfig.hasKey("extraValidators")) {
+                ReadableArray extraValidatorsArray = rnConfig.getArray("extraValidators");
+                if (extraValidatorsArray != null) {
+                    for (int i = 0; i < extraValidatorsArray.size(); ++i) {
+                        ReadableMap extraValidatorMap = extraValidatorsArray.getMap(i);
+                        String validatorType = extraValidatorMap.getString("type");
+                        if (validatorType != null) {
+                            switch (validatorType) {
+                                case "VerifaiDocumentCountryBlacklistValidator": {
+                                    ReadableArray countryList = extraValidatorMap.getArray("countryList");
+                                    ArrayList<String> countryStringList = new ArrayList<>();
+                                    if (countryList != null) {
+                                        for (int j = 0; j < countryList.size(); ++j) {
+                                            countryStringList.add(countryList.getString(j));
+                                        }
+                                    }
+                                    validators.add(new VerifaiDocumentCountryBlackListValidator(null, countryStringList));
+                                    break;
+                                }
+                                case "VerifaiDocumentCountryWhitelistValidator": {
+                                    ReadableArray countryList = extraValidatorMap.getArray("countryList");
+                                    ArrayList<String> countryStringList = new ArrayList<>();
+                                    if (countryList != null) {
+                                        for (int j = 0; j < countryList.size(); ++j) {
+                                            countryStringList.add(countryList.getString(j));
+                                        }
+                                    }
+                                    validators.add(new VerifaiDocumentCountryWhiteListValidator(null, countryStringList));
+                                    break;
+                                }
+                                case "VerifaiDocumentHasMrzValidator":
+                                    validators.add(new VerifaiDocumentHasMrzValidator());
+                                    break;
+                                case "VerifaiDocumentIsDrivingLicenceValidator":
+                                    validators.add(new VerifaiDocumentIsDrivingLicenceValidator());
+                                    break;
+                                case "VerifaiDocumentIsTravelDocumentValidator":
+                                    validators.add(new VerifaiDocumentIsTravelDocumentValidator());
+                                    break;
+                                case "VerifaiDocumentTypesValidator": {
+                                    ReadableArray documentTypes = extraValidatorMap.getArray("documentTypes");
+                                    ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
+                                    validators.add(new VerifaiDocumentTypesValidator(null, null, documentTypesList));
+                                    break;
+                                }
+                                case "VerifaiMrzAvailableValidator":
+                                    validators.add(new VerifaiMrzAvailableValidator(null));
+                                    break;
+                                case "VerifaiMrzCorrectValidator":
+                                    validators.add(new VerifaiMrzCorrectValidator());
+                                    break;
+                                case "VerifaiNfcKeyRequiredValidator":
+                                    validators.add(new VerifaiNfcKeyRequiredValidator());
+                                    break;
+                                case "VerifaiNFCKeyWhenAvailableValidator":
+                                    validators.add(new VerifaiNFCKeyWhenAvailableValidator());
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            ArrayList<VerifaiDocumentFilter> documentFilters = new ArrayList<>();
+            if (rnConfig.hasKey("documentFilters")) {
+                ReadableArray documentFiltersArray = rnConfig.getArray("documentFilters");
+                if (documentFiltersArray != null) {
+                    for (int i = 0; i < documentFiltersArray.size(); ++i) {
+                        ReadableMap documentFilterMap = documentFiltersArray.getMap(i);
+                        String filterType = documentFilterMap.getString("type");
+                        if (filterType != null) {
+                            switch (filterType) {
+                                case "VerifaiDocumentBlackListFilter": {
+                                    ReadableArray countryList = documentFilterMap.getArray("countryList");
+                                    ArrayList<String> countryStringList = new ArrayList<>();
+                                    if (countryList != null) {
+                                        for (int j = 0; j < countryList.size(); ++j) {
+                                            countryStringList.add(countryList.getString(j));
+                                        }
+                                    }
+                                    documentFilters.add(new VerifaiDocumentBlackListFilter(countryStringList));
+                                    break;
+                                }
+                                case "VerifaiDocumentWhiteListFilter": {
+                                    ReadableArray countryList = documentFilterMap.getArray("countryList");
+                                    ArrayList<String> countryStringList = new ArrayList<>();
+                                    if (countryList != null) {
+                                        for (int j = 0; j < countryList.size(); ++j) {
+                                            countryStringList.add(countryList.getString(j));
+                                        }
+                                    }
+                                    documentFilters.add(new VerifaiDocumentWhiteListFilter(countryStringList));
+                                    break;
+                                }
+                                case "VerifaiDocumentTypeWhiteListFilter": {
+                                    ReadableArray documentTypes = documentFilterMap.getArray("documentTypes");
+                                    ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
+                                    documentFilters.add(new VerifaiDocumentTypeWhiteListFilter(documentTypesList));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             VerifaiInstructionScreenConfiguration instructionScreenConfig = new VerifaiInstructionScreenConfiguration();
             if (rnConfig.hasKey("instructionScreenConfiguration")) {
                 ReadableMap screenConfig = rnConfig.getMap("instructionScreenConfiguration");
@@ -166,8 +314,8 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     readMrzContents, // if set true the whole MRZ will be read, if false it only reads the prefix
                     scanDuration,
                     true, // DEPRECATED: show_instruction_screens
-                    emptyList(), // extraValidators
-                    emptyList(), // document_filters
+                    validators, // extraValidators
+                    documentFilters, // document_filters
                     documentFiltersAutoCreateValidators,
                     isScanHelpEnabled, // if set to true, a hint box will appear when the users seems to have trouble scanning
                     requireCroppedImage, // if set true the photo result will be cropped,

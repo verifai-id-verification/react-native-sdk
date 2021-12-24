@@ -37,17 +37,16 @@ export default function App() {
             Core.configure({
               "enableVisualInspection": true,
               "instructionScreenConfiguration": {
-                "showInstructionScreens": true,
-                // "instructionScreens": [
-                //   {
-                //     "screenId": VerifaiInstructionScreenId.MRZ_PRESENT_FLOW_INSTRUCTION,
-                //     "type": VerifaiInstructionType.MEDIA,
-                //     "args": [
-                //       "Verifai React Native SDK",
-                //     ]
-                //   },
-                // ]
-              }
+                "showInstructionScreens": false,
+              },
+              "extraValidators": [
+                {
+                  "type": "VerifaiDocumentCountryWhitelistValidator",
+                  "countryList": [
+                    "NL"
+                  ]
+                }
+              ]
             })
             Core.setOnSuccess(coreListener.onSuccess)
             Core.setOnCancelled(coreListener.onCancelled)
