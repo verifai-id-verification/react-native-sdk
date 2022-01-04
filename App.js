@@ -10,7 +10,7 @@ import React from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
-  ScrollView,
+  Pressable,
   StatusBar,
   StyleSheet,
   Text,
@@ -20,37 +20,7 @@ import {
 
 import {
   Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -65,21 +35,24 @@ const App: () => Node = () => {
       <View style={styles.sectionContainer}>
       <Text
         style={[
-          styles.sectionTitle,
+          styles.titleContainer,
           {
             color: isDarkMode ? Colors.white : Colors.black,
           },
         ]}>
-        Hallo
+        Verifai Reactive Testing
       </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-      </Text>
+    </View>
+    <View style={styles.sectionContainer}>
+      <Pressable
+        onPress={() => {
+          alert('You tapped the button!');
+        }}
+        title="Press Me"
+        style={styles.buttonContainer}
+      >
+        <Text style={styles.text}>Setup VerifaiConfiguration</Text>
+      </Pressable>
     </View>
     </SafeAreaView>
   );
@@ -88,21 +61,27 @@ const App: () => Node = () => {
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
-    paddingHorizontal: 24,
   },
-  sectionTitle: {
+  titleContainer: {
     fontSize: 24,
     fontWeight: '600',
     color: Colors.white,
+    textAlign: 'center'
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  text: {
+    fontSize: 17,
+    color: Colors.white,
+    textAlign: 'center'
   },
-  highlight: {
-    fontWeight: '700',
-  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 16,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#841584',
+    height: 50
+  }
 });
 
 export default App;
