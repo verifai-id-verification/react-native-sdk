@@ -44,20 +44,18 @@ const App: () => Node = () => {
       </Text>
     </View>
     <View style={styles.sectionContainer}>
-      <Pressable
+      <VerifaiButton 
+        title="Setup VerifaiConfiguration"
         onPress={() => {
           alert('You tapped the button!');
         }}
-        title="Press Me"
-        style={styles.buttonContainer}
-      >
-        <Text style={styles.text}>Setup VerifaiConfiguration</Text>
-      </Pressable>
+      />
     </View>
     </SafeAreaView>
   );
 };
 
+// Styles
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
@@ -79,9 +77,22 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#841584',
+    backgroundColor: '#FF576D',
     height: 50
   }
 });
+
+// Custom button
+function VerifaiButton(props) {
+  const { onPress, title = 'Name me' } = props;
+  return (
+    <Pressable
+        onPress={onPress}
+        style={styles.buttonContainer}
+      >
+        <Text style={styles.text}>{title}</Text>
+      </Pressable>
+  );
+}
 
 export default App;
