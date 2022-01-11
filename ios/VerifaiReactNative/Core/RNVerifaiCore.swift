@@ -12,8 +12,11 @@ import VerifaiKit
 @objc(RNVerifaiCore)
 class RNVerifaiCore: NSObject {
   
-  // MARK: - Configuration
+  // MARK: - Properties
+  private let encoder = JSONEncoder()
   private let globalConfiguration = VerifaiConfiguration()
+  
+  // MARK: - Configuration
   
   /// Setup the Verifai configuration based on a javascript dictionary
   /// - Parameter configuration: A dictionary with key value pairs that link
@@ -62,16 +65,16 @@ class RNVerifaiCore: NSObject {
     }
     
     
-
-//    public var validators: [VerifaiKit.VerifaiValidator]
-//
-//    public var documentFilters: [VerifaiKit.VerifaiDocumentFilter]
-
-
-
-//    public var instructionScreenConfiguration: VerifaiKit.VerifaiInstructionScreenConfiguration
-//
-//    public var scanHelpConfiguration: VerifaiKit.VerifaiScanHelpConfiguration
+    
+    //    public var validators: [VerifaiKit.VerifaiValidator]
+    //
+    //    public var documentFilters: [VerifaiKit.VerifaiDocumentFilter]
+    
+    
+    
+    //    public var instructionScreenConfiguration: VerifaiKit.VerifaiInstructionScreenConfiguration
+    //
+    //    public var scanHelpConfiguration: VerifaiKit.VerifaiScanHelpConfiguration
   }
   
   // MARK: - Core
@@ -82,22 +85,27 @@ class RNVerifaiCore: NSObject {
       do {
         // Use React function to get current top view controller
         guard let currentVC = RCTPresentedViewController() else {
-            reject("","🚫 No current view controller found", nil)
-            return
+          reject("","🚫 No current view controller found", nil)
+          return
         }
         // Start Verifai
         try Verifai.start(over: currentVC) { result in
-            switch result {
-            case .failure(let error):
-                reject("","🚫 Licence error: \(error)", error)
-            case .success(let result):
-                // Process result to a format react-native can understand
-                resolve("Success")
+          switch result {
+          case .failure(let error):
+            reject("","🚫 Licence error: \(error)", error)
+          case .success(let verifaiResult):
+            // Process result to a format react-native can understand (JSON string)
+            do {
+              let data = try self.encoder.encode(verifaiResult)
+              resolve(String(data: data, encoding: .utf8))
+            } catch {
+              reject("","🚫 Result conversion error: \(error)", error)
             }
+          }
         }
       } catch {
-          print("🚫 Unhandled error: \(error)")
-          reject("","🚫 Licence error: \(error)", error)
+        print("🚫 Unhandled error: \(error)")
+        reject("","🚫 Licence error: \(error)", error)
       }
     }
   }
