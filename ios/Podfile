@@ -12,7 +12,7 @@ target 'VerifaiReactNative' do
     :hermes_enabled => false
   )
   
-  pod 'Verifai', '~> 5.0.1'
+  pod 'Verifai', '~> 5.1.0'
 
   target 'VerifaiReactNativeTests' do
     inherit! :complete

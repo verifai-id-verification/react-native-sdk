@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -16,14 +16,21 @@ import {
   Text,
   useColorScheme,
   View,
+  NativeModules
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
+const { 
+  RNVerifaiLicence, 
+  RNVerifaiCore 
+} = NativeModules;
+
+
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+    const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -43,14 +50,37 @@ const App: () => Node = () => {
         Verifai Reactive Testing
       </Text>
     </View>
-    <View style={styles.sectionContainer}>
+    <View >
       <VerifaiButton 
-        title="Setup VerifaiConfiguration"
+        title="Setup Licence"
+        onPress={ async () => {
+          console.log("Tapped Setup Licence");
+          SetLicence()
+        }}
+      />
+    </View>
+    <View >
+      <VerifaiButton 
+        title="Start Verifai"
+        onPress={ () => {
+          console.log("Start Verifai tapped");
+          var configuration = {};
+          configuration["customDismissButtonTitle"] = "Cancela"
+          RNVerifaiCore.setupConfiguration(configuration)
+          StartVerifai()
+        }}
+      />
+    </View>
+    {/* <View >
+      <VerifaiButton 
+        title="Start Verifai"
+        disable={true}
+        //activeOpacity={disabled ? 1 : 0.7}
         onPress={() => {
           alert('You tapped the button!');
         }}
       />
-    </View>
+    </View> */}
     </SafeAreaView>
   );
 };
@@ -78,20 +108,41 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: '#FF576D',
-    height: 50
+    height: 50,
   }
 });
 
+// Setup the licence
+const SetLicence = async () => {
+  // Define test licence (this should be put somewhere else before comitting to git)
+  try {
+    const resultMessage = await RNVerifaiLicence.setLicence(licence);
+    console.log(resultMessage);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Start Verifai
+const StartVerifai = async () => {
+  try {
+    const resultMessage = await RNVerifaiCore.start();
+    console.log(resultMessage);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 // Custom button
 function VerifaiButton(props) {
-  const { onPress, title = 'Name me' } = props;
+  const { onPress, title = 'Name me'} = props;
   return (
     <Pressable
         onPress={onPress}
         style={styles.buttonContainer}
       >
-        <Text style={styles.text}>{title}</Text>
-      </Pressable>
+      <Text style={styles.text}>{title}</Text>
+    </Pressable>
   );
 }
 

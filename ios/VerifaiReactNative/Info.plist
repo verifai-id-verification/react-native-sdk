@@ -51,5 +51,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera usage permission text in info.plist</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone usage permission text in info.plist</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech recognition usage permission text in info.plist</string>
+	<key>NFCReaderUsageDescription</key>
+	<string>NFC usage permission text in info.plist</string>
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+		<string>A0000002471001</string>
+		<string>A00000045645444C2D3031</string>
+	</array>
 </dict>
 </plist>
