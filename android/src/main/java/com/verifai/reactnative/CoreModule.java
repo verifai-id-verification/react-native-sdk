@@ -330,9 +330,19 @@ public class CoreModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void setLicence(String licence) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) {
+            Log.e(TAG, "No activity running");
+            return;
+        }
+        Verifai.setLicence(activity, licence);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
-    public void start(String licence) {
+    public void start() {
         Activity activity = getCurrentActivity();
         if (activity == null) {
             Log.e(TAG, "No activity running");
@@ -351,7 +361,6 @@ public class CoreModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        Verifai.setLicence(activity, licence);
         VerifaiResultListener resultListener = new VerifaiResultListener() {
             @Override
             public void onSuccess(@NonNull VerifaiResult verifaiResult) {

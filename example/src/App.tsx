@@ -51,7 +51,8 @@ export default function App() {
             Core.setOnSuccess(coreListener.onSuccess)
             Core.setOnCancelled(coreListener.onCancelled)
             Core.setOnError(coreListener.onError)
-            Core.start(VERIFAI_LICENCE)
+            Core.setLicence(VERIFAI_LICENCE)
+            Core.start()
           }
         }
       />
