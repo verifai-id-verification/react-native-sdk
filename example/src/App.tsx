@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Pressable, Text } from 'react-native';
 import {
   Core, Liveness, NFC,
   LivenessCheck,
   VerifaiInstructionScreenId,
   VerifaiInstructionType
 } from 'verifai-react-native-sdk';
+
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
@@ -27,9 +28,10 @@ export default function App() {
     onError: (message: String) => { console.error(message) },
   }
 
+
   return (
     <View style={styles.container}>
-      <Button
+      <VerifaiButton
         title="Start"
         color="#ff576d"
         onPress={
@@ -56,7 +58,7 @@ export default function App() {
         }
       />
 
-      <Button
+      <VerifaiButton
         title="Start Liveness"
         color="#ff576d"
         onPress={
@@ -81,7 +83,7 @@ export default function App() {
         }
       />
 
-      <Button
+      <VerifaiButton
         title="Start NFC"
         color="#ff576d"
         onPress={
@@ -108,4 +110,27 @@ const styles = StyleSheet.create({
     height: 60,
     marginVertical: 20,
   },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 16,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: '#FF576D',
+    height: 50,
+    width: 300
+  },
 });
+
+// Custom button
+function VerifaiButton(props) {
+  const { onPress, title = 'Name me'} = props;
+  return (
+    <Pressable
+        onPress={onPress}
+        style={styles.buttonContainer}
+      >
+      <Text style={styles.text}>{title}</Text>
+    </Pressable>
+  );
+}
