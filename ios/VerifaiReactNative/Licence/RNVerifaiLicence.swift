@@ -9,14 +9,14 @@ import Foundation
 import VerifaiCommonsKit
 
 @objc(RNVerifaiLicence)
-class RNVerifaiLicence: NSObject {
+public class RNVerifaiLicence: NSObject {
   
   /// Set the Verifai Licence
   /// - Parameter licence: The licence registered to the company
   @objc(setLicence:resolver:rejecter:)
-  func setLicence(_ licence: String,
-                  resolve: RCTPromiseResolveBlock,
-                  reject: RCTPromiseRejectBlock) {
+  public func setLicence(_ licence: String,
+                         resolve: RCTPromiseResolveBlock,
+                         reject: RCTPromiseRejectBlock) {
     switch VerifaiCommons.setLicence(licence) {
         case .success(_):
             resolve("Successfully configured Verifai")

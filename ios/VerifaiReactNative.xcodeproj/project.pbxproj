@@ -7,35 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* VerifaiReactNativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* VerifaiReactNativeTests.m */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		477557EF0AF30BD96AE301EF /* libPods-VerifaiReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4EE090E770D825C0E4444DB /* libPods-VerifaiReactNative.a */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		BE5EE7B3F5DC0381ECBF8B53 /* libPods-VerifaiReactNative-VerifaiReactNativeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A27899BFB3A5719C419312B0 /* libPods-VerifaiReactNative-VerifaiReactNativeTests.a */; };
-		E346AB40278740D700A04210 /* RNVerifaiCoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB3F278740D700A04210 /* RNVerifaiCoreBridge.m */; };
-		E346AB432787456100A04210 /* RNVerifaiLicence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E346AB422787456100A04210 /* RNVerifaiLicence.swift */; };
-		E346AB452787458600A04210 /* RNVerifaiLicenceBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB442787458600A04210 /* RNVerifaiLicenceBridge.m */; };
-		E346AB48278C572C00A04210 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E346AB47278C572C00A04210 /* Extensions.swift */; };
-		E3EA13F1278739CC005408AB /* RNVerifaiCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EA13F0278739CC005408AB /* RNVerifaiCore.swift */; };
+		E346AB5C2791865A00A04210 /* VerifaiReactNativeKit.docc in Sources */ = {isa = PBXBuildFile; fileRef = E346AB5B2791865A00A04210 /* VerifaiReactNativeKit.docc */; };
+		E346AB5D2791865A00A04210 /* VerifaiReactNativeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = E346AB5A2791865A00A04210 /* VerifaiReactNativeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E346AB662791886000A04210 /* RNVerifaiLicenceBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB442787458600A04210 /* RNVerifaiLicenceBridge.m */; };
+		E346AB672791886000A04210 /* RNVerifaiLicence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E346AB422787456100A04210 /* RNVerifaiLicence.swift */; };
+		E346AB682791886C00A04210 /* RNVerifaiCoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB3F278740D700A04210 /* RNVerifaiCoreBridge.m */; };
+		E346AB692791886C00A04210 /* RNVerifaiCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EA13F0278739CC005408AB /* RNVerifaiCore.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = VerifaiReactNative;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* VerifaiReactNativeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VerifaiReactNativeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* VerifaiReactNativeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifaiReactNativeTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* VerifaiReactNative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VerifaiReactNative.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -52,25 +34,19 @@
 		E346AB422787456100A04210 /* RNVerifaiLicence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNVerifaiLicence.swift; sourceTree = "<group>"; };
 		E346AB442787458600A04210 /* RNVerifaiLicenceBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNVerifaiLicenceBridge.m; sourceTree = "<group>"; };
 		E346AB47278C572C00A04210 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E346AB582791865A00A04210 /* VerifaiReactNativeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VerifaiReactNativeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E346AB5A2791865A00A04210 /* VerifaiReactNativeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifaiReactNativeKit.h; sourceTree = "<group>"; };
+		E346AB5B2791865A00A04210 /* VerifaiReactNativeKit.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = VerifaiReactNativeKit.docc; sourceTree = "<group>"; };
 		E3EA13EF278739CC005408AB /* VerifaiReactNative-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VerifaiReactNative-Bridging-Header.h"; sourceTree = "<group>"; };
 		E3EA13F0278739CC005408AB /* RNVerifaiCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNVerifaiCore.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		00E356EB1AD99517003FC87E /* Frameworks */ = {
+		E346AB552791865A00A04210 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE5EE7B3F5DC0381ECBF8B53 /* libPods-VerifaiReactNative-VerifaiReactNativeTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				477557EF0AF30BD96AE301EF /* libPods-VerifaiReactNative.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +121,7 @@
 				13B07FAE1A68108700A75B9A /* VerifaiReactNative */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* VerifaiReactNativeTests */,
+				E346AB592791865A00A04210 /* VerifaiReactNativeKit */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				5526E8BE1A54897F9D7AF74A /* Pods */,
@@ -157,8 +134,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* VerifaiReactNative.app */,
-				00E356EE1AD99517003FC87E /* VerifaiReactNativeTests.xctest */,
+				E346AB582791865A00A04210 /* VerifaiReactNativeKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,6 +156,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E346AB592791865A00A04210 /* VerifaiReactNativeKit */ = {
+			isa = PBXGroup;
+			children = (
+				E346AB5A2791865A00A04210 /* VerifaiReactNativeKit.h */,
+				E346AB5B2791865A00A04210 /* VerifaiReactNativeKit.docc */,
+			);
+			path = VerifaiReactNativeKit;
+			sourceTree = "<group>";
+		};
 		E3EA13E5278354DF005408AB /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,49 +176,35 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* VerifaiReactNativeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "VerifaiReactNativeTests" */;
-			buildPhases = (
-				3658FC0F8C5ED9E883BD3E33 /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-				5B872BB92FE2632D8CC784EA /* [CP] Embed Pods Frameworks */,
-				393D0C10D34E827CECFF645F /* [CP] Copy Pods Resources */,
+/* Begin PBXHeadersBuildPhase section */
+		E346AB532791865A00A04210 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E346AB5D2791865A00A04210 /* VerifaiReactNativeKit.h in Headers */,
 			);
-			buildRules = (
-			);
-			dependencies = (
-				00E356F51AD99517003FC87E /* PBXTargetDependency */,
-			);
-			name = VerifaiReactNativeTests;
-			productName = VerifaiReactNativeTests;
-			productReference = 00E356EE1AD99517003FC87E /* VerifaiReactNativeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		13B07F861A680F5B00A75B9A /* VerifaiReactNative */ = {
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E346AB572791865A00A04210 /* VerifaiReactNativeKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VerifaiReactNative" */;
+			buildConfigurationList = E346AB652791865A00A04210 /* Build configuration list for PBXNativeTarget "VerifaiReactNativeKit" */;
 			buildPhases = (
-				A17F3AA498C9E29EEBDAF707 /* [CP] Check Pods Manifest.lock */,
-				FD10A7F022414F080027D42C /* Start Packager */,
-				13B07F871A680F5B00A75B9A /* Sources */,
-				13B07F8C1A680F5B00A75B9A /* Frameworks */,
-				13B07F8E1A680F5B00A75B9A /* Resources */,
-				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				55F09F0E9DDBECED61536628 /* [CP] Embed Pods Frameworks */,
-				D72AB19030585D699B202A08 /* [CP] Copy Pods Resources */,
+				E346AB532791865A00A04210 /* Headers */,
+				E346AB542791865A00A04210 /* Sources */,
+				E346AB552791865A00A04210 /* Frameworks */,
+				E346AB562791865A00A04210 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = VerifaiReactNative;
-			productName = VerifaiReactNative;
-			productReference = 13B07F961A680F5B00A75B9A /* VerifaiReactNative.app */;
-			productType = "com.apple.product-type.application";
+			name = VerifaiReactNativeKit;
+			productName = VerifaiReactNativeKit;
+			productReference = E346AB582791865A00A04210 /* VerifaiReactNativeKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -243,12 +214,8 @@
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
-					00E356ED1AD99517003FC87E = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
-					};
-					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1320;
+					E346AB572791865A00A04210 = {
+						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
 			};
@@ -265,320 +232,37 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* VerifaiReactNative */,
-				00E356ED1AD99517003FC87E /* VerifaiReactNativeTests */,
+				E346AB572791865A00A04210 /* VerifaiReactNativeKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
+		E346AB562791865A00A04210 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13B07F8E1A680F5B00A75B9A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native code and images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
-		};
-		3658FC0F8C5ED9E883BD3E33 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VerifaiReactNative-VerifaiReactNativeTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		393D0C10D34E827CECFF645F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		55F09F0E9DDBECED61536628 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5B872BB92FE2632D8CC784EA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A17F3AA498C9E29EEBDAF707 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VerifaiReactNative-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D72AB19030585D699B202A08 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD10A7F022414F080027D42C /* Start Packager */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Start Packager";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		00E356EA1AD99517003FC87E /* Sources */ = {
+		E346AB542791865A00A04210 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* VerifaiReactNativeTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		13B07F871A680F5B00A75B9A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E346AB432787456100A04210 /* RNVerifaiLicence.swift in Sources */,
-				E346AB452787458600A04210 /* RNVerifaiLicenceBridge.m in Sources */,
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				E346AB40278740D700A04210 /* RNVerifaiCoreBridge.m in Sources */,
-				E3EA13F1278739CC005408AB /* RNVerifaiCore.swift in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				E346AB48278C572C00A04210 /* Extensions.swift in Sources */,
+				E346AB682791886C00A04210 /* RNVerifaiCoreBridge.m in Sources */,
+				E346AB5C2791865A00A04210 /* VerifaiReactNativeKit.docc in Sources */,
+				E346AB692791886C00A04210 /* RNVerifaiCore.swift in Sources */,
+				E346AB662791886000A04210 /* RNVerifaiLicenceBridge.m in Sources */,
+				E346AB672791886000A04210 /* RNVerifaiLicence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* VerifaiReactNative */;
-			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		00E356F61AD99517003FC87E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37F71FD542843BD271AB3781 /* Pods-VerifaiReactNative-VerifaiReactNativeTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = VerifaiReactNativeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VerifaiReactNative.app/VerifaiReactNative";
-			};
-			name = Debug;
-		};
-		00E356F71AD99517003FC87E /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1A5279F697414C86A44E997F /* Pods-VerifaiReactNative-VerifaiReactNativeTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = VerifaiReactNativeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-					"$(inherited)",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VerifaiReactNative.app/VerifaiReactNative";
-			};
-			name = Release;
-		};
-		13B07F941A680F5B00A75B9A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1024545AC16D3AE08A735F3 /* Pods-VerifaiReactNative.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 799N9ZYHX3;
-				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = VerifaiReactNative/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = VerifaiReactNative;
-				SWIFT_OBJC_BRIDGING_HEADER = "VerifaiReactNative/VerifaiReactNative-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Debug;
-		};
-		13B07F951A680F5B00A75B9A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34FD7C81351C519E47709C5C /* Pods-VerifaiReactNative.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 799N9ZYHX3;
-				INFOPLIST_FILE = VerifaiReactNative/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = VerifaiReactNative;
-				SWIFT_OBJC_BRIDGING_HEADER = "VerifaiReactNative/VerifaiReactNative-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				VERSIONING_SYSTEM = "apple-generic";
-			};
-			name = Release;
-		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -704,32 +388,109 @@
 			};
 			name = Release;
 		};
+		E346AB632791865A00A04210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 799N9ZYHX3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.verifai.VerifaiReactNativeKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E346AB642791865A00A04210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 799N9ZYHX3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.verifai.VerifaiReactNativeKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "VerifaiReactNativeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				00E356F61AD99517003FC87E /* Debug */,
-				00E356F71AD99517003FC87E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VerifaiReactNative" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				13B07F941A680F5B00A75B9A /* Debug */,
-				13B07F951A680F5B00A75B9A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "VerifaiReactNative" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E346AB652791865A00A04210 /* Build configuration list for PBXNativeTarget "VerifaiReactNativeKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E346AB632791865A00A04210 /* Debug */,
+				E346AB642791865A00A04210 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

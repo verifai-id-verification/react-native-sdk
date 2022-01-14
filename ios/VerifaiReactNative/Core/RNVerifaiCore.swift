@@ -10,7 +10,7 @@ import VerifaiCommonsKit
 import VerifaiKit
 
 @objc(RNVerifaiCore)
-class RNVerifaiCore: NSObject {
+public class RNVerifaiCore: NSObject {
   
   // MARK: - Properties
   private let encoder = JSONEncoder()
@@ -22,7 +22,7 @@ class RNVerifaiCore: NSObject {
   /// - Parameter configuration: A dictionary with key value pairs that link
   /// to configuration values
   @objc(setupConfiguration:)
-  func setupConfiguration(_ configuration: NSDictionary) {
+  public func setupConfiguration(_ configuration: NSDictionary) {
     dump(configuration)
     // Main settings
     if let requireDocumentCopy = configuration.value(forKey: "requireDocumentCopy") as? Bool {
@@ -79,8 +79,8 @@ class RNVerifaiCore: NSObject {
   
   // MARK: - Core
   @objc(start:reject:)
-  func start(resolve: @escaping RCTPromiseResolveBlock,
-             reject: @escaping RCTPromiseRejectBlock) {
+  public func start(resolve: @escaping RCTPromiseResolveBlock,
+                    reject: @escaping RCTPromiseRejectBlock) {
     DispatchQueue.main.async {
       do {
         // Use React function to get current top view controller
