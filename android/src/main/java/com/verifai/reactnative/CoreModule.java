@@ -3,7 +3,10 @@ package com.verifai.reactnative;
 import static java.util.Collections.emptyList;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -18,6 +21,8 @@ import com.facebook.react.bridge.UnexpectedNativeTypeException;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.verifai.core.Verifai;
 import com.verifai.core.VerifaiConfiguration;
 import com.verifai.core.VerifaiInstructionScreenConfiguration;
@@ -47,8 +52,10 @@ import com.verifai.core.validators.VerifaiValidatorInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Wrapper class for the core module
@@ -330,9 +337,19 @@ public class CoreModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void setLicence(String licence) {
+        Activity activity = getCurrentActivity();
+        if (activity == null) {
+            Log.e(TAG, "No activity running");
+            return;
+        }
+        Verifai.setLicence(activity, licence);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
-    public void start(String licence) {
+    public void start() {
         Activity activity = getCurrentActivity();
         if (activity == null) {
             Log.e(TAG, "No activity running");
@@ -351,14 +368,28 @@ public class CoreModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        Verifai.setLicence(activity, licence);
         VerifaiResultListener resultListener = new VerifaiResultListener() {
             @Override
             public void onSuccess(@NonNull VerifaiResult verifaiResult) {
                 try {
                     Gson gson = new Gson();
-                    String jsonResult = gson.toJson(verifaiResult);
-                    WritableMap returnMap = utils.convertJsonToMap(new JSONObject(jsonResult));
+                    JsonElement element = gson.toJsonTree(verifaiResult);
+                    JsonObject object = element.getAsJsonObject();
+                    if (object.has("backImage")) {
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        Objects.requireNonNull(verifaiResult.getBackImage()).compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        JsonObject image = object.getAsJsonObject("backImage");
+                        image.addProperty("data", Base64.encodeToString(byteArray, Base64.DEFAULT));
+                    }
+                    if (object.has("frontImage")) {
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        Objects.requireNonNull(verifaiResult.getFrontImage()).compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        JsonObject image = object.getAsJsonObject("frontImage");
+                        image.addProperty("data", Base64.encodeToString(byteArray, Base64.DEFAULT));
+                    }
+                    WritableMap returnMap = utils.convertJsonToMap(new JSONObject(element.toString()));
 
                     VerifaiResultSingleton.getInstance().setResult(verifaiResult);
                     _onSuccess.invoke(returnMap);
