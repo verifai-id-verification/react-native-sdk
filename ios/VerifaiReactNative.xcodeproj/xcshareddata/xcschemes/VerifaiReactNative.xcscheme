@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "VerifaiReactNative.app"
+               BlueprintIdentifier = "E3473B882791BC03001DAD29"
+               BuildableName = "libVerifaiReactNative.a"
                BlueprintName = "VerifaiReactNative"
                ReferencedContainer = "container:VerifaiReactNative.xcodeproj">
             </BuildableReference>
@@ -54,8 +54,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "VerifaiReactNative.app"
+            BlueprintIdentifier = "E3473B882791BC03001DAD29"
+            BuildableName = "libVerifaiReactNative.a"
             BlueprintName = "VerifaiReactNative"
             ReferencedContainer = "container:VerifaiReactNative.xcodeproj">
          </BuildableReference>
@@ -71,8 +71,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "VerifaiReactNative.app"
+            BlueprintIdentifier = "E3473B882791BC03001DAD29"
+            BuildableName = "libVerifaiReactNative.a"
             BlueprintName = "VerifaiReactNative"
             ReferencedContainer = "container:VerifaiReactNative.xcodeproj">
          </BuildableReference>

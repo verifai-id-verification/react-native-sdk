@@ -117,17 +117,6 @@ const SetLicence = async () => {
   // Define test licence (this should be put somewhere else before comitting to git)
   let licence = "=== Verifai Licence file V2 ===" + "\n" +
 "qhskxC0VNNPYiD2qj8QiqKDZhfwAQnjMb1oor5HuvQ2Xkuz1h47GkorqMHavlPeiFMVP5CqNc3fs" + "\n" +
-"XWoKHwnc9wpm2fM9NVcE0DE0KuAYfDLJDWlkZ1CchtxbYo/G4S03UyyGM7yViEelIclPib3E/4oo" + "\n" +
-"iCHUbBBdFHfM+cJ2IHX3zZeXnCABD0StAPgqXZ2tH/6Kxw+QvjVcT/we/aNe6luawayHg7aV0fMq" + "\n" +
-"xUyikHCOxtZJrIgQa8k3pQcDGxx3mxsaGXslN2h6hPvKaASxbG6MA+F46vqjXF9t31olGfgNehEY" + "\n" +
-"5TpkOn3bkj7TqSi/ZItLk840PXJyCMPipJx+EuukzpkHEP8ftldmWKJ6E+JOjXCSXHrZcq6e4d/e" + "\n" +
-"hbt00/Oqrt1VWcPpR989rK5WHgSlCEW0er2WepBqCxwkqIyGMGCoFm+ebXyxxyYhYdgEv4wxdAmX" + "\n" +
-"388rdtEFRSPPPakfD7YI1uN/YXrCkC9lz5S33YsCeSRqlBIbzM+U+jjvfpur4fkCoBowNANnk63T" + "\n" +
-"IpLnzRZQXFF2cimQF6H/kk6ZJC0OMwMeR7dnE8b7t27nxuYi8AYDNpGt50MHbzqm12JqfqPlwUYw" + "\n" +
-"5tDiYzcKbArp/nLYJgvGyDodBrbOR/h9YvLXR7oHW8qf1pIDTQ015/snK2pYwYEpi7XawdyqQ2Rw" + "\n" +
-"xznSTzfiwR3XQU2gpqNYyjH0to8+gb4W95fdRZeOKjV3QhucqBLWsgfmEw4YRLkEtcjTtryGPL4K"  + "\n" +
-"SPgY6bYrPonmtfp4h/EM2pyLH2VUHW9feiRukDVVGpg4mvIXZekwerHqUBBnQ5em7Q/FJBJmV7it" + "\n" +
-"G7PYz2gQTjHWOoYF74v65IRrlblV/QSf0y+DafftXcF5SU9JDxphG9n9Qc7RJu5KNDyItm6HPXoA" + "\n" +
 "NBLlbQk8xFg/xuB5tmPcHkoz+DsnrzHHtIDS0ufPEFnF9uOE+1SpkSXDcNKn6zRE2FY=";
   try {
     const resultMessage = await RNVerifaiLicence.setLicence(licence);
