@@ -42,10 +42,27 @@ Core.start(VERIFAI_LICENCE)
 
 ### Generic
 
-First install dependencies, in root folder run:
+Copy the Verifai licence from the dashboard in a `.env` file in the example
+folder. The whole licence has to be on a single line, and the actual new lines
+should be replaced with a `\n` character:
+
+```txt
+VERIFAI_LICENCE="=== Verifai Licence file V2 ===\n<the rest of the licence>"
+```
+
+Install [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable),
+and then use it to install the dependencies. Run from the root folder:
 
 ```bash
 yarn
+yarn example
+```
+
+Whenever you change the licence after `yarn` has been run, you'll have to reset
+the cache:
+
+```bash
+yarn example start --reset-cache
 ```
 
 ### Android
