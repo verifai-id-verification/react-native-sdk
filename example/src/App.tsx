@@ -49,6 +49,10 @@ export default function App() {
         color="#ff576d"
         onPress={
           () => {
+            Core.setOnSuccess(coreListener.onSuccess)
+            Core.setOnCancelled(coreListener.onCancelled)
+            Core.setOnError(coreListener.onError)
+            Core.setLicence(VERIFAI_LICENCE)
             Core.configure({
               "enableVisualInspection": true,
               "instructionScreenConfiguration": {
@@ -63,10 +67,6 @@ export default function App() {
                 }
               ]
             })
-            Core.setOnSuccess(coreListener.onSuccess)
-            Core.setOnCancelled(coreListener.onCancelled)
-            Core.setOnError(coreListener.onError)
-            Core.setLicence(VERIFAI_LICENCE)
             Core.start()
           }
         }

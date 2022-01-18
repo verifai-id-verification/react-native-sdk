@@ -1,5 +1,5 @@
 //
-//  RNVerifaiCore.swift
+//  Core.swift
 //  VerifaiReactNative
 //
 //  Created by Richard Chirino on 06/01/2022.
@@ -9,20 +9,75 @@ import UIKit
 import VerifaiCommonsKit
 import VerifaiKit
 
-@objc(RNVerifaiCore)
-public class RNVerifaiCore: NSObject {
+@objc(Core)
+public class Core: NSObject {
   
   // MARK: - Properties
   private let encoder = JSONEncoder()
   private let globalConfiguration = VerifaiConfiguration()
+  
+  // MARK: - Listeners
+  private var successListener: RCTResponseSenderBlock?
+  private var errorListener: RCTResponseSenderBlock?
+  
+  
+  /// On success listener for iOS
+  /// - Parameter listener: The success listener
+  @objc(setOnSuccess:)
+  public func setOnSuccess(_ listener: @escaping RCTResponseSenderBlock) {
+    self.successListener = listener
+  }
+  
+  private func handleSuccess(message: String) {
+    guard let successListener = successListener else {
+      print("No success listener has been set, please set one")
+      return
+    }
+    successListener([message])
+  }
+  
+  /// On cancel listener for iOS, iOS does not currently use this but we have it to have ensure interface equality
+  /// with android. Otherwise a react crash could occur
+  /// - Parameter listener: The cancel listener
+  @objc(setOnCancelled:)
+  public func setOnCancelled(_ listener: @escaping RCTResponseSenderBlock) { }
+  
+  /// On Error listener for iOS
+  /// - Parameter listener: The error listener
+  @objc(setOnError:)
+  public func setOnError(_ listener: @escaping RCTResponseSenderBlock) {
+    self.errorListener = listener
+  }
+  
+  private func handleError(message: String) {
+    guard let errorListener = errorListener else {
+      print("No error listener has been set, please set one")
+      return
+    }
+    errorListener([message])
+  }
+  
+  // MARK: - Licence
+  /// Set the Verifai Licence
+  /// - Parameter licence: The licence registered to the company
+  @objc(setLicence:)
+  public func setLicence(_ licence: String) {
+    switch VerifaiCommons.setLicence(licence) {
+    case .success(_):
+      dump("Successfully configured Verifai")
+    case .failure(let error):
+      // Error setting the licence inform the listener
+     handleError(message: "🚫 Licence error: \(error)")
+    }
+  }
   
   // MARK: - Configuration
   
   /// Setup the Verifai configuration based on a javascript dictionary
   /// - Parameter configuration: A dictionary with key value pairs that link
   /// to configuration values
-  @objc(setupConfiguration:)
-  public func setupConfiguration(_ configuration: NSDictionary) {
+  @objc(configure:)
+  public func configure(_ configuration: NSDictionary) {
     dump(configuration)
     // Main settings
     if let requireDocumentCopy = configuration.value(forKey: "requireDocumentCopy") as? Bool {
@@ -78,34 +133,32 @@ public class RNVerifaiCore: NSObject {
   }
   
   // MARK: - Core
-  @objc(start:reject:)
-  public func start(resolve: @escaping RCTPromiseResolveBlock,
-                    reject: @escaping RCTPromiseRejectBlock) {
+  @objc(start)
+  public func start() {
     DispatchQueue.main.async {
       do {
         // Use React function to get current top view controller
         guard let currentVC = RCTPresentedViewController() else {
-          reject("","🚫 No current view controller found", nil)
+          self.handleError(message: "🚫 No current view controller found")
           return
         }
         // Start Verifai
         try Verifai.start(over: currentVC) { result in
           switch result {
           case .failure(let error):
-            reject("","🚫 Licence error: \(error)", error)
+            self.handleError(message: "🚫 Licence error: \(error)")
           case .success(let verifaiResult):
             // Process result to a format react-native can understand (JSON string)
             do {
               let data = try self.encoder.encode(verifaiResult)
-              resolve(String(data: data, encoding: .utf8))
+              self.handleSuccess(message: String(data: data, encoding: .utf8) ?? "Unable to create success object")
             } catch {
-              reject("","🚫 Result conversion error: \(error)", error)
+              self.handleError(message: "🚫 Result conversion error: \(error)")
             }
           }
         }
       } catch {
-        print("🚫 Unhandled error: \(error)")
-        reject("","🚫 Licence error: \(error)", error)
+        self.handleError(message: "🚫 Unhandled error: \(error)")
       }
     }
   }

@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
 // Setup the licence
 const SetLicence = async () => {
   // Define test licence (this should be put somewhere else before comitting to git)
-  let licence = "=== Verifai Licence file V2 ===" + "\n" +
+  let licence = "=== Verifai Licence file V2 ===aaa" + "\n" +
 "qhskxC0VNNPYiD2qj8QiqKDZhfwAQnjMb1oor5HuvQ2Xkuz1h47GkorqMHavlPeiFMVP5CqNc3fs" + "\n" +
 "NBLlbQk8xFg/xuB5tmPcHkoz+DsnrzHHtIDS0ufPEFnF9uOE+1SpkSXDcNKn6zRE2FY=";
   try {

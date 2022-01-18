@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E3473B9F2791BD23001DAD29 /* RNVerifaiCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EA13F0278739CC005408AB /* RNVerifaiCore.swift */; };
-		E3473BA02791BD23001DAD29 /* RNVerifaiCoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB3F278740D700A04210 /* RNVerifaiCoreBridge.m */; };
-		E3473BA12791BD23001DAD29 /* RNVerifaiLicence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E346AB422787456100A04210 /* RNVerifaiLicence.swift */; };
-		E3473BA22791BD23001DAD29 /* RNVerifaiLicenceBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB442787458600A04210 /* RNVerifaiLicenceBridge.m */; };
+		E3473B9F2791BD23001DAD29 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EA13F0278739CC005408AB /* Core.swift */; };
+		E3473BA02791BD23001DAD29 /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB3F278740D700A04210 /* CoreBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,9 +38,7 @@
 		A27899BFB3A5719C419312B0 /* libPods-VerifaiReactNative-VerifaiReactNativeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VerifaiReactNative-VerifaiReactNativeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1024545AC16D3AE08A735F3 /* Pods-VerifaiReactNative.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiReactNative.debug.xcconfig"; path = "Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative.debug.xcconfig"; sourceTree = "<group>"; };
 		B4EE090E770D825C0E4444DB /* libPods-VerifaiReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VerifaiReactNative.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E346AB3F278740D700A04210 /* RNVerifaiCoreBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNVerifaiCoreBridge.m; sourceTree = "<group>"; };
-		E346AB422787456100A04210 /* RNVerifaiLicence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNVerifaiLicence.swift; sourceTree = "<group>"; };
-		E346AB442787458600A04210 /* RNVerifaiLicenceBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNVerifaiLicenceBridge.m; sourceTree = "<group>"; };
+		E346AB3F278740D700A04210 /* CoreBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreBridge.m; sourceTree = "<group>"; };
 		E346AB47278C572C00A04210 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E346AB5A2791865A00A04210 /* VerifaiReactNativeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifaiReactNativeKit.h; sourceTree = "<group>"; };
 		E346AB5B2791865A00A04210 /* VerifaiReactNativeKit.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = VerifaiReactNativeKit.docc; sourceTree = "<group>"; };
@@ -91,7 +87,7 @@
 		E3473B982791BD13001DAD29 /* libVerifaiReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVerifaiReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3473B9A2791BD13001DAD29 /* VerifaiReactNative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNative.swift; sourceTree = "<group>"; };
 		E3EA13EF278739CC005408AB /* VerifaiReactNative-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VerifaiReactNative-Bridging-Header.h"; sourceTree = "<group>"; };
-		E3EA13F0278739CC005408AB /* RNVerifaiCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNVerifaiCore.swift; sourceTree = "<group>"; };
+		E3EA13F0278739CC005408AB /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -127,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				E346AB46278C571E00A04210 /* Extensions */,
-				E346AB412787450A00A04210 /* Licence */,
 				E3EA13E5278354DF005408AB /* Core */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -235,15 +230,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E346AB412787450A00A04210 /* Licence */ = {
-			isa = PBXGroup;
-			children = (
-				E346AB422787456100A04210 /* RNVerifaiLicence.swift */,
-				E346AB442787458600A04210 /* RNVerifaiLicenceBridge.m */,
-			);
-			path = Licence;
-			sourceTree = "<group>";
-		};
 		E346AB46278C571E00A04210 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -280,8 +266,8 @@
 		E3EA13E5278354DF005408AB /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E3EA13F0278739CC005408AB /* RNVerifaiCore.swift */,
-				E346AB3F278740D700A04210 /* RNVerifaiCoreBridge.m */,
+				E3EA13F0278739CC005408AB /* Core.swift */,
+				E346AB3F278740D700A04210 /* CoreBridge.m */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -369,10 +355,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3473BA02791BD23001DAD29 /* RNVerifaiCoreBridge.m in Sources */,
-				E3473BA22791BD23001DAD29 /* RNVerifaiLicenceBridge.m in Sources */,
-				E3473BA12791BD23001DAD29 /* RNVerifaiLicence.swift in Sources */,
-				E3473B9F2791BD23001DAD29 /* RNVerifaiCore.swift in Sources */,
+				E3473BA02791BD23001DAD29 /* CoreBridge.m in Sources */,
+				E3473B9F2791BD23001DAD29 /* Core.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
