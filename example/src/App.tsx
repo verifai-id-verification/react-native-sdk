@@ -13,6 +13,7 @@ import { VERIFAI_LICENCE } from 'react-native-dotenv';
 export default function App() {
   const coreListener = {
     onSuccess: (result: string) => {
+      // Todo: Bespreek having to parse this with Jeroen
       let resultObject = JSON.parse(result);
       console.log(resultObject.frontImage.mWidth / resultObject.frontImage.mHeight);
       try {
@@ -81,20 +82,20 @@ export default function App() {
           () => {
             Liveness.setOnSuccess(livenessListener.onSuccess)
             Liveness.setOnError(livenessListener.onError)
-            Liveness.start([
-              {
-                "check": LivenessCheck.CloseEyes, "numberOfSeconds": 5
-              },
-              {
-                "check": LivenessCheck.Tilt, "faceAngleRequirement": 25
-              },
-              {
-                "check": LivenessCheck.FaceMatching, "imageType": "doc"
-              },
-              {
-                "check": LivenessCheck.FaceMatching, "imageType": "nfc"
-              }
-            ])
+            // Liveness.start([
+            //   {
+            //     "check": LivenessCheck.CloseEyes, "numberOfSeconds": 5
+            //   },
+            //   {
+            //     "check": LivenessCheck.Tilt, "faceAngleRequirement": 25
+            //   },
+            //   {
+            //     "check": LivenessCheck.FaceMatching, "imageType": "doc"
+            //   },
+            //   {
+            //     "check": LivenessCheck.FaceMatching, "imageType": "nfc"
+            //   }
+            // ])
           }
         }
       />
@@ -107,7 +108,7 @@ export default function App() {
             NFC.setOnSuccess(nfcListener.onSuccess)
             NFC.setOnCancelled(nfcListener.onCancelled)
             NFC.setOnError(nfcListener.onError)
-            NFC.start()
+            //NFC.start()
           }
         }
       />
