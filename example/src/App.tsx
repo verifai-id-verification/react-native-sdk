@@ -12,11 +12,13 @@ import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
 export default function App() {
   const coreListener = {
-    onSuccess: (result: Object) => {
+    onSuccess: (result: string) => {
+      let resultObject = JSON.parse(result);
+      console.log(resultObject.frontImage.mWidth / resultObject.frontImage.mHeight);
       try {
         setImgProp({
-          uri: "data:image/png;base64," + result.frontImage.data,
-          aspectRatio: result.frontImage.mWidth / result.frontImage.mHeight,
+          uri: "data:image/png;base64," + resultObject.frontImage.data,
+          aspectRatio: resultObject.frontImage.mWidth / resultObject.frontImage.mHeight,
         })
       } catch (e) {
         console.log("Likely no front image")

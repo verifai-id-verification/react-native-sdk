@@ -28,6 +28,9 @@ public class Core: NSObject {
     self.successListener = listener
   }
   
+  /// Handle the success call by checking if there's a listener and otherwise informing
+  /// the dev via a print if this is not the case
+  /// - Parameter message: The response message to be sent trough the listener
   private func handleSuccess(message: String) {
     guard let successListener = successListener else {
       print("No success listener has been set, please set one")
@@ -42,13 +45,16 @@ public class Core: NSObject {
   @objc(setOnCancelled:)
   public func setOnCancelled(_ listener: @escaping RCTResponseSenderBlock) { }
   
-  /// On Error listener for iOS
+  /// Set On Error listener for iOS
   /// - Parameter listener: The error listener
   @objc(setOnError:)
   public func setOnError(_ listener: @escaping RCTResponseSenderBlock) {
     self.errorListener = listener
   }
   
+  /// Handle the error call by checking if there's a listener and otherwise informing
+  /// the dev via a print if this is not the case
+  /// - Parameter message: The response message to be sent trough the listener
   private func handleError(message: String) {
     guard let errorListener = errorListener else {
       print("No error listener has been set, please set one")
@@ -119,6 +125,9 @@ public class Core: NSObject {
       globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
     }
     
+    globalConfiguration.instructionScreenConfiguration = try! VerifaiInstructionScreenConfiguration(showInstructionScreens: false)
+    
+    try! Verifai.configure(with: globalConfiguration)
     
     
     //    public var validators: [VerifaiKit.VerifaiValidator]
@@ -150,8 +159,8 @@ public class Core: NSObject {
           case .success(let verifaiResult):
             // Process result to a format react-native can understand (JSON string)
             do {
-              let data = try self.encoder.encode(verifaiResult)
-              self.handleSuccess(message: String(data: data, encoding: .utf8) ?? "Unable to create success object")
+              let preparedResult = try self.prepareCoreResult(result: verifaiResult)
+              self.handleSuccess(message: preparedResult)
             } catch {
               self.handleError(message: "🚫 Result conversion error: \(error)")
             }
@@ -162,4 +171,14 @@ public class Core: NSObject {
       }
     }
   }
+  
+  /// Prepare core result into something react native can understand
+  /// - Parameter result: The result coming from the core
+  private func prepareCoreResult(result: VerifaiResult) throws -> String {
+    // Front image
+    let data = try self.encoder.encode(VerifaiReactNativeResult(result: result))
+    return String(data: data, encoding: .utf8) ?? "Unable to create success object"
+  }
+  
+  
 }
