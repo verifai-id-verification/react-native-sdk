@@ -13,6 +13,8 @@ target 'VerifaiCoreReactNativeExample' do
   )
   
   pod 'Verifai', '~> 5.1.0'
+  #pod 'VerifaiNFC', :podspec => 'VerifaiNFC.podspec'
+  #pod 'VerifaiLiveness', '~> 5.1.0'
 
   # Enables Flipper.
   #
@@ -21,6 +23,11 @@ target 'VerifaiCoreReactNativeExample' do
   use_flipper!()
 
   post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      end
+    end
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end

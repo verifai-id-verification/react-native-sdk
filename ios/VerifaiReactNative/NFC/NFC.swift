@@ -56,4 +56,7 @@ public class NFC: NSObject {
     errorListener([message])
   }
   
+  // MARK: - NFC Module functions
+  
+  
 }
