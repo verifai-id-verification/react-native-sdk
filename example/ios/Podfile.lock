@@ -338,6 +338,9 @@ PODS:
     - React-logger (= 0.66.4)
     - React-perflogger (= 0.66.4)
   - Verifai (5.1.0)
+  - verifai-react-native (0.1.0):
+    - React-Core
+    - Verifai (~> 5.1.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -396,6 +399,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - Verifai (~> 5.1.0)
+  - verifai-react-native (from `../../`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -475,6 +479,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  verifai-react-native:
+    :path: "../../"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -522,9 +528,10 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
   Verifai: 47de1cd7b6b52b9fcb4399950f76f85017561282
+  verifai-react-native: e10f72fa8cac022362f0aeb131e0b1f06bd580f5
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 52bf2aa5df69766546478a2c0529cae4cc47c78c
+PODFILE CHECKSUM: 1205e177d0f6961632e7c1e947fe91d35f7639c3
 
 COCOAPODS: 1.11.2

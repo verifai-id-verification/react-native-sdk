@@ -72,7 +72,7 @@ public class Core: NSObject {
       dump("Successfully configured Verifai")
     case .failure(let error):
       // Error setting the licence inform the listener
-     handleError(message: "🚫 Licence error: \(error)")
+      handleError(message: "🚫 Error: \(error)")
     }
   }
   

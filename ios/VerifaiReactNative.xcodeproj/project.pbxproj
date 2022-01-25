@@ -32,23 +32,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* VerifaiReactNativeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifaiReactNativeTests.m; sourceTree = "<group>"; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1A5279F697414C86A44E997F /* Pods-VerifaiReactNative-VerifaiReactNativeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiReactNative-VerifaiReactNativeTests.release.xcconfig"; path = "Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests.release.xcconfig"; sourceTree = "<group>"; };
-		34FD7C81351C519E47709C5C /* Pods-VerifaiReactNative.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiReactNative.release.xcconfig"; path = "Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative.release.xcconfig"; sourceTree = "<group>"; };
-		37F71FD542843BD271AB3781 /* Pods-VerifaiReactNative-VerifaiReactNativeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiReactNative-VerifaiReactNativeTests.debug.xcconfig"; path = "Target Support Files/Pods-VerifaiReactNative-VerifaiReactNativeTests/Pods-VerifaiReactNative-VerifaiReactNativeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A27899BFB3A5719C419312B0 /* libPods-VerifaiReactNative-VerifaiReactNativeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VerifaiReactNative-VerifaiReactNativeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1024545AC16D3AE08A735F3 /* Pods-VerifaiReactNative.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiReactNative.debug.xcconfig"; path = "Target Support Files/Pods-VerifaiReactNative/Pods-VerifaiReactNative.debug.xcconfig"; sourceTree = "<group>"; };
-		B4EE090E770D825C0E4444DB /* libPods-VerifaiReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VerifaiReactNative.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB3F278740D700A04210 /* CoreBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreBridge.m; sourceTree = "<group>"; };
-		E346AB5A2791865A00A04210 /* VerifaiReactNativeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifaiReactNativeKit.h; sourceTree = "<group>"; };
-		E346AB5B2791865A00A04210 /* VerifaiReactNativeKit.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = VerifaiReactNativeKit.docc; sourceTree = "<group>"; };
 		E346AB732791A73E00A04210 /* VerifaiCommonsKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VerifaiCommonsKit.xcframework; path = ../example/ios/Pods/Verifai/VerifaiCommonsKit.xcframework; sourceTree = "<group>"; };
 		E346AB742791A73E00A04210 /* VerifaiKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VerifaiKit.xcframework; path = ../example/ios/Pods/Verifai/VerifaiKit.xcframework; sourceTree = "<group>"; };
 		E346AB7A2791A82E00A04210 /* libCocoaAsyncSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libCocoaAsyncSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,7 +52,6 @@
 		E346AB872791A82E00A04210 /* libglog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libglog.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB882791A82E00A04210 /* liblibevent.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liblibevent.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB892791A82E00A04210 /* OpenSSL.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OpenSSL.xcframework; path = "../example/ios/Pods/OpenSSL-Universal/Frameworks/OpenSSL.xcframework"; sourceTree = "<group>"; };
-		E346AB8A2791A82E00A04210 /* libPods-VerifaiCoreReactNativeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-VerifaiCoreReactNativeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB8B2791A82E00A04210 /* libRCT-Folly.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libRCT-Folly.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB8C2791A82E00A04210 /* libRCTTypeSafety.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRCTTypeSafety.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB8D2791A82E00A04210 /* libReact-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,9 +74,7 @@
 		E346AB9E2791A82E00A04210 /* libYoga.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYoga.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346AB9F2791A82E00A04210 /* libYogaKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYogaKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346ABC92791ABF200A04210 /* libReact-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3473B8B2791BC03001DAD29 /* VerifaiReactNative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNative.swift; sourceTree = "<group>"; };
 		E3473B982791BD13001DAD29 /* libVerifaiReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVerifaiReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3473B9A2791BD13001DAD29 /* VerifaiReactNative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNative.swift; sourceTree = "<group>"; };
 		E3597DE727996F340025B79C /* VerifaiReactNativeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNativeResult.swift; sourceTree = "<group>"; };
 		E3597DE92799AAD80025B79C /* VerifaiReactNativeImageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNativeImageResult.swift; sourceTree = "<group>"; };
 		E3597DEC2799B4E10025B79C /* NFC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFC.swift; sourceTree = "<group>"; };
@@ -117,35 +99,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* VerifaiReactNativeTests */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F21AD99517003FC87E /* VerifaiReactNativeTests.m */,
-				00E356F01AD99517003FC87E /* Supporting Files */,
-			);
-			path = VerifaiReactNativeTests;
-			sourceTree = "<group>";
-		};
-		00E356F01AD99517003FC87E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				00E356F11AD99517003FC87E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		13B07FAE1A68108700A75B9A /* VerifaiReactNative */ = {
 			isa = PBXGroup;
 			children = (
 				E3EA13E5278354DF005408AB /* Core */,
 				E3597DEB2799B4C70025B79C /* NFC */,
 				E3597DF02799B5D70025B79C /* Liveness */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				13B07FB71A68108700A75B9A /* main.m */,
 				E3EA13EF278739CC005408AB /* VerifaiReactNative-Bridging-Header.h */,
 			);
 			path = VerifaiReactNative;
@@ -171,7 +131,6 @@
 				E346AB872791A82E00A04210 /* libglog.a */,
 				E346AB882791A82E00A04210 /* liblibevent.a */,
 				E346AB892791A82E00A04210 /* OpenSSL.xcframework */,
-				E346AB8A2791A82E00A04210 /* libPods-VerifaiCoreReactNativeExample.a */,
 				E346AB8B2791A82E00A04210 /* libRCT-Folly.a */,
 				E346AB8C2791A82E00A04210 /* libRCTTypeSafety.a */,
 				E346AB8D2791A82E00A04210 /* libReact-Core.a */,
@@ -196,8 +155,6 @@
 				E346AB732791A73E00A04210 /* VerifaiCommonsKit.xcframework */,
 				E346AB742791A73E00A04210 /* VerifaiKit.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				B4EE090E770D825C0E4444DB /* libPods-VerifaiReactNative.a */,
-				A27899BFB3A5719C419312B0 /* libPods-VerifaiReactNative-VerifaiReactNativeTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,10 +162,6 @@
 		5526E8BE1A54897F9D7AF74A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B1024545AC16D3AE08A735F3 /* Pods-VerifaiReactNative.debug.xcconfig */,
-				34FD7C81351C519E47709C5C /* Pods-VerifaiReactNative.release.xcconfig */,
-				37F71FD542843BD271AB3781 /* Pods-VerifaiReactNative-VerifaiReactNativeTests.debug.xcconfig */,
-				1A5279F697414C86A44E997F /* Pods-VerifaiReactNative-VerifaiReactNativeTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -225,10 +178,6 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* VerifaiReactNative */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* VerifaiReactNativeTests */,
-				E346AB592791865A00A04210 /* VerifaiReactNativeKit */,
-				E3473B8A2791BC03001DAD29 /* VerifaiReactNative */,
-				E3473B992791BD13001DAD29 /* VerifaiReactNative */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				5526E8BE1A54897F9D7AF74A /* Pods */,
@@ -244,31 +193,6 @@
 				E3473B982791BD13001DAD29 /* libVerifaiReactNative.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E346AB592791865A00A04210 /* VerifaiReactNativeKit */ = {
-			isa = PBXGroup;
-			children = (
-				E346AB5A2791865A00A04210 /* VerifaiReactNativeKit.h */,
-				E346AB5B2791865A00A04210 /* VerifaiReactNativeKit.docc */,
-			);
-			path = VerifaiReactNativeKit;
-			sourceTree = "<group>";
-		};
-		E3473B8A2791BC03001DAD29 /* VerifaiReactNative */ = {
-			isa = PBXGroup;
-			children = (
-				E3473B8B2791BC03001DAD29 /* VerifaiReactNative.swift */,
-			);
-			path = VerifaiReactNative;
-			sourceTree = "<group>";
-		};
-		E3473B992791BD13001DAD29 /* VerifaiReactNative */ = {
-			isa = PBXGroup;
-			children = (
-				E3473B9A2791BD13001DAD29 /* VerifaiReactNative.swift */,
-			);
-			path = VerifaiReactNative;
 			sourceTree = "<group>";
 		};
 		E3597DE627996F200025B79C /* Result */ = {
@@ -317,7 +241,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3473B9C2791BD13001DAD29 /* Build configuration list for PBXNativeTarget "VerifaiReactNative" */;
 			buildPhases = (
-				9B2ED5D10D7BEF6ADA5FFE71 /* [CP] Check Pods Manifest.lock */,
 				E3473B942791BD13001DAD29 /* Sources */,
 				E3473B952791BD13001DAD29 /* Frameworks */,
 				E3473B962791BD13001DAD29 /* CopyFiles */,
@@ -362,31 +285,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9B2ED5D10D7BEF6ADA5FFE71 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VerifaiReactNative-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E3473B942791BD13001DAD29 /* Sources */ = {
@@ -443,7 +341,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -512,7 +410,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_ARCHS = "";
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -542,7 +440,6 @@
 		};
 		E3473B9D2791BD13001DAD29 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1024545AC16D3AE08A735F3 /* Pods-VerifaiReactNative.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -568,7 +465,6 @@
 		};
 		E3473B9E2791BD13001DAD29 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34FD7C81351C519E47709C5C /* Pods-VerifaiReactNative.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
