@@ -338,9 +338,13 @@ PODS:
     - React-logger (= 0.66.4)
     - React-perflogger (= 0.66.4)
   - Verifai (5.1.0)
-  - verifai-react-native (0.1.0):
+  - verifai-react-native (1.0.0):
     - React-Core
     - Verifai (~> 5.1.0)
+    - VerifaiLiveness (~> 5.1.0)
+    - VerifaiNFC
+  - VerifaiLiveness (5.1.0)
+  - VerifaiNFC (5.1.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -400,6 +404,8 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - Verifai (~> 5.1.0)
   - verifai-react-native (from `../../`)
+  - VerifaiLiveness (~> 5.1.0)
+  - VerifaiNFC (from `VerifaiNFC.podspec`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -418,6 +424,7 @@ SPEC REPOS:
     - libevent
     - OpenSSL-Universal
     - Verifai
+    - VerifaiLiveness
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -481,6 +488,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   verifai-react-native:
     :path: "../../"
+  VerifaiNFC:
+    :podspec: VerifaiNFC.podspec
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -528,10 +537,12 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
   Verifai: 47de1cd7b6b52b9fcb4399950f76f85017561282
-  verifai-react-native: e10f72fa8cac022362f0aeb131e0b1f06bd580f5
+  verifai-react-native: cd0e518a90b4968ddb605bbd7cd73f0a18fa1130
+  VerifaiLiveness: 3930aa46a8227b8009160b5179b6f209416d9738
+  VerifaiNFC: 670b62476e4d452aff384c116b2e64bd9068c891
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 1205e177d0f6961632e7c1e947fe91d35f7639c3
+PODFILE CHECKSUM: e52cb1b7f2260d9833914b2211b5ec0828c46335
 
 COCOAPODS: 1.11.2

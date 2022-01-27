@@ -108,7 +108,7 @@ export default function App() {
             NFC.setOnSuccess(nfcListener.onSuccess)
             NFC.setOnCancelled(nfcListener.onCancelled)
             NFC.setOnError(nfcListener.onError)
-            //NFC.start()
+            NFC.start(true)
           }
         }
       />

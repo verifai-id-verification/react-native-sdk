@@ -154,11 +154,11 @@ public class Core: NSObject {
         try Verifai.start(over: currentVC) { result in
           switch result {
           case .failure(let error):
-            self.handleError(message: "🚫 Licence error: \(error)")
+            self.handleError(message: "🚫 Error: \(error)")
           case .success(let verifaiResult):
             do {
               // Save the result so that it can be used by other modules
-              //VerifaiResultSingleton.shared.currentResult = verifaiResult
+              VerifaiResultSingleton.shared.currentResult = verifaiResult
               // Process result to a format react-native can understand (JSON string)
               let preparedResult = try self.prepareCoreResult(result: verifaiResult)
               self.handleSuccess(message: preparedResult)
