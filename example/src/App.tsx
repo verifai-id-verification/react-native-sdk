@@ -14,6 +14,7 @@ export default function App() {
   const coreListener = {
     onSuccess: (result: string) => {
       // Todo: Bespreek having to parse this with Jeroen
+      // React type voor return
       let resultObject = JSON.parse(result);
       console.log(resultObject.frontImage.mWidth / resultObject.frontImage.mHeight);
       try {
@@ -108,7 +109,31 @@ export default function App() {
             NFC.setOnSuccess(nfcListener.onSuccess)
             NFC.setOnCancelled(nfcListener.onCancelled)
             NFC.setOnError(nfcListener.onError)
-            NFC.start(true)
+            NFC.start({ 
+              "retrieveImage": true,
+              "showDismissButton": true,
+              "customDismissButtonTitle": "Close",
+              "instructionScreenConfiguration": {
+                "showInstructionScreens": true,
+                "instructionScreens": [
+                  {
+                    "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
+                    "type": "customLocal", // Possible values "customLocal", "hidden", "defaultMode" or "customWeb"
+                    // Values for both customLocal and customWeb based instruction screens
+                    "title": "Custom NFC Instruction",
+                    "continueButtonLabel": "Let's do it!",
+                    // Native only instruction with local screen values (type = customLocal)
+                    "header": "Check out the video below",
+                    "mp4FileName": "NFCVideoUSA", // This file needs to be available in your main bundle
+                    "instruction": "The US passport has the NFC chip in a very peculiar place. You need to open up the booklet and look for the image of a satellite looking spacecraft on the back (the voyager spacecraft). Place the top back part of your device in one swift motion on top of that spacecraft to start the NFC scan process.",
+                    // Web only instruction screen values (type = customWeb)
+                    "url": "https://www.verifai.com/en/support/supported-documents/",
+                  }
+                ]
+              }
+              ,
+              "scanHelpConfiguration": ""
+            })
           }
         }
       />

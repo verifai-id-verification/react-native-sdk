@@ -62,12 +62,13 @@ public class NFC: NSObject {
     
     // MARK: - NFC Module functions
     @objc(start:)
-    public func start(_ retrieveImage: Bool) {
+    public func start(_ configuration: NSDictionary) {
         // Make sure there's a result
         guard let currentResult = VerifaiResultSingleton.shared.currentResult else {
             handleError(message: "🚫 No result yet, please do a normal scan frist")
             return
         }
+        // Run NFC (on the main thread because it's going to be doing UI activities)
         DispatchQueue.main.async {
             // Use React function to get current top view controller
             guard let currentVC = RCTPresentedViewController() else {
@@ -75,14 +76,16 @@ public class NFC: NSObject {
                 return
             }
             do {
-                // NFC Instruction configuration
-                // TODO: Besopreek with jeroen about a configuration
-                let nfcConf = try? VerifaiNFCInstructionScreenConfiguration(showInstructionScreens: false)
+                // NFC configuration from the dictionary
+                let settings = try NFCConfiguration(configuration: configuration)
                 // Start the NFC module
                 try VerifaiNFC.start(over: currentVC,
                                      documentData: currentResult,
-                                     retrieveImage: retrieveImage,
-                                     instructionScreenConfiguration: nfcConf) { nfcResult in
+                                     retrieveImage: settings.retrieveImage,
+                                     showDismissButton: settings.showDismissButton,
+                                     customDismissButtonTitle: settings.customDismissButtonTitle,
+                                     instructionScreenConfiguration: settings.instructionScreenConfiguration)
+                { nfcResult in
                     switch nfcResult {
                     case .failure(let error):
                         self.handleError(message: "🚫 Error or cancellation: \(error)")
@@ -97,7 +100,7 @@ public class NFC: NSObject {
                     }
                 }
             } catch {
-                print("🚫 Unhandled error: \(error)")
+                self.handleError(message: "🚫 Unhandled error: \(error)")
             }
         }
     }

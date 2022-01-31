@@ -13,9 +13,9 @@ target 'VerifaiCoreReactNativeExample' do
   )
   
   pod 'verifai-react-native', :path => '../../'
-  pod 'Verifai', '~> 5.1.0'
+  pod 'Verifai', '~> 5.1.1'
   pod 'VerifaiNFC', :podspec => 'VerifaiNFC.podspec'
-  pod 'VerifaiLiveness', '~> 5.1.0'
+  pod 'VerifaiLiveness', '~> 5.1.1'
 
   # Enables Flipper.
   #

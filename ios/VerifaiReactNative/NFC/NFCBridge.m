@@ -16,6 +16,6 @@ RCT_EXTERN_METHOD(setOnCancelled:(RCTResponseSenderBlock *));
 RCT_EXTERN_METHOD(setOnError:(RCTResponseSenderBlock *));
 
 // NFC
-RCT_EXTERN_METHOD(start:(BOOL *))
+RCT_EXTERN_METHOD(start:(NSDictionary *))
 
 @end

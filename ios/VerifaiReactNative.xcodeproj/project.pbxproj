@@ -9,14 +9,18 @@
 /* Begin PBXBuildFile section */
 		E3DF5E41279AEEF2000D6218 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EA13F0278739CC005408AB /* Core.swift */; };
 		E3DF5E42279AEEF2000D6218 /* CoreBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E346AB3F278740D700A04210 /* CoreBridge.m */; };
-		E3DF5E43279AEF29000D6218 /* VerifaiReactNativeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3597DE727996F340025B79C /* VerifaiReactNativeResult.swift */; };
-		E3DF5E44279AEF34000D6218 /* VerifaiReactNativeImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3597DE92799AAD80025B79C /* VerifaiReactNativeImageResult.swift */; };
 		E3DF5E45279AEF52000D6218 /* NFCBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E3597DEE2799B5030025B79C /* NFCBridge.m */; };
 		E3DF5E46279AEF52000D6218 /* NFC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3597DEC2799B4E10025B79C /* NFC.swift */; };
 		E3DF5E47279AEF5B000D6218 /* LivenessBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E3597DF32799B5FC0025B79C /* LivenessBridge.m */; };
 		E3DF5E48279AEF5B000D6218 /* Liveness.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3597DF12799B5EC0025B79C /* Liveness.swift */; };
 		E3DF5E49279AEF83000D6218 /* VerifaiResultSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3597DF5279ABA640025B79C /* VerifaiResultSingleton.swift */; };
 		E3DF5E4A279AEF83000D6218 /* ResultSingletonBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = E3597DF7279ABD6A0025B79C /* ResultSingletonBridge.m */; };
+		E3FFBD3527A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FFBD2E27A2F76500DB0A1B /* VerifaiNFCReactNativeResult.swift */; };
+		E3FFBD3627A2F76600DB0A1B /* VerifaiReactNativeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FFBD2F27A2F76500DB0A1B /* VerifaiReactNativeResult.swift */; };
+		E3FFBD3727A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FFBD3027A2F76500DB0A1B /* VerifaiReactNativeImageResult.swift */; };
+		E3FFBD3827A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FFBD3227A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift */; };
+		E3FFBD3927A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FFBD3327A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift */; };
+		E3FFBD3A27A2F76600DB0A1B /* VerifaiReactNativeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FFBD3427A2F76600DB0A1B /* VerifaiReactNativeResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,8 +79,6 @@
 		E346AB9F2791A82E00A04210 /* libYogaKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libYogaKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E346ABC92791ABF200A04210 /* libReact-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3473B982791BD13001DAD29 /* libVerifaiReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVerifaiReactNative.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		E3597DE727996F340025B79C /* VerifaiReactNativeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNativeResult.swift; sourceTree = "<group>"; };
-		E3597DE92799AAD80025B79C /* VerifaiReactNativeImageResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifaiReactNativeImageResult.swift; sourceTree = "<group>"; };
 		E3597DEC2799B4E10025B79C /* NFC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFC.swift; sourceTree = "<group>"; };
 		E3597DEE2799B5030025B79C /* NFCBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NFCBridge.m; sourceTree = "<group>"; };
 		E3597DF12799B5EC0025B79C /* Liveness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Liveness.swift; sourceTree = "<group>"; };
@@ -85,6 +87,12 @@
 		E3597DF7279ABD6A0025B79C /* ResultSingletonBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultSingletonBridge.m; sourceTree = "<group>"; };
 		E3EA13EF278739CC005408AB /* VerifaiReactNative-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VerifaiReactNative-Bridging-Header.h"; sourceTree = "<group>"; };
 		E3EA13F0278739CC005408AB /* Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
+		E3FFBD2E27A2F76500DB0A1B /* VerifaiNFCReactNativeResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerifaiNFCReactNativeResult.swift; path = Result/VerifaiNFCReactNativeResult.swift; sourceTree = "<group>"; };
+		E3FFBD2F27A2F76500DB0A1B /* VerifaiReactNativeResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerifaiReactNativeResult.swift; path = Result/VerifaiReactNativeResult.swift; sourceTree = "<group>"; };
+		E3FFBD3027A2F76500DB0A1B /* VerifaiReactNativeImageResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerifaiReactNativeImageResult.swift; path = Result/VerifaiReactNativeImageResult.swift; sourceTree = "<group>"; };
+		E3FFBD3227A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifaiNFCReactNativeResult.swift; sourceTree = "<group>"; };
+		E3FFBD3327A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifaiReactNativeImageResult.swift; sourceTree = "<group>"; };
+		E3FFBD3427A2F76600DB0A1B /* VerifaiReactNativeResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifaiReactNativeResult.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -102,6 +110,10 @@
 		13B07FAE1A68108700A75B9A /* VerifaiReactNative */ = {
 			isa = PBXGroup;
 			children = (
+				E3FFBD3127A2F76600DB0A1B /* Result */,
+				E3FFBD2E27A2F76500DB0A1B /* VerifaiNFCReactNativeResult.swift */,
+				E3FFBD3027A2F76500DB0A1B /* VerifaiReactNativeImageResult.swift */,
+				E3FFBD2F27A2F76500DB0A1B /* VerifaiReactNativeResult.swift */,
 				E3EA13E5278354DF005408AB /* Core */,
 				E3597DEB2799B4C70025B79C /* NFC */,
 				E3597DF02799B5D70025B79C /* Liveness */,
@@ -195,15 +207,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E3597DE627996F200025B79C /* Result */ = {
-			isa = PBXGroup;
-			children = (
-				E3597DE727996F340025B79C /* VerifaiReactNativeResult.swift */,
-				E3597DE92799AAD80025B79C /* VerifaiReactNativeImageResult.swift */,
-			);
-			path = Result;
-			sourceTree = "<group>";
-		};
 		E3597DEB2799B4C70025B79C /* NFC */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,13 +228,22 @@
 		E3EA13E5278354DF005408AB /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E3597DE627996F200025B79C /* Result */,
 				E3EA13F0278739CC005408AB /* Core.swift */,
 				E346AB3F278740D700A04210 /* CoreBridge.m */,
 				E3597DF5279ABA640025B79C /* VerifaiResultSingleton.swift */,
 				E3597DF7279ABD6A0025B79C /* ResultSingletonBridge.m */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		E3FFBD3127A2F76600DB0A1B /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				E3FFBD3227A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift */,
+				E3FFBD3327A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift */,
+				E3FFBD3427A2F76600DB0A1B /* VerifaiReactNativeResult.swift */,
+			);
+			path = Result;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,15 +303,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3DF5E44279AEF34000D6218 /* VerifaiReactNativeImageResult.swift in Sources */,
+				E3FFBD3627A2F76600DB0A1B /* VerifaiReactNativeResult.swift in Sources */,
 				E3DF5E4A279AEF83000D6218 /* ResultSingletonBridge.m in Sources */,
 				E3DF5E45279AEF52000D6218 /* NFCBridge.m in Sources */,
 				E3DF5E48279AEF5B000D6218 /* Liveness.swift in Sources */,
-				E3DF5E43279AEF29000D6218 /* VerifaiReactNativeResult.swift in Sources */,
 				E3DF5E41279AEEF2000D6218 /* Core.swift in Sources */,
+				E3FFBD3727A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift in Sources */,
+				E3FFBD3527A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift in Sources */,
 				E3DF5E42279AEEF2000D6218 /* CoreBridge.m in Sources */,
 				E3DF5E46279AEF52000D6218 /* NFC.swift in Sources */,
+				E3FFBD3927A2F76600DB0A1B /* VerifaiReactNativeImageResult.swift in Sources */,
 				E3DF5E49279AEF83000D6218 /* VerifaiResultSingleton.swift in Sources */,
+				E3FFBD3827A2F76600DB0A1B /* VerifaiNFCReactNativeResult.swift in Sources */,
+				E3FFBD3A27A2F76600DB0A1B /* VerifaiReactNativeResult.swift in Sources */,
 				E3DF5E47279AEF5B000D6218 /* LivenessBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -337,13 +337,13 @@ PODS:
     - React-jsi (= 0.66.4)
     - React-logger (= 0.66.4)
     - React-perflogger (= 0.66.4)
-  - Verifai (5.1.0)
+  - Verifai (5.1.1)
   - verifai-react-native (1.0.0):
     - React-Core
-    - Verifai (~> 5.1.0)
-    - VerifaiLiveness (~> 5.1.0)
+    - Verifai (~> 5.1.1)
+    - VerifaiLiveness (~> 5.1.1)
     - VerifaiNFC
-  - VerifaiLiveness (5.1.0)
+  - VerifaiLiveness (5.1.1)
   - VerifaiNFC (5.1.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -402,9 +402,9 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - Verifai (~> 5.1.0)
+  - Verifai (~> 5.1.1)
   - verifai-react-native (from `../../`)
-  - VerifaiLiveness (~> 5.1.0)
+  - VerifaiLiveness (~> 5.1.1)
   - VerifaiNFC (from `VerifaiNFC.podspec`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -536,13 +536,13 @@ SPEC CHECKSUMS:
   React-RCTVibration: e3ffca672dd3772536cb844274094b0e2c31b187
   React-runtimeexecutor: dec32ee6f2e2a26e13e58152271535fadff5455a
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
-  Verifai: 47de1cd7b6b52b9fcb4399950f76f85017561282
-  verifai-react-native: cd0e518a90b4968ddb605bbd7cd73f0a18fa1130
-  VerifaiLiveness: 3930aa46a8227b8009160b5179b6f209416d9738
+  Verifai: 7040b4f86b04b5a8acefce45585f754793a906d7
+  verifai-react-native: f5e5ef83d588626e0de91727d1934b765c85af61
+  VerifaiLiveness: 8e25b8425652c9316ff830976b18368a1073299d
   VerifaiNFC: 670b62476e4d452aff384c116b2e64bd9068c891
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e52cb1b7f2260d9833914b2211b5ec0828c46335
+PODFILE CHECKSUM: 12e5643fa4cd75a0bc8e641092901cd6d25a0d1f
 
 COCOAPODS: 1.11.2
