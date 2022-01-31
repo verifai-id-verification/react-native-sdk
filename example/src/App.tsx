@@ -113,6 +113,7 @@ export default function App() {
               "retrieveImage": true,
               "showDismissButton": true,
               "customDismissButtonTitle": "Close",
+              // Setup the NFC instruction screens, check out docs for more info
               "instructionScreenConfiguration": {
                 "showInstructionScreens": true,
                 "instructionScreens": [
@@ -124,7 +125,7 @@ export default function App() {
                     "continueButtonLabel": "Let's do it!",
                     // Native only instruction with local screen values (type = customLocal)
                     "header": "Check out the video below",
-                    "mp4FileName": "NFCVideoUSA", // This file needs to be available in your main bundle
+                    "mp4FileName": "DemoMp4", // This file needs to be available in your main bundle
                     "instruction": "The US passport has the NFC chip in a very peculiar place. You need to open up the booklet and look for the image of a satellite looking spacecraft on the back (the voyager spacecraft). Place the top back part of your device in one swift motion on top of that spacecraft to start the NFC scan process.",
                     // Web only instruction screen values (type = customWeb)
                     "url": "https://www.verifai.com/en/support/supported-documents/",
@@ -132,7 +133,12 @@ export default function App() {
                 ]
               }
               ,
-              "scanHelpConfiguration": ""
+              // Setup scan help, scan help in this case gets shown when NFC scanning fails, check out docs for more info
+              "scanHelpConfiguration": {
+                "isScanHelpEnabled": true,
+                "customScanHelpScreenInstructions": "Our own custom instruction",
+                "customScanHelpScreenMp4FileName": "DemoMp4"
+              }
             })
           }
         }

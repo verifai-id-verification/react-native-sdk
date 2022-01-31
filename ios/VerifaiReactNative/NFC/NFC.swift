@@ -84,7 +84,8 @@ public class NFC: NSObject {
                                      retrieveImage: settings.retrieveImage,
                                      showDismissButton: settings.showDismissButton,
                                      customDismissButtonTitle: settings.customDismissButtonTitle,
-                                     instructionScreenConfiguration: settings.instructionScreenConfiguration)
+                                     instructionScreenConfiguration: settings.instructionScreenConfiguration,
+                                     scanHelpConfiguration: settings.scanHelpConfiguration)
                 { nfcResult in
                     switch nfcResult {
                     case .failure(let error):

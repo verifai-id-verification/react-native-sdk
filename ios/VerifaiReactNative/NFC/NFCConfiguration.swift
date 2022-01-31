@@ -12,7 +12,7 @@ struct NFCConfiguration {
     var retrieveImage: Bool = true
     var showDismissButton: Bool = true
     var customDismissButtonTitle: String? = nil
-    var scanHelpConfiguration: String? = nil
+    var scanHelpConfiguration: VerifaiScanHelpConfiguration = VerifaiScanHelpConfiguration()
     var instructionScreenConfiguration: VerifaiNFCInstructionScreenConfiguration?
     
     init(configuration: NSDictionary) throws {
@@ -37,8 +37,23 @@ struct NFCConfiguration {
             try getInstructionScreenConfiguration(for: instructionConfiguration,
                                                      showInstructionScreens: showInstructionScreens)
         }
+        // Scan help configuration
+        if let scanHelpConfiguration = configuration.value(forKey: "scanHelpConfiguration") as? NSDictionary {
+            // Find the values
+            let isScanHelpEnabled = scanHelpConfiguration.value(forKey: "isScanHelpEnabled") as? Bool ?? true
+            let customScanHelpScreenInstructions = scanHelpConfiguration.value(
+                forKey: "customScanHelpScreenInstructions") as? String ?? ""
+            let customScanHelpScreenMp4FileName = scanHelpConfiguration.value(
+                forKey: "customScanHelpScreenMp4FileName") as? String ?? ""
+            // Create a scan help configuration object
+            self.scanHelpConfiguration = VerifaiScanHelpConfiguration(isScanHelpEnabled: isScanHelpEnabled,
+                                                                      customScanHelpScreenInstructions:
+                        NSAttributedString(string: customScanHelpScreenInstructions),
+                                                                      customScanHelpScreenMp4FileName: customScanHelpScreenMp4FileName)
+        }
     }
     
+    // MARK: - Instruction screen
     /// Process the instruction screen provided into something the Verifai SDK can understand
     /// - Parameters:
     ///   - instructionConfiguration: The instruction configuration provided by the react native app
@@ -137,6 +152,10 @@ struct NFCConfiguration {
         // Illegal value
         return nil
     }
+    
+    // MARK: - Scan Help
+    
+    // MARK: - Errors
     
     public enum RNError: Error {
         case invalidUrl
