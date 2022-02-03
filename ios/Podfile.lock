@@ -274,7 +274,9 @@ PODS:
     - React-jsi (= 0.66.3)
     - React-logger (= 0.66.3)
     - React-perflogger (= 0.66.3)
-  - Verifai (5.1.0)
+  - Verifai (5.1.1)
+  - VerifaiLiveness (5.1.1)
+  - VerifaiNFC (5.1.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -309,13 +311,17 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - Verifai (~> 5.1.0)
+  - Verifai (~> 5.1.1)
+  - VerifaiLiveness (~> 5.1.1)
+  - VerifaiNFC (~> 5.1.1)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - fmt
     - Verifai
+    - VerifaiLiveness
+    - VerifaiNFC
 
 EXTERNAL SOURCES:
   boost:
@@ -410,9 +416,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 50cfe7049167cfc7e83ac5542c6fff0c76791a9b
   React-runtimeexecutor: bbbdb3d8fcf327c6e2249ee71b6ef1764b7dc266
   ReactCommon: 9bac022ab71596f2b0fde1268272543184c63971
-  Verifai: 47de1cd7b6b52b9fcb4399950f76f85017561282
+  Verifai: 7040b4f86b04b5a8acefce45585f754793a906d7
+  VerifaiLiveness: 8e25b8425652c9316ff830976b18368a1073299d
+  VerifaiNFC: e54b362d61b6ababa57aa97d2a1bbbd1119640ca
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
 
-PODFILE CHECKSUM: eb68c5176df927aa28ec7425171381c52666ffac
+PODFILE CHECKSUM: c100cf480a07656af2ced49cc7fc884c6176f7bd
 
 COCOAPODS: 1.11.2

@@ -10,6 +10,8 @@ import {
 
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
+var RNFS = require('react-native-fs');
+
 export default function App() {
   const coreListener = {
     onSuccess: (result: string) => {
@@ -83,20 +85,35 @@ export default function App() {
           () => {
             Liveness.setOnSuccess(livenessListener.onSuccess)
             Liveness.setOnError(livenessListener.onError)
-            // Liveness.start([
-            //   {
-            //     "check": LivenessCheck.CloseEyes, "numberOfSeconds": 5
-            //   },
-            //   {
-            //     "check": LivenessCheck.Tilt, "faceAngleRequirement": 25
-            //   },
-            //   {
-            //     "check": LivenessCheck.FaceMatching, "imageType": "doc"
-            //   },
-            //   {
-            //     "check": LivenessCheck.FaceMatching, "imageType": "nfc"
-            //   }
-            // ])
+            // Inform Jeroen about changing this from an array to a dictionary
+            Liveness.start({
+              "resultOutputDirectory": RNFS.DocumentDirectoryPath,
+              "showDismissButton": true,
+              "customDismissButtonTitle": "Close",
+              "checks": [
+                {
+                  "check": LivenessCheck.CloseEyes, 
+                  "numberOfSeconds": 5, 
+                  "instruction": "Close your eyes for at least 5 seconds"
+                },
+                {
+                  "check": LivenessCheck.Tilt, 
+                  "faceAngleRequirement": 25, 
+                  "instruction": "Tilt your head until the green line is reached"
+                },
+                {
+                  "check": LivenessCheck.Speech, 
+                  "speechRequirement": "apple banana pizza", 
+                  "locale": "en-US", 
+                  "instruction": "Please say the following words"
+                },
+                {
+                  "check": LivenessCheck.FaceMatching, 
+                  // Why aren't these enums?
+                  "imageType": "doc" // or "nfc"
+                }
+              ]
+            })
           }
         }
       />
@@ -119,15 +136,15 @@ export default function App() {
                 "instructionScreens": [
                   {
                     "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
-                    "type": "customLocal", // Possible values "customLocal", "hidden", "defaultMode" or "customWeb"
-                    // Values for both customLocal and customWeb based instruction screens
+                    "type": VerifaiInstructionType.MEDIA, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
+                    // Values for both MEDIA and WEB based instruction screens
                     "title": "Custom NFC Instruction",
                     "continueButtonLabel": "Let's do it!",
-                    // Native only instruction with local screen values (type = customLocal)
+                    // Native only instruction with local screen values (type = MEDIA)
                     "header": "Check out the video below",
                     "mp4FileName": "DemoMp4", // This file needs to be available in your main bundle
                     "instruction": "The US passport has the NFC chip in a very peculiar place. You need to open up the booklet and look for the image of a satellite looking spacecraft on the back (the voyager spacecraft). Place the top back part of your device in one swift motion on top of that spacecraft to start the NFC scan process.",
-                    // Web only instruction screen values (type = customWeb)
+                    // Web only instruction screen values (type = WEB)
                     "url": "https://www.verifai.com/en/support/supported-documents/",
                   }
                 ]

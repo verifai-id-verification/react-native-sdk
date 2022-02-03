@@ -69,20 +69,20 @@ struct NFCConfiguration {
             // Go trough each screen and set it up
             for dictionary in instructionConfigurationArray {
                 if let settings = dictionary as? NSDictionary,
-                   let type = settings.value(forKey: "type") as? String,
+                   let type = settings.value(forKey: "type") as? Int,
                    let instructionScreen = getInstructionScreen(in: settings) {
                     // Create the screen values
                     switch type {
-                    case "customWeb":
-                        // Web based instruction values
-                        screenConfigurations[instructionScreen] = try webScreenValues(in: settings)
-                    case "customLocal":
-                        // Native based configuration screen
-                        screenConfigurations[instructionScreen] = try nativeScreenValues(in: settings)
-                    case "defaultMode":
+                    case 0:
                         // Default values
                         screenConfigurations[instructionScreen] = .defaultMode
-                    case "hidden":
+                    case 1:
+                        // Native based configuration screen
+                        screenConfigurations[instructionScreen] = try nativeScreenValues(in: settings)
+                    case 2:
+                        // Web based instruction values
+                        screenConfigurations[instructionScreen] = try webScreenValues(in: settings)
+                    case 3:
                         // Hide the specific instruction screen
                         screenConfigurations[instructionScreen] = .hidden
                     default:
@@ -151,14 +151,5 @@ struct NFCConfiguration {
         }
         // Illegal value
         return nil
-    }
-    
-    // MARK: - Scan Help
-    
-    // MARK: - Errors
-    
-    public enum RNError: Error {
-        case invalidUrl
-        case invalidValuesSupplied
     }
 }

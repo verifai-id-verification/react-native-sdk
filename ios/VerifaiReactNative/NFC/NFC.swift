@@ -65,7 +65,7 @@ public class NFC: NSObject {
     public func start(_ configuration: NSDictionary) {
         // Make sure there's a result
         guard let currentResult = VerifaiResultSingleton.shared.currentResult else {
-            handleError(message: "🚫 No result yet, please do a normal scan frist")
+            handleError(message: "🚫 No result yet, please do a normal scan first")
             return
         }
         // Run NFC (on the main thread because it's going to be doing UI activities)
@@ -92,6 +92,8 @@ public class NFC: NSObject {
                         self.handleError(message: "🚫 Error or cancellation: \(error)")
                     case .success(let result):
                         do {
+                            // Keep the NFC image in singleton in case the liveness check needs it
+                            VerifaiResultSingleton.shared.nfcImage = result.photo
                             // Process result to a format react-native can understand (JSON string)
                             let preparedResult = try self.prepareNFCResult(result: result)
                             self.handleSuccess(message: preparedResult)
