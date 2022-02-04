@@ -60,18 +60,97 @@ export default function App() {
             Core.setOnError(coreListener.onError)
             Core.setLicence(VERIFAI_LICENCE)
             Core.configure({
+              "enablePostCropping": true,
+              "enableManual": true,
+              "requireDocumentCopy": true,
+              "requireCroppedImage": true,
+              "requireMRZContents": false,
+              "requireNFCWhenAvailable": false,
+              "readMRZContents": true,
               "enableVisualInspection": true,
               "instructionScreenConfiguration": {
                 "showInstructionScreens": false,
+                "instructionScreens": [
+                  {
+                    "screen": VerifaiInstructionScreenId.MRZ_PRESENT_FLOW_INSTRUCTION, 
+                    "type": VerifaiInstructionType.MEDIA, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
+                    // Values for both MEDIA and WEB based instruction screens
+                    "title": "Custom Instruction",
+                    "continueButtonLabel": "Let's do it!",
+                    // Native only instruction with local screen values (type = MEDIA)
+                    "header": "Check out the video below",
+                    "mp4FileName": "DemoMp4", // This file needs to be available in your main bundle
+                    "instruction": "This is some custom instruction text that you can provide. In this example we're customizing the screen that asks if the document has an MRZ (Machine Readable Zone). So does the document have a MRZ? Answer below.",
+                    // Web only instruction screen values (type = WEB)
+                    "url": "https://www.verifai.com/en/support/supported-documents/",
+                  }
+                ]
               },
+              // Setup scan help, scan help in this case gets shown when scanning fails, check out docs for more info
+              "scanHelpConfiguration": {
+                "isScanHelpEnabled": true,
+                "customScanHelpScreenInstructions": "Our own custom instruction",
+                "customScanHelpScreenMp4FileName": "DemoMp4"
+              },
+              // Why is this called extraValidators and not just validators?
+              // Validator types enum?
               "extraValidators": [
                 {
                   "type": "VerifaiDocumentCountryWhitelistValidator",
                   "countryList": [
                     "NL"
                   ]
+                },
+                {
+                  "type": "VerifaiDocumentCountryBlackListValidator",
+                  "countryList": [
+                    "BE"
+                  ]
+                },
+                {
+                  "type": "VerifaiDocumentHasMrzValidator"
+                },
+                {
+                  "type": "VerifaiDocumentTypesValidator",
+                  "validDocumentTypes": [
+                    // Enums?
+                    "idCard",
+                    "passport",
+                    "residencePermitTypeII"
+                  ]
+                },
+                {
+                  "type": "VerifaiMrzAvailableValidator",
+                },
+                {
+                  "type": "VerifaiNFCKeyWhenAvailableValidator",
                 }
-              ]
+              ],
+              "documentFilters": [
+                {
+                  "type": "VerifaiDocumentTypeWhiteListFilter",
+                  "validDocumentTypes": [
+                    // Enums?
+                    "idCard",
+                    "passport",
+                    "residencePermitTypeII"
+                  ]
+                },
+                {
+                  "type": "VerifaiDocumentWhiteListFilter",
+                  "countryCodes": [
+                    "NL"
+                  ]
+                },
+                {
+                  "type": "VerifaiDocumentBlackListFilter",
+                  "countryCodes": [
+                    "BE"
+                  ]
+                }
+              ],
+              "documentFiltersAutoCreateValidators": true,
+              "customDismissButtonTitle": null,
             })
             Core.start()
           }

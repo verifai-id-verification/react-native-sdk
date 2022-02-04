@@ -12,7 +12,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C69FEB60CA86457D798F29E7 /* libPods-VerifaiCoreReactNativeExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F551A7CA7879AC6E26213BAA /* libPods-VerifaiCoreReactNativeExample.a */; };
-		E3FFBD4227A8226000DB0A1B /* DemoMp4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E3FFBD4127A8226000DB0A1B /* DemoMp4.mp4 */; };
+		E3142DD027AD3B97006D46C1 /* DemoMp4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E3142DCF27AD3B97006D46C1 /* DemoMp4.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,8 +25,8 @@
 		3F1C31B61F20AC9E219E2696 /* Pods-VerifaiCoreReactNativeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiCoreReactNativeExample.debug.xcconfig"; path = "Target Support Files/Pods-VerifaiCoreReactNativeExample/Pods-VerifaiCoreReactNativeExample.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VerifaiCoreReactNativeExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		940D09F6511DBDDF06F322C0 /* Pods-VerifaiCoreReactNativeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VerifaiCoreReactNativeExample.release.xcconfig"; path = "Target Support Files/Pods-VerifaiCoreReactNativeExample/Pods-VerifaiCoreReactNativeExample.release.xcconfig"; sourceTree = "<group>"; };
+		E3142DCF27AD3B97006D46C1 /* DemoMp4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DemoMp4.mp4; sourceTree = "<group>"; };
 		E3DC8C9E27A04F3D0055E75C /* VerifaiCoreReactNativeExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VerifaiCoreReactNativeExample.entitlements; path = VerifaiCoreReactNativeExample/VerifaiCoreReactNativeExample.entitlements; sourceTree = "<group>"; };
-		E3FFBD4127A8226000DB0A1B /* DemoMp4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DemoMp4.mp4; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F551A7CA7879AC6E26213BAA /* libPods-VerifaiCoreReactNativeExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VerifaiCoreReactNativeExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,8 +50,8 @@
 				E3DC8C9E27A04F3D0055E75C /* VerifaiCoreReactNativeExample.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				E3FFBD4127A8226000DB0A1B /* DemoMp4.mp4 */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				E3142DCF27AD3B97006D46C1 /* DemoMp4.mp4 */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -169,7 +169,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3FFBD4227A8226000DB0A1B /* DemoMp4.mp4 in Resources */,
+				E3142DD027AD3B97006D46C1 /* DemoMp4.mp4 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);

@@ -12,4 +12,6 @@ public enum RNError: Error {
     case invalidUrl
     case invalidValuesSupplied
     case invalidLivenessCheck
+    case invalidValidator
+    case invalidDocumentFilter
 }

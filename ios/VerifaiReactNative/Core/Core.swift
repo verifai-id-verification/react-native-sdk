@@ -14,7 +14,6 @@ public class Core: NSObject {
   
   // MARK: - Properties
   private let encoder = JSONEncoder()
-  private let globalConfiguration = VerifaiConfiguration()
   
   // MARK: - Listeners
   private var successListener: RCTResponseSenderBlock?
@@ -83,61 +82,14 @@ public class Core: NSObject {
   /// to configuration values
   @objc(configure:)
   public func configure(_ configuration: NSDictionary) {
-    dump(configuration)
-    // Main settings
-    if let requireDocumentCopy = configuration.value(forKey: "requireDocumentCopy") as? Bool {
-      globalConfiguration.requireDocumentCopy = requireDocumentCopy
-    }
-    if let requireCroppedImage = configuration.value(forKey: "requireCroppedImage") as? Bool {
-      globalConfiguration.requireCroppedImage = requireCroppedImage
-    }
-    if let enablePostCropping = configuration.value(forKey: "enablePostCropping") as? Bool {
-      globalConfiguration.enablePostCropping = enablePostCropping
-    }
-    if let enableManual = configuration.value(forKey: "enableManual") as? Bool {
-      globalConfiguration.enableManual = enableManual
-    }
-    if let requireMRZContents = configuration.value(forKey: "requireMRZContents") as? Bool {
-      globalConfiguration.requireMRZContents = requireMRZContents
-    }
-    if let readMRZContents = configuration.value(forKey: "readMRZContents") as? Bool {
-      globalConfiguration.readMRZContents = readMRZContents
-    }
-    if let requireNFCWhenAvailable = configuration.value(forKey: "requireNFCWhenAvailable") as? Bool {
-      globalConfiguration.requireNFCWhenAvailable = requireNFCWhenAvailable
-    }
-    if let enableVisualInspection = configuration.value(forKey: "enableVisualInspection") as? Bool {
-      globalConfiguration.enableVisualInspection = enableVisualInspection
-    }
-    if let documentFiltersAutoCreateValidators = configuration.value(
-      forKey: "documentFiltersAutoCreateValidators") as? Bool {
-      globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
-    }
-    if let scanDuration = configuration.value(forKey: "scanDuration") as? Double {
-      globalConfiguration.scanDuration = scanDuration
-    }
-    if let customDismissButtonTitle = configuration.value(forKey: "customDismissButtonTitle") as? String {
-      globalConfiguration.customDismissButtonTitle = customDismissButtonTitle
-    }
-    if let documentFiltersAutoCreateValidators = configuration.value(
-      forKey: "documentFiltersAutoCreateValidators") as? Bool {
-      globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
-    }
-    
-    globalConfiguration.instructionScreenConfiguration = try! VerifaiInstructionScreenConfiguration(showInstructionScreens: false)
-    
-    try! Verifai.configure(with: globalConfiguration)
-    
-    
-    //    public var validators: [VerifaiKit.VerifaiValidator]
-    //
-    //    public var documentFilters: [VerifaiKit.VerifaiDocumentFilter]
-    
-    
-    
-    //    public var instructionScreenConfiguration: VerifaiKit.VerifaiInstructionScreenConfiguration
-    //
-    //    public var scanHelpConfiguration: VerifaiKit.VerifaiScanHelpConfiguration
+      do {
+          // Setup the core's configuration
+          let coreConfiguration = try CoreConfiguration(configuration:configuration)
+          // Set it
+          try Verifai.configure(with: coreConfiguration.globalConfiguration)
+      } catch {
+          handleError(message: "🚫 Error in configuration: \(error)")
+      }
   }
   
   // MARK: - Core
