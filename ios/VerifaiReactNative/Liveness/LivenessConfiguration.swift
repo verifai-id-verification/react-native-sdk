@@ -53,6 +53,7 @@ struct LivenessConfiguration {
                     }
                 }
             }
+            self.requirements = livenessChecks
         }
     }
     
