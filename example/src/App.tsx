@@ -5,7 +5,10 @@ import {
   Core, Liveness, NFC,
   LivenessCheck,
   VerifaiInstructionScreenId,
-  VerifaiInstructionType
+  VerifaiInstructionType,
+  VerifaiValidatorType,
+  VerifaiDocumentType,
+  FaceMatchImageSource
 } from 'verifai-react-native-sdk';
 
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
@@ -88,48 +91,46 @@ export default function App() {
                 "customScanHelpScreenInstructions": "Our own custom instruction",
                 "customScanHelpScreenMp4FileName": "DemoMp4"
               },
-              // Why is this called extraValidators and not just validators?
-              // Validator types enum?
-              "extraValidators": [
+              // Example of adding validators
+              "validators": [
                 {
-                  "type": "VerifaiDocumentCountryWhitelistValidator",
+                  "type": VerifaiValidatorType.DocumentCountryWhitelist,
                   "countryList": [
                     "NL"
                   ]
                 },
                 {
-                  "type": "VerifaiDocumentCountryBlackListValidator",
+                  "type": VerifaiValidatorType.DocumentCountryBlackList,
                   "countryList": [
                     "BE"
                   ]
                 },
                 {
-                  "type": "VerifaiDocumentHasMrzValidator"
+                  "type": VerifaiValidatorType.DocumentHasMrz
                 },
                 {
-                  "type": "VerifaiDocumentTypesValidator",
+                  "type": VerifaiValidatorType.DocumentTypes,
                   "validDocumentTypes": [
-                    // Enums?
-                    "idCard",
-                    "passport",
-                    "residencePermitTypeII"
+                    VerifaiDocumentType.idCard,
+                    VerifaiDocumentType.passport,
+                    VerifaiDocumentType.driversLicence
                   ]
                 },
                 {
-                  "type": "VerifaiMrzAvailableValidator",
+                  "type": VerifaiValidatorType.MrzAvailable,
                 },
                 {
-                  "type": "VerifaiNFCKeyWhenAvailableValidator",
+                  "type": VerifaiValidatorType.NFCKeyWhenAvailable,
                 }
               ],
+              // Setting document filters example
               "documentFilters": [
                 {
                   "type": "VerifaiDocumentTypeWhiteListFilter",
                   "validDocumentTypes": [
-                    // Enums?
-                    "idCard",
-                    "passport",
-                    "residencePermitTypeII"
+                    VerifaiDocumentType.idCard,
+                    VerifaiDocumentType.passport,
+                    VerifaiDocumentType.driversLicence
                   ]
                 },
                 {
@@ -160,7 +161,6 @@ export default function App() {
           () => {
             Liveness.setOnSuccess(livenessListener.onSuccess)
             Liveness.setOnError(livenessListener.onError)
-            // Inform Jeroen about changing this from an array to a dictionary
             Liveness.start({
               "resultOutputDirectory": RNFS.DocumentDirectoryPath,
               "showDismissButton": true,
@@ -183,9 +183,8 @@ export default function App() {
                   "instruction": "Please say the following words"
                 },
                 {
-                  "check": LivenessCheck.FaceMatching, 
-                  // Why aren't these enums?
-                  "imageType": "doc" // or "nfc"
+                  "check": LivenessCheck.FaceMatching,
+                  "ImageSource": FaceMatchImageSource.documentScan
                 }
               ]
             })

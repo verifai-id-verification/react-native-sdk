@@ -108,25 +108,25 @@ struct LivenessConfiguration {
     /// - Parameter checkData: The data with the values for the check
     /// - Returns: A native face matching check or throws an error if some of the data is invalid
     private func buildFaceMatchingCheck(checkData: NSDictionary) throws -> VerifaiFaceMatchingLivenessCheck {
-        let imageType = checkData.value(forKey: "imageType") as? String ?? "doc"
+        let imageSource = checkData.value(forKey: "imageSource") as? Int ?? 0
         let instruction = checkData.value(forKey: "instruction") as? String ?? nil
         // Determine if we need to use the document or the NFC image
-        switch imageType {
-        case "nfc":
-            // Ensure there's an image
-            guard let nfcImage = VerifaiResultSingleton.shared.nfcImage else {
-                throw RNError.invalidLivenessCheck
-            }
-            let check = VerifaiFaceMatchingLivenessCheck(documentImage: nfcImage,
-                                                         instruction: instruction)
-            return check
-        case "doc":
+        switch imageSource {
+        case 0:
             // Ensure there's a result
             guard let currentResult = VerifaiResultSingleton.shared.currentResult,
                   let frontImage = currentResult.frontImage else {
                       throw RNError.invalidLivenessCheck
             }
             let check = VerifaiFaceMatchingLivenessCheck(documentImage: frontImage,
+                                                         instruction: instruction)
+            return check
+        case 1:
+            // Ensure there's an image
+            guard let nfcImage = VerifaiResultSingleton.shared.nfcImage else {
+                throw RNError.invalidLivenessCheck
+            }
+            let check = VerifaiFaceMatchingLivenessCheck(documentImage: nfcImage,
                                                          instruction: instruction)
             return check
         default:

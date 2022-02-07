@@ -54,7 +54,7 @@ struct CoreConfiguration {
             globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
         }
         // Validator configuration
-        if let validators = configuration.value(forKey: "extraValidators") as? NSArray {
+        if let validators = configuration.value(forKey: "validators") as? NSArray {
             globalConfiguration.validators = try processValidators(validatorArray: validators)
         }
         // Document filter configuration
@@ -197,23 +197,32 @@ struct CoreConfiguration {
         // Go trough the validator list and convert them to their native counterparts
         for i in validatorArray {
             if let validator = i as? NSDictionary {
-                let type = validator.value(forKey: "type") as? String ?? ""
+                // Get the type of validator
+                guard let type = validator.value(forKey: "type") as? Int else {
+                    throw RNError.invalidValidator
+                }
                 switch type {
-                case "VerifaiDocumentCountryWhitelistValidator":
+                case 0:
+                    // VerifaiDocumentCountryWhitelistValidator
                     let countryList = validator.value(forKey: "countryList") as? [String] ?? []
                     validatorHolder.append(VerifaiDocumentCountryWhiteListValidator(countries: countryList))
-                case "VerifaiDocumentCountryBlackListValidator":
+                case 1:
+                    // VerifaiDocumentCountryBlackListValidator
                     let countryList = validator.value(forKey: "countryList") as? [String] ?? []
                     validatorHolder.append(VerifaiDocumentCountryBlackListValidator(countries: countryList))
-                case "VerifaiDocumentHasMrzValidator":
+                case 2:
+                    // VerifaiDocumentHasMrzValidator
                     validatorHolder.append(VerifaiDocumentHasMrzValidator())
-                case "VerifaiDocumentTypesValidator":
-                    let validDocumentTypes = validator.value(forKey: "validDocumentTypes") as? [String] ?? []
+                case 3:
+                    // VerifaiDocumentTypesValidator
+                    let validDocumentTypes = validator.value(forKey: "validDocumentTypes") as? [Int] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
                     validatorHolder.append(VerifaiDocumentTypesValidator(validDocumentTypes: nativeValidTypes))
-                case "VerifaiMrzAvailableValidator":
+                case 4:
+                    // VerifaiMrzAvailableValidator
                     validatorHolder.append(VerifaiMrzAvailableValidator())
-                case "VerifaiNFCKeyWhenAvailableValidator":
+                case 5:
+                    // VerifaiNFCKeyWhenAvailableValidator
                     validatorHolder.append(VerifaiNFCKeyWhenAvailableValidator())
                 default:
                     throw RNError.invalidValidator
@@ -224,29 +233,29 @@ struct CoreConfiguration {
     }
     
     /// Process an array of string based document types coming from react native
-    /// - Parameter validDocumentTypes: An array of strings representing the document types
+    /// - Parameter validDocumentTypes: An array of ints representing the document types
     /// - Returns: An array of native document types, or an invalid validator error
-    private func getNativeDocumentTypes(in validDocumentTypes: [String]) throws -> [VerifaiDocumentType] {
+    private func getNativeDocumentTypes(in validDocumentTypes: [Int]) throws -> [VerifaiDocumentType] {
         var typesHolder: [VerifaiDocumentType] = []
         for validType in validDocumentTypes {
             switch validType {
-            case "idCard":
+            case 0:
                 typesHolder.append(.idCard)
-            case "driversLicence":
+            case 1:
                 typesHolder.append(.driversLicence)
-            case "passport":
+            case 2:
                 typesHolder.append(.passport)
-            case "refugee":
+            case 3:
                 typesHolder.append(.refugee)
-            case "emergencyPassport":
+            case 4:
                 typesHolder.append(.emergencyPassport)
-            case "residencePermitTypeI":
+            case 5:
                 typesHolder.append(.residencePermitTypeI)
-            case "residencePermitTypeII":
+            case 6:
                 typesHolder.append(.residencePermitTypeII)
-            case "visa":
+            case 7:
                 typesHolder.append(.visa)
-            case "unknown":
+            case 8:
                 typesHolder.append(.unknown)
             default:
                 throw RNError.invalidValidator
@@ -264,7 +273,7 @@ struct CoreConfiguration {
                 let type = documentFilter.value(forKey: "type") as? String ?? ""
                 switch type {
                 case "VerifaiDocumentTypeWhiteListFilter":
-                    let validDocumentTypes = documentFilter.value(forKey: "validDocumentTypes") as? [String] ?? []
+                    let validDocumentTypes = documentFilter.value(forKey: "validDocumentTypes") as? [Int] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
                     let documentTypeFilter = VerifaiDocumentTypeWhiteListFilter(validDocumentTypes: nativeValidTypes)
                     documentFilterHolder.append(documentTypeFilter)

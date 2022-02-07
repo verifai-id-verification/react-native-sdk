@@ -40,9 +40,38 @@ enum VerifaiInstructionType {
   HIDDEN
 }
 
+enum VerifaiValidatorType {
+  DocumentCountryWhitelist = 0,
+  DocumentCountryBlackList,
+  DocumentHasMrz,
+  DocumentTypes,
+  MrzAvailable,
+  NFCKeyWhenAvailable
+}
+
+enum VerifaiDocumentType {
+  idCard = 0,
+  driversLicence,
+  passport,
+  refugee,
+  emergencyPassport,
+  residencePermitTypeI,
+  residencePermitTypeII,
+  visa,
+  unknown
+}
+
+enum FaceMatchImageSource {
+  documentScan = 0,
+  nfc
+}
+
 export {
   Core, Liveness, NFC,
   LivenessCheck,
   VerifaiInstructionScreenId,
-  VerifaiInstructionType
+  VerifaiInstructionType,
+  VerifaiValidatorType,
+  VerifaiDocumentType,
+  FaceMatchImageSource
 };
