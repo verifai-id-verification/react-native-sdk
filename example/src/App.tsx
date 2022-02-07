@@ -7,6 +7,7 @@ import {
   VerifaiInstructionScreenId,
   VerifaiInstructionType,
   VerifaiValidatorType,
+  VerifaiDocumentFilterType,
   VerifaiDocumentType,
   FaceMatchImageSource
 } from 'verifai-react-native-sdk';
@@ -126,7 +127,7 @@ export default function App() {
               // Setting document filters example
               "documentFilters": [
                 {
-                  "type": "VerifaiDocumentTypeWhiteListFilter",
+                  "type": VerifaiDocumentFilterType.DocumentTypeWhiteList,
                   "validDocumentTypes": [
                     VerifaiDocumentType.idCard,
                     VerifaiDocumentType.passport,
@@ -134,13 +135,13 @@ export default function App() {
                   ]
                 },
                 {
-                  "type": "VerifaiDocumentWhiteListFilter",
+                  "type": VerifaiDocumentFilterType.DocumentWhiteList,
                   "countryCodes": [
                     "NL"
                   ]
                 },
                 {
-                  "type": "VerifaiDocumentBlackListFilter",
+                  "type": VerifaiDocumentFilterType.DocumentBlackList,
                   "countryCodes": [
                     "BE"
                   ]

@@ -49,6 +49,12 @@ enum VerifaiValidatorType {
   NFCKeyWhenAvailable
 }
 
+enum VerifaiDocumentFilterType {
+  DocumentTypeWhiteList = 0,
+  DocumentWhiteList,
+  DocumentBlackList,
+}
+
 enum VerifaiDocumentType {
   idCard = 0,
   driversLicence,
@@ -72,6 +78,7 @@ export {
   VerifaiInstructionScreenId,
   VerifaiInstructionType,
   VerifaiValidatorType,
+  VerifaiDocumentFilterType,
   VerifaiDocumentType,
   FaceMatchImageSource
 };

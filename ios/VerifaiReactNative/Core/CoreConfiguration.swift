@@ -265,22 +265,32 @@ struct CoreConfiguration {
     }
     
     // MARK: Document Filters
+    
+    /// Process document filters dictionary coming from the react native side into
+    /// something the native SDK can understand
+    /// - Parameter documentFilterArray: The array with values coming from the react native side
+    /// - Returns: A native Verifai document filter array that can be set in the native configuration
     private func processDocumentFilters(documentFilterArray: NSArray) throws -> [VerifaiDocumentFilter] {
         var documentFilterHolder: [VerifaiDocumentFilter] = []
         // Go trough the validator list and convert them to their native counterparts
         for i in documentFilterArray {
             if let documentFilter = i as? NSDictionary {
-                let type = documentFilter.value(forKey: "type") as? String ?? ""
+                guard let type = documentFilter.value(forKey: "type") as? Int else {
+                    throw RNError.invalidDocumentFilter
+                }
                 switch type {
-                case "VerifaiDocumentTypeWhiteListFilter":
+                case 0:
+                    // VerifaiDocumentTypeWhiteListFilter
                     let validDocumentTypes = documentFilter.value(forKey: "validDocumentTypes") as? [Int] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
                     let documentTypeFilter = VerifaiDocumentTypeWhiteListFilter(validDocumentTypes: nativeValidTypes)
                     documentFilterHolder.append(documentTypeFilter)
-                case "VerifaiDocumentWhiteListFilter":
+                case 1:
+                    // VerifaiDocumentWhiteListFilter
                     let countryCodes = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
                     documentFilterHolder.append(VerifaiDocumentWhiteListFilter(countryCodes: countryCodes))
-                case "VerifaiDocumentBlackListFilter":
+                case 2:
+                    // VerifaiDocumentBlackListFilter
                     let countryCodes = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
                     documentFilterHolder.append(VerifaiDocumentBlackListFilter(countryCodes: countryCodes))
                 default:
