@@ -113,7 +113,7 @@ struct LivenessConfiguration {
         // Determine if we need to use the document or the NFC image
         switch imageSource {
         case 0:
-            // Ensure there's a result
+            // Ensure there's a result with a front image
             guard let currentResult = VerifaiResultSingleton.shared.currentResult,
                   let frontImage = currentResult.frontImage else {
                       throw RNError.invalidLivenessCheck
@@ -122,7 +122,7 @@ struct LivenessConfiguration {
                                                          instruction: instruction)
             return check
         case 1:
-            // Ensure there's an image
+            // Ensure there's an NFC image
             guard let nfcImage = VerifaiResultSingleton.shared.nfcImage else {
                 throw RNError.invalidLivenessCheck
             }
