@@ -14,15 +14,11 @@ var RNFS = require('react-native-fs');
 
 export default function App() {
   const coreListener = {
-    onSuccess: (result: string) => {
-      // Todo: Bespreek having to parse this with Jeroen
-      // React type voor return
-      let resultObject = JSON.parse(result);
-      console.log(resultObject.frontImage.mWidth / resultObject.frontImage.mHeight);
+    onSuccess: (result: Object) => {
       try {
         setImgProp({
-          uri: "data:image/png;base64," + resultObject.frontImage.data,
-          aspectRatio: resultObject.frontImage.mWidth / resultObject.frontImage.mHeight,
+          uri: "data:image/png;base64," + result.frontImage.data,
+          aspectRatio: result.frontImage.mWidth / result.frontImage.mHeight,
         })
       } catch (e) {
         console.log("Likely no front image")

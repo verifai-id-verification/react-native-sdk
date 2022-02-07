@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - Errors
 public enum RNError: Error {
+    case unableToCreateResult
     case invalidUrl
     case invalidValuesSupplied
     case invalidLivenessCheck

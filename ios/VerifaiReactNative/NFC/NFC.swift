@@ -28,7 +28,7 @@ public class NFC: NSObject {
     /// Handle the success call by checking if there's a listener and otherwise informing
     /// the dev via a print if this is not the case
     /// - Parameter message: The response message to be sent trough the listener
-    private func handleSuccess(message: String) {
+    private func handleSuccess(message: NSDictionary) {
         guard let successListener = successListener else {
             print("No success listener has been set, please set one")
             return
@@ -110,10 +110,14 @@ public class NFC: NSObject {
     
     /// Prepare NFC result into something react native can understand
     /// - Parameter result: The result coming from the NFC module
-    private func prepareNFCResult(result: VerifaiNFCResult) throws -> String {
-      // Front image
-      let data = try self.encoder.encode(VerifaiNFCReactNativeResult(nfcResult: result))
-      return String(data: data, encoding: .utf8) ?? "Unable to create success object"
+    private func prepareNFCResult(result: VerifaiNFCResult) throws -> NSDictionary {
+        // Goal is to transform the codable object into JSON data and then use native iOS
+        // conversion to NSDictionary
+        let data = try self.encoder.encode(VerifaiNFCReactNativeResult(nfcResult: result))
+        guard let dictionary = try JSONSerialization.jsonObject(with: data,
+                                                                options: .fragmentsAllowed) as? [String: Any] else  {
+            throw RNError.unableToCreateResult
+        }
+        return NSDictionary(dictionary: dictionary)
     }
-    
 }
