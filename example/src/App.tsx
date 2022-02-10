@@ -72,8 +72,8 @@ export default function App() {
                 "showInstructionScreens": false,
                 "instructionScreens": [
                   {
-                    "screen": VerifaiInstructionScreenId.MRZ_PRESENT_FLOW_INSTRUCTION, 
-                    "type": VerifaiInstructionType.MEDIA, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
+                    "screen": VerifaiInstructionScreenId.MrzPresentFlowInstruction,
+                    "type": VerifaiInstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
                     // Values for both MEDIA and WEB based instruction screens
                     "title": "Custom Instruction",
                     "continueButtonLabel": "Let's do it!",
@@ -112,9 +112,9 @@ export default function App() {
                 {
                   "type": VerifaiValidatorType.DocumentTypes,
                   "validDocumentTypes": [
-                    VerifaiDocumentType.idCard,
-                    VerifaiDocumentType.passport,
-                    VerifaiDocumentType.driversLicence
+                    VerifaiDocumentType.IdCard,
+                    VerifaiDocumentType.Passport,
+                    VerifaiDocumentType.DriversLicence
                   ]
                 },
                 {
@@ -129,9 +129,9 @@ export default function App() {
                 {
                   "type": VerifaiDocumentFilterType.DocumentTypeWhiteList,
                   "validDocumentTypes": [
-                    VerifaiDocumentType.idCard,
-                    VerifaiDocumentType.passport,
-                    VerifaiDocumentType.driversLicence
+                    VerifaiDocumentType.IdCard,
+                    VerifaiDocumentType.Passport,
+                    VerifaiDocumentType.DriversLicence
                   ]
                 },
                 {
@@ -168,24 +168,24 @@ export default function App() {
               "customDismissButtonTitle": "Close",
               "checks": [
                 {
-                  "check": LivenessCheck.CloseEyes, 
-                  "numberOfSeconds": 5, 
+                  "check": LivenessCheck.CloseEyes,
+                  "numberOfSeconds": 5,
                   "instruction": "Close your eyes for at least 5 seconds"
                 },
                 {
-                  "check": LivenessCheck.Tilt, 
-                  "faceAngleRequirement": 25, 
+                  "check": LivenessCheck.Tilt,
+                  "faceAngleRequirement": 25,
                   "instruction": "Tilt your head until the green line is reached"
                 },
                 {
-                  "check": LivenessCheck.Speech, 
-                  "speechRequirement": "apple banana pizza", 
-                  "locale": "en-US", 
+                  "check": LivenessCheck.Speech,
+                  "speechRequirement": "apple banana pizza",
+                  "locale": "en-US",
                   "instruction": "Please say the following words"
                 },
                 {
                   "check": LivenessCheck.FaceMatching,
-                  "ImageSource": FaceMatchImageSource.documentScan
+                  "ImageSource": FaceMatchImageSource.DocumentScan
                 }
               ]
             })
@@ -201,7 +201,7 @@ export default function App() {
             NFC.setOnSuccess(nfcListener.onSuccess)
             NFC.setOnCancelled(nfcListener.onCancelled)
             NFC.setOnError(nfcListener.onError)
-            NFC.start({ 
+            NFC.start({
               "retrieveImage": true,
               "showDismissButton": true,
               "customDismissButtonTitle": "Close",
@@ -211,7 +211,7 @@ export default function App() {
                 "instructionScreens": [
                   {
                     "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
-                    "type": VerifaiInstructionType.MEDIA, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
+                    "type": VerifaiInstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
                     // Values for both MEDIA and WEB based instruction screens
                     "title": "Custom NFC Instruction",
                     "continueButtonLabel": "Let's do it!",
