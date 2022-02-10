@@ -15,25 +15,25 @@ public class NFC: NSObject {
     private let encoder = JSONEncoder()
     
     // MARK: - Listeners
-    private var successListener: RCTResponseSenderBlock?
-    private var errorListener: RCTResponseSenderBlock?
+    private var onSuccessListener: RCTResponseSenderBlock?
+    private var onErrorListener: RCTResponseSenderBlock?
     
     /// On success listener for the Core
     /// - Parameter listener: The success listener
     @objc(setOnSuccess:)
     public func setOnSuccess(_ listener: @escaping RCTResponseSenderBlock) {
-        self.successListener = listener
+        self.onSuccessListener = listener
     }
     
     /// Handle the success call by checking if there's a listener and otherwise informing
     /// the dev via a print if this is not the case
     /// - Parameter message: The response message to be sent trough the listener
     private func handleSuccess(message: NSDictionary) {
-        guard let successListener = successListener else {
+        guard let onSuccessListener = onSuccessListener else {
             print("No success listener has been set, please set one")
             return
         }
-        successListener([message])
+        onSuccessListener([message])
     }
     
     /// On cancel listener for the Core, iOS does not currently use this but we have it to have ensure interface equality
@@ -46,18 +46,18 @@ public class NFC: NSObject {
     /// - Parameter listener: The error listener
     @objc(setOnError:)
     public func setOnError(_ listener: @escaping RCTResponseSenderBlock) {
-        self.errorListener = listener
+        self.onErrorListener = listener
     }
     
     /// Handle the error call by checking if there's a listener and otherwise informing
     /// the dev via a print if this is not the case
     /// - Parameter message: The response message to be sent trough the listener
     private func handleError(message: String) {
-        guard let errorListener = errorListener else {
+        guard let onErrorListener = onErrorListener else {
             print("No error listener has been set, please set one")
             return
         }
-        errorListener([message])
+        onErrorListener([message])
     }
     
     // MARK: - NFC Module functions

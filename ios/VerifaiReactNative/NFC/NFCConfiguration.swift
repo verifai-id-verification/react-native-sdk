@@ -81,7 +81,7 @@ struct NFCConfiguration {
                         screenConfigurations[instructionScreen] = try nativeScreenValues(in: settings)
                     case 2:
                         // Web based instruction values
-                        screenConfigurations[instructionScreen] = try webScreenValues(in: settings)
+                        screenConfigurations[instructionScreen] = try getWebScreenValues(in: settings)
                     case 3:
                         // Hide the specific instruction screen
                         screenConfigurations[instructionScreen] = .hidden
@@ -120,7 +120,7 @@ struct NFCConfiguration {
     /// Get the instruction screen values for a web based instruction screen
     /// - Parameter settings: The settings dictionary that was passed
     /// - Returns: A screen configuration for a web based instruction screen
-    private func webScreenValues(in settings: NSDictionary) throws -> VerifaiNFCSingleInstructionScreenConfiguration {
+    private func getWebScreenValues(in settings: NSDictionary) throws -> VerifaiNFCSingleInstructionScreenConfiguration {
         // Find the values
         let title = settings.value(forKey: "title") as? String ?? ""
         let urlString = settings.value(forKey: "url") as? String ?? ""
