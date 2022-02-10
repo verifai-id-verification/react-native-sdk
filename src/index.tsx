@@ -27,17 +27,17 @@ enum LivenessCheck {
 }
 
 enum VerifaiInstructionScreenId {
-  MRZ_PRESENT_FLOW_INSTRUCTION = 0, // Also known as MO1
-  MRZ_SCAN_FLOW_INSTRUCTION, // Also known as MO2
-  MRZ_NOT_DETECTED_HINT, // Also known as MO6, The blue hint instruction screen
-  DOCUMENT_PICKER_HELP // The question mark button in the document picker
+  MrzPresentFlowInstruction = 0, // Also known as MO1
+  MrzScanFlowInstruction, // Also known as MO2
+  MrzNotDetectedHint, // Also known as MO6, The blue hint instruction screen
+  DocumentPickerHelp // The question mark button in the document picker
 }
 
 enum VerifaiInstructionType {
-  DEFAULT = 0,
-  MEDIA,
-  WEB,
-  HIDDEN
+  Default = 0,
+  Media,
+  Web,
+  Hidden
 }
 
 enum VerifaiValidatorType {
@@ -56,20 +56,20 @@ enum VerifaiDocumentFilterType {
 }
 
 enum VerifaiDocumentType {
-  idCard = 0,
-  driversLicence,
-  passport,
-  refugee,
-  emergencyPassport,
-  residencePermitTypeI,
-  residencePermitTypeII,
-  visa,
-  unknown
+  IdCard = 0,
+  DriversLicence,
+  Passport,
+  Refugee,
+  EmergencyPassport,
+  ResidencePermitTypeI,
+  ResidencePermitTypeII,
+  Visa,
+  Unknown
 }
 
 enum FaceMatchImageSource {
-  documentScan = 0,
-  nfc
+  DocumentScan = 0,
+  Nfc
 }
 
 export {
