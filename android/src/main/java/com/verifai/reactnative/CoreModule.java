@@ -304,26 +304,26 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     if (screenConfig.hasKey("showInstructionScreens")) {
                         showInstructionScreens = screenConfig.getBoolean("showInstructionScreens");
                     }
-                    if (screenConfig.hasKey("instructionScreens")) {
-                        ReadableArray instructionScreensList = screenConfig.getArray("instructionScreens");
-                        if (instructionScreensList != null) {
-                            HashMap<VerifaiInstructionScreenId, VerifaiSingleInstructionScreen> instructionSceenMap = new HashMap<>();
-                            for (int i = 0; i < instructionScreensList.size(); ++i) {
-                                ReadableMap screenMap = instructionScreensList.getMap(i);
-                                int screenId = screenMap.getInt("screenId");
-                                int type = screenMap.getInt("type");
-                                ReadableArray argList = screenMap.getArray("args");
-                                ArrayList<Object> argArray = new ArrayList<>();
-                                if (argList != null) {
-                                    argArray = argList.toArrayList();
-                                }
-                                VerifaiSingleInstructionScreen singleScreen =
-                                        new VerifaiSingleInstructionScreen(VerifaiInstructionType.values()[type], argArray.toArray(new Object[0]));
-                                instructionSceenMap.put(VerifaiInstructionScreenId.values()[screenId], singleScreen);
-                            }
-                            instructionScreenConfig.setInstructionScreens(instructionSceenMap);
-                        }
-                    }
+//                    if (screenConfig.hasKey("instructionScreens")) {
+//                        ReadableArray instructionScreensList = screenConfig.getArray("instructionScreens");
+//                        if (instructionScreensList != null) {
+//                            HashMap<VerifaiInstructionScreenId, VerifaiSingleInstructionScreen> instructionSceenMap = new HashMap<>();
+//                            for (int i = 0; i < instructionScreensList.size(); ++i) {
+//                                ReadableMap screenMap = instructionScreensList.getMap(i);
+//                                int screenId = screenMap.getInt("screen");
+//                                int type = screenMap.getInt("type");
+//                                ReadableArray argList = screenMap.getArray("args");
+//                                ArrayList<Object> argArray = new ArrayList<>();
+//                                if (argList != null) {
+//                                    argArray = argList.toArrayList();
+//                                }
+//                                VerifaiSingleInstructionScreen singleScreen =
+//                                        new VerifaiSingleInstructionScreen(VerifaiInstructionType.values()[type], argArray.toArray(new Object[0]));
+//                                instructionSceenMap.put(VerifaiInstructionScreenId.values()[screenId], singleScreen);
+//                            }
+//                            instructionScreenConfig.setInstructionScreens(instructionSceenMap);
+//                        }
+//                    }
                     instructionScreenConfig.setShowInstructionScreens(showInstructionScreens);
                 }
             }
