@@ -185,7 +185,7 @@ export default function App() {
                 },
                 {
                   "check": LivenessCheck.FaceMatching,
-                  "ImageSource": FaceMatchImageSource.DocumentScan
+                  "imageSource": FaceMatchImageSource.DocumentScan
                 }
               ]
             })
