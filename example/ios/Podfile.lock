@@ -340,7 +340,7 @@ PODS:
   - RNFS (2.18.0):
     - React
   - Verifai (5.1.1)
-  - verifai-react-native (1.0.0):
+  - verifai-react-native (0.0.1):
     - React-Core
     - Verifai (~> 5.1.1)
     - VerifaiLiveness (~> 5.1.1)
@@ -543,7 +543,7 @@ SPEC CHECKSUMS:
   ReactCommon: 57b69f6383eafcbd7da625bfa6003810332313c4
   RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
   Verifai: 7040b4f86b04b5a8acefce45585f754793a906d7
-  verifai-react-native: f5e5ef83d588626e0de91727d1934b765c85af61
+  verifai-react-native: 87ca4829595c0e662080fe070255be21bc77488e
   VerifaiLiveness: 8e25b8425652c9316ff830976b18368a1073299d
   VerifaiNFC: 670b62476e4d452aff384c116b2e64bd9068c891
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280

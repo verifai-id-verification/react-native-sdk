@@ -43,9 +43,6 @@ struct CoreConfiguration {
             forKey: "documentFiltersAutoCreateValidators") as? Bool {
             globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
         }
-        if let scanDuration = configuration.value(forKey: "scanDuration") as? Double {
-            globalConfiguration.scanDuration = scanDuration
-        }
         if let customDismissButtonTitle = configuration.value(forKey: "customDismissButtonTitle") as? String {
             globalConfiguration.customDismissButtonTitle = customDismissButtonTitle
         }
