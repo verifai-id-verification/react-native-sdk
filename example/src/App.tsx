@@ -10,7 +10,7 @@ import {
   VerifaiDocumentFilterType,
   VerifaiDocumentType,
   FaceMatchImageSource
-} from 'verifai-react-native-sdk';
+} from '@verifai/react-native-sdk';
 
 import { VERIFAI_LICENCE } from 'react-native-dotenv';
 
