@@ -1,6 +1,5 @@
 {
   "name": "@verifai/react-native-sdk",
-  "version": "0.0.1",
   "description": "Verifai React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
