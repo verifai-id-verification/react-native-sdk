@@ -7,7 +7,7 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:7.0.3'
+            classpath 'com.android.tools.build:gradle:7.1.1'
         }
     }
 }
@@ -23,8 +23,6 @@ android {
     defaultConfig {
         minSdkVersion safeExtGet('VerifaiCoreReactNative_minSdkVersion', 21)
         targetSdkVersion safeExtGet('VerifaiCoreReactNative_targetSdkVersion', 31)
-        versionCode 1
-        versionName "1.0"
 
     }
 
@@ -33,12 +31,12 @@ android {
             minifyEnabled false
         }
     }
-    lintOptions {
-        disable 'GradleCompatible'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        disable 'GradleCompatible'
     }
 }
 
