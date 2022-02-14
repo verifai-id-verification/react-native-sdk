@@ -54,11 +54,15 @@ repositories {
     jcenter()
 }
 
+ext {
+    verifai_version = "4.9.0"
+}
+
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    api "com.verifai:core:4.8.2"
-    implementation "com.verifai:liveness-check:4.8.2"
-    implementation "com.verifai:nfc:4.8.2"
+    api "com.verifai:core:$verifai_version"
+    implementation "com.verifai:liveness-check:$verifai_version"
+    implementation "com.verifai:nfc:$verifai_version"
 }
