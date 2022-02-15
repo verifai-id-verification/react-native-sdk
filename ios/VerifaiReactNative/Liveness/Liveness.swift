@@ -36,12 +36,6 @@ public class Liveness: NSObject {
         onSuccessListener([message])
     }
     
-    /// On cancel listener for the Core, iOS does not currently use this but we have it to have ensure interface equality
-    /// with android. Otherwise a react crash could occur
-    /// - Parameter listener: The cancel listener
-    @objc(setOnCancelled:)
-    public func setOnCancelled(_ listener: @escaping RCTResponseSenderBlock) { }
-    
     /// Set On Error listener for the Core
     /// - Parameter listener: The error listener
     @objc(setOnError:)

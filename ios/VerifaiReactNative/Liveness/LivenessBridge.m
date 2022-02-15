@@ -12,7 +12,6 @@
 
 // Listeners
 RCT_EXTERN_METHOD(setOnSuccess:(RCTResponseSenderBlock *));
-RCT_EXTERN_METHOD(setOnCancelled:(RCTResponseSenderBlock *));
 RCT_EXTERN_METHOD(setOnError:(RCTResponseSenderBlock *));
 
 // Liveness module functions

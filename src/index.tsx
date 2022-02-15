@@ -19,42 +19,48 @@ NativeModules.Core
 
 const { Core, Liveness, NFC } = NativeModules;
 
+// Enum of possible liveness checks
 enum LivenessCheck {
-  CloseEyes = 0,
-  Tilt,
-  Speech,
-  FaceMatching,
+  CloseEyes = 0, // Check where a user is asked to close their eyes for x amount of time
+  Tilt, // Check where a user is asked to tilt their head a certain amount of degrees
+  Speech, // Check where the user is asked to say certain words
+  FaceMatching, // Check where the user is asked to take a selfie and the face is matched with the one on the document or NFC
 }
 
+// Enum that describes an instruction screen
 enum VerifaiInstructionScreenId {
-  MrzPresentFlowInstruction = 0, // Also known as MO1
-  MrzScanFlowInstruction, // Also known as MO2
-  MrzNotDetectedHint, // Also known as MO6, The blue hint instruction screen
+  MrzPresentFlowInstruction = 0, // Instruction screen that explains how to check if the document has an MRZ
+  MrzScanFlowInstruction, // Instruction screen explaining what the MRZ is and where to scan it
+  MrzNotDetectedHint, // The text inside the blue hint instruction screen (Android only)
   DocumentPickerHelp // The question mark button in the document picker
 }
 
+// Enum that describes an instruction screen type
 enum VerifaiInstructionType {
-  Default = 0,
-  Media,
-  Web,
-  Hidden
+  Default = 0, // The Verifai default instruction screen
+  Media, // A native instruction screen with your own custom values, check the docs for more info
+  Web, // A instruction screen that opens and displays a URL provided by you. More info about this in the docs.
+  Hidden // Do not display the instruction screen
 }
 
+// Enum that describes a document Validator type
 enum VerifaiValidatorType {
-  DocumentCountryWhitelist = 0,
-  DocumentCountryBlackList,
-  DocumentHasMrz,
-  DocumentTypes,
-  MrzAvailable,
-  NFCKeyWhenAvailable
+  DocumentCountryWhitelist = 0, // Validator that only allows documents from the countries provided
+  DocumentCountryBlackList, // Validator that blocks the documents from the countries provided
+  DocumentHasMrz, // Validator that checks if document has an MRZ
+  DocumentTypes, // Validator that only validates certain document types
+  MrzAvailable, // Validator that requires the MRZ to be correct
+  NFCKeyWhenAvailable // Validators that ensure the NFC key if available is correct
 }
 
+// Enum that describes document filters that filter the available documents in the manual document selection flow
 enum VerifaiDocumentFilterType {
-  DocumentTypeWhiteList = 0,
-  DocumentWhiteList,
-  DocumentBlackList,
+  DocumentTypeWhiteList = 0, // Filter that only allows certain document types
+  DocumentWhiteList, // Filter that only allows documents from certain provided countries
+  DocumentBlackList, // Filter that blocks certain document countries
 }
 
+// Enum that describes certain document types
 enum VerifaiDocumentType {
   IdCard = 0,
   DriversLicence,
@@ -67,6 +73,7 @@ enum VerifaiDocumentType {
   Unknown
 }
 
+// Enum that describes the face image source to compare agains the selvie in the liveness check
 enum FaceMatchImageSource {
   DocumentScan = 0,
   Nfc
