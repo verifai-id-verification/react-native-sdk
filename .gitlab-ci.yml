@@ -1,0 +1,32 @@
+stages:
+  - build
+  - publish
+
+
+# --- Android Build, test, lint --- #
+
+android build sdk:
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:android-0.1
+  stage: build
+  artifacts:
+    expire_in: 8 hours
+    paths:
+      - example/android/app/build/outputs/apk/release
+  script:
+    - yarn
+    - cd example/android
+    - ./gradlew app:build
+
+
+# --- Publish --- #
+
+publish to npm:
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:android-0.1
+  stage: publish
+  only:
+    - /^v(\d+\.){2}(\d+)$/
+  when: manual
+  script:
+    - npm version --no-git-tag-version from-git
+    - npm set //registry.npmjs.org/:_authToken=$NPM_RELEASE_TOKEN
+    - npm publish --access public
