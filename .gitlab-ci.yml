@@ -21,7 +21,7 @@ android build sdk:
 # --- Publish --- #
 
 publish to npm:
-  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:android-0.1
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:node-0.1
   stage: publish
   only:
     - /^v(\d+\.){2}(\d+)$/
