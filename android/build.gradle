@@ -19,11 +19,14 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('VerifaiCoreReactNative_compileSdkVersion', 31)
+    compileSdkVersion safeExtGet('compileSdkVersion', 31)
+    // Only set buildToolsVersion if in rootproject, use default from AGP otherwise
+    if (rootProject.ext.has('buildToolsVersion')) {
+        buildToolsVersion rootProject.ext.get('buildToolsVersion')
+    }
     defaultConfig {
-        minSdkVersion safeExtGet('VerifaiCoreReactNative_minSdkVersion', 21)
-        targetSdkVersion safeExtGet('VerifaiCoreReactNative_targetSdkVersion', 31)
-
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 31)
     }
 
     buildTypes {
