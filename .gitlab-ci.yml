@@ -1,21 +1,39 @@
 stages:
+  - prepare
   - build
   - publish
 
 
-# --- Android Build, test, lint --- #
+# -- Prepare ---
+
+install npm dependencies:
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:node-0.1
+  stage: prepare
+  artifacts:
+    expire_in: 8 hours
+    paths:
+      - node_modules
+      - example/node_modules
+  script:
+    - yarn
+
+
+# --- Build ---
 
 android build sdk:
   image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:android-0.1
   stage: build
+  dependencies:
+    - install npm dependencies
   artifacts:
     expire_in: 8 hours
     paths:
       - example/android/app/build/outputs/apk/release
   script:
-    - yarn
     - cd example/android
     - ./gradlew app:build
+
+# ios build sdk: TODO
 
 
 # --- Publish --- #
@@ -23,6 +41,8 @@ android build sdk:
 publish to npm:
   image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:node-0.1
   stage: publish
+  dependencies:
+    - install npm dependencies
   only:
     - /^v(\d+\.){2}(\d+)$/
   when: manual
