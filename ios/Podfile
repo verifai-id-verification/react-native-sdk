@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-target 'VerifaiCoreReactNativeExample' do
+target 'VerifaiReactNative' do
   config = use_native_modules!
 
   use_react_native!(
@@ -12,26 +12,17 @@ target 'VerifaiCoreReactNativeExample' do
     :hermes_enabled => false
   )
   
-  pod 'verifai-react-native', :path => '../../'
   pod 'Verifai', '~> 5.1.1'
-  pod 'VerifaiNFC', :podspec => 'VerifaiNFC.podspec'
+  pod 'VerifaiNFC', '~> 5.1.1'
   pod 'VerifaiLiveness', '~> 5.1.1'
-  
-  # Liveness module needs FS access if you're planning on saving the file locally
-  pod 'RNFS', :path => '../node_modules/react-native-fs'
 
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  #use_flipper!()
 
   post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
-      end
-    end
     react_native_post_install(installer)
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end

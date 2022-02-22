@@ -1,0 +1,62 @@
+stages:
+  - prepare
+  - build
+  - publish
+
+
+# -- Prepare ---
+
+install npm dependencies:
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:node-0.1
+  stage: prepare
+  artifacts:
+    expire_in: 8 hours
+    paths:
+      - node_modules
+      - example/node_modules
+  script:
+    - yarn
+
+
+# --- Build ---
+
+android build sdk:
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:android-0.1
+  stage: build
+  dependencies:
+    - install npm dependencies
+  artifacts:
+    expire_in: 8 hours
+    paths:
+      - example/android/app/build/outputs/apk/release
+  script:
+    - cd example/android
+    - ./gradlew app:build
+
+ios build sdk:
+  tags:
+    - ios
+  stage: build
+  dependencies: []
+  artifacts:
+    expire_in: 8 hours
+    # paths:
+    #   -
+  script:
+    - echo 'TODO'
+
+
+# --- Publish --- #
+
+publish to npm:
+  image: registry.orange.dev/verifai/mobile-sdk/react-native-sdk:node-0.1
+  stage: publish
+  dependencies:
+    - install npm dependencies
+  only:
+    - /^v(\d+\.){2}(\d+)$/
+  when: manual
+  script:
+    - npm version --no-git-tag-version from-git
+    - npm set //registry.npmjs.org/:_authToken=$NPM_RELEASE_TOKEN
+    - npm publish --access public

@@ -29,6 +29,13 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# Ignore iOS Pods as React has over 35000 files in it
+ios/Pods/*
+
+#macOS DS_Store
+.DS_Store
+
+
 # Android/IJ
 #
 .classpath

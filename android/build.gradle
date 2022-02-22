@@ -7,7 +7,7 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:7.0.3'
+            classpath 'com.android.tools.build:gradle:7.1.1'
         }
     }
 }
@@ -19,13 +19,14 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('VerifaiCoreReactNative_compileSdkVersion', 31)
+    compileSdkVersion safeExtGet('compileSdkVersion', 31)
+    // Only set buildToolsVersion if in rootproject, use default from AGP otherwise
+    if (rootProject.ext.has('buildToolsVersion')) {
+        buildToolsVersion rootProject.ext.get('buildToolsVersion')
+    }
     defaultConfig {
-        minSdkVersion safeExtGet('VerifaiCoreReactNative_minSdkVersion', 21)
-        targetSdkVersion safeExtGet('VerifaiCoreReactNative_targetSdkVersion', 31)
-        versionCode 1
-        versionName "1.0"
-
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 31)
     }
 
     buildTypes {
@@ -33,12 +34,12 @@ android {
             minifyEnabled false
         }
     }
-    lintOptions {
-        disable 'GradleCompatible'
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        disable 'GradleCompatible'
     }
 }
 
@@ -56,11 +57,15 @@ repositories {
     jcenter()
 }
 
+ext {
+    verifai_version = "4.9.0"
+}
+
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    api "com.verifai:core:4.8.2"
-    implementation "com.verifai:liveness-check:4.8.2"
-    implementation "com.verifai:nfc:4.8.2"
+    api "com.verifai:core:$verifai_version"
+    implementation "com.verifai:liveness-check:$verifai_version"
+    implementation "com.verifai:nfc:$verifai_version"
 }

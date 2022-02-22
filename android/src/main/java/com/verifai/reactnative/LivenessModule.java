@@ -55,6 +55,11 @@ public class LivenessModule extends ReactContextBaseJavaModule {
         FaceMatching,
     }
 
+    enum FaceMatchImageSource {
+        DocumentScan,
+        Nfc
+    }
+
     public LivenessModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -128,7 +133,7 @@ public class LivenessModule extends ReactContextBaseJavaModule {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
-    public void start(ReadableArray args) {
+    public void start(ReadableMap args) {
         Activity activity = getCurrentActivity();
         if (activity == null) {
             Log.e(TAG, "No activity running");
@@ -143,130 +148,154 @@ public class LivenessModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        ArrayList<VerifaiLivenessCheck> checks = new ArrayList<>();
-        for (int i = 0; i < args.size(); i++) {
-            ReadableType type = args.getType(i);
-            if (type != ReadableType.Map) {
-                _onError.invoke("Argument should be an object");
-                return;
+        try {
+            boolean showDismissButton = false;
+            if (args.hasKey("showDismissButton")) {
+                showDismissButton = args.getBoolean("showDismissButton");
             }
 
-            ReadableMap argMap = args.getMap(i);
-            if (argMap.hasKey("check")) {
-                if (argMap.getType("check") == ReadableType.Number) {
-                    LivenessCheck check = LivenessCheck.values()[argMap.getInt("check")];
-                    switch (check) {
-                        case CloseEyes:
-                            if (argMap.hasKey("numberOfSeconds")) {
-                                if (argMap.getType("numberOfSeconds") == ReadableType.Number) {
-                                    checks.add(new CloseEyes(activity, argMap.getDouble("numberOfSeconds")));
-                                } else {
-                                    _onError.invoke("Argument 'numberOfSeconds' should be a number");
-                                    return;
-                                }
-                            } else {
-                                _onError.invoke("'Close eyes' should have 'numberOfSeconds' argument");
-                                return;
-                            }
-                            break;
-                        case Tilt:
-                            if (argMap.hasKey("faceAngleRequirement")) {
-                                if (argMap.getType("faceAngleRequirement") == ReadableType.Number) {
-                                    checks.add(new Tilt(activity, argMap.getInt("faceAngleRequirement")));
-                                } else {
-                                    _onError.invoke("Argument 'faceAngleRequirement' should be a number");
-                                    return;
-                                }
-                            } else {
-                                _onError.invoke("'Tilt' should have 'faceAngleRequirement' argument");
-                                return;
-                            }
-                            break;
-                        case Speech:
-                            if (argMap.hasKey("speechRequirement")) {
-                                if (argMap.getType("speechRequirement") == ReadableType.String) {
-                                    checks.add(new Speech(activity, Objects.requireNonNull(argMap.getString("speechRequirement"))));
-                                } else {
-                                    _onError.invoke("Argument 'speechRequirement' should be a string");
-                                    return;
-                                }
-                            } else {
-                                _onError.invoke("'Speech' should have 'speechRequirement' argument");
-                                return;
-                            }
-                            break;
-                        case FaceMatching:
-                            if (argMap.hasKey("imageType")) {
-                                if (argMap.getType("imageType") == ReadableType.String) {
-                                    String imageType = argMap.getString("imageType");
-                                    Bitmap image;
-                                    if (imageType.equals("nfc")) {
-                                        VerifaiNfcResult nfcResult = VerifaiNfcResultSingleton.getInstance().getResult();
-                                        if (nfcResult != null) {
-                                            image = nfcResult.getPhoto();
-                                            if (image != null) {
-                                                checks.add(new FaceMatching(activity, image));
+            ArrayList<VerifaiLivenessCheck> checks = new ArrayList<>();
+            if (args.hasKey("checks")) {
+                ReadableArray argChecks = args.getArray("checks");
+                if (argChecks != null) {
+                    for (int i = 0; i < argChecks.size(); i++) {
+                        ReadableMap argMap = argChecks.getMap(i);
+                        if (argMap.hasKey("check")) {
+                            if (argMap.getType("check") == ReadableType.Number) {
+                                LivenessCheck check = LivenessCheck.values()[argMap.getInt("check")];
+                                switch (check) {
+                                    case CloseEyes:
+                                        if (argMap.hasKey("numberOfSeconds")) {
+                                            if (argMap.getType("numberOfSeconds") == ReadableType.Number) {
+                                                CloseEyes closeEyes = new CloseEyes(activity, argMap.getDouble("numberOfSeconds"));
+                                                if (argMap.hasKey("instruction")) {
+                                                    closeEyes.setInstruction(Objects.requireNonNull(argMap.getString("instruction")));
+                                                }
+                                                checks.add(closeEyes);
                                             } else {
-                                                _onError.invoke("NFC result has no image");
-                                                continue; // Skip
+                                                _onError.invoke("Argument 'numberOfSeconds' should be a number");
+                                                return;
                                             }
                                         } else {
-                                            _onError.invoke("Result from nfc module is null");
+                                            _onError.invoke("'Close eyes' should have 'numberOfSeconds' argument");
                                             return;
                                         }
-                                    } else if (imageType.equals("doc")) {
-                                        VerifaiResult coreResult = VerifaiResultSingleton.getInstance().getResult();
-                                        if (coreResult != null) {
-                                            image = coreResult.getFrontImage();
-                                            if (image != null) {
-                                                checks.add(new FaceMatching(activity, image));
+                                        break;
+                                    case Tilt:
+                                        if (argMap.hasKey("faceAngleRequirement")) {
+                                            if (argMap.getType("faceAngleRequirement") == ReadableType.Number) {
+                                                Tilt tilt = new Tilt(activity, argMap.getInt("faceAngleRequirement"));
+                                                if (argMap.hasKey("instruction")) {
+                                                    tilt.setInstruction(Objects.requireNonNull(argMap.getString("instruction")));
+                                                }
+                                                checks.add(tilt);
                                             } else {
-                                                _onError.invoke("Result has no front image");
-                                                continue; // Skip
+                                                _onError.invoke("Argument 'faceAngleRequirement' should be a number");
+                                                return;
                                             }
                                         } else {
-                                            _onError.invoke("Result from core module is null");
+                                            _onError.invoke("'Tilt' should have 'faceAngleRequirement' argument");
                                             return;
                                         }
-                                    } else {
-                                        _onError.invoke("Argument 'imageTYpe' should be either 'nfc' or 'doc'");
+                                        break;
+                                    case Speech:
+                                        if (argMap.hasKey("speechRequirement")) {
+                                            if (argMap.getType("speechRequirement") == ReadableType.String) {
+                                                Speech speech = new Speech(activity, Objects.requireNonNull(argMap.getString("speechRequirement")));
+                                                if (argMap.hasKey("instruction")) {
+                                                    speech.setInstruction(Objects.requireNonNull(argMap.getString("instruction")));
+                                                }
+                                                checks.add(speech);
+                                            } else {
+                                                _onError.invoke("Argument 'speechRequirement' should be a string");
+                                                return;
+                                            }
+                                        } else {
+                                            _onError.invoke("'Speech' should have 'speechRequirement' argument");
+                                            return;
+                                        }
+                                        break;
+                                    case FaceMatching:
+                                        if (argMap.hasKey("imageSource")) {
+                                            if (argMap.getType("imageSource") == ReadableType.Number) {
+                                                int imgSource = argMap.getInt("imageSource");
+                                                FaceMatchImageSource imageSource = FaceMatchImageSource.values()[imgSource];
+                                                Bitmap image;
+                                                switch (imageSource) {
+                                                    case Nfc: {
+                                                        VerifaiNfcResult nfcResult = VerifaiNfcResultSingleton.getInstance().getResult();
+                                                        if (nfcResult != null) {
+                                                            image = nfcResult.getPhoto();
+                                                            if (image != null) {
+                                                                checks.add(new FaceMatching(activity, image));
+                                                            } else {
+                                                                _onError.invoke("NFC result has no image");
+                                                                continue; // Skip
+                                                            }
+                                                        } else {
+                                                            _onError.invoke("Result from nfc module is null");
+                                                            return;
+                                                        }
+                                                        break;
+                                                    }
+                                                    case DocumentScan: {
+                                                        VerifaiResult coreResult = VerifaiResultSingleton.getInstance().getResult();
+                                                        if (coreResult != null) {
+                                                            image = coreResult.getFrontImage();
+                                                            if (image != null) {
+                                                                checks.add(new FaceMatching(activity, image));
+                                                            } else {
+                                                                _onError.invoke("Result has no front image");
+                                                                continue; // Skip
+                                                            }
+                                                        } else {
+                                                            _onError.invoke("Result from core module is null");
+                                                            return;
+                                                        }
+                                                        break;
+                                                    }
+                                                    default: {
+                                                        _onError.invoke("Argument 'imageSource' should be either 'nfc' or 'doc'");
+                                                        return;
+                                                    }
+                                                }
+                                            } else {
+                                                _onError.invoke("'Face matching' should have 'imageSource' argument");
+                                                return;
+                                            }
+                                        }
+                                        break;
+                                    default:
+                                        _onError.invoke("Unexpected value: " + check.toString());
                                         return;
-                                    }
-                                } else {
-                                    _onError.invoke("Argument 'speechRequirement' should be a string");
-                                    return;
                                 }
-                            } else {
-                                _onError.invoke("'Face matching' should have 'imageType' argument");
-                                return;
                             }
-                            break;
-                        default:
-                            _onError.invoke("Unexpected value: " + check.toString());
+                        } else {
+                            _onError.invoke("'check' argument should be of type enum (number)");
                             return;
+                        }
                     }
-                } else {
-                    _onError.invoke("'check' argument should be of type enum (number)");
-                    return;
                 }
             }
+
+            VerifaiLivenessCheckListener resultListener = new VerifaiLivenessCheckListener() {
+                @Override
+                public void onResult(@NonNull VerifaiLivenessCheckResults results) {
+                    try {
+                        _onSuccess.invoke(convertLivenessResult(results));
+                    } catch (Exception e) {
+                        onError(e);
+                    }
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    _onError.invoke(throwable.getMessage());
+                }
+            };
+            VerifaiLiveness.start(activity, checks, resultListener);
+        } catch (Throwable e) {
+            _onError.invoke(e.getMessage());
         }
-
-        VerifaiLivenessCheckListener resultListener = new VerifaiLivenessCheckListener() {
-            @Override
-            public void onResult(@NonNull VerifaiLivenessCheckResults results) {
-                try {
-                    _onSuccess.invoke(convertLivenessResult(results));
-                } catch (Exception e) {
-                    onError(e);
-                }
-            }
-
-            @Override
-            public void onError(Throwable throwable) {
-                _onError.invoke(throwable.getMessage());
-            }
-        };
-        VerifaiLiveness.start(activity, checks, resultListener);
     }
 }

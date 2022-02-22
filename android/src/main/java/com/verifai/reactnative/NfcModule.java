@@ -143,7 +143,7 @@ public class NfcModule extends ReactContextBaseJavaModule {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
-    public void start() {
+    public void start(ReadableMap args) {
         Activity activity = getCurrentActivity();
         if (activity == null) {
             Log.e(TAG, "No activity running");
@@ -186,7 +186,26 @@ public class NfcModule extends ReactContextBaseJavaModule {
             return;
         }
 
-        VerifaiNfcResultSingleton.getInstance().setResult(null); // Reset possible previous result
-        VerifaiNfc.start(activity, result,true, nfcResultListener);
+        try {
+            boolean retrieveImage = true;
+            if (args.hasKey("retrieveImage")) {
+                retrieveImage = args.getBoolean("retrieveImage");
+            }
+
+            boolean showInstructionScreens = true;
+            if (args.hasKey("instructionScreenConfiguration")) {
+                ReadableMap instructionScreenConfig = args.getMap("instructionScreenConfiguration");
+                if (instructionScreenConfig != null) {
+                    if (instructionScreenConfig.hasKey("showInstructionScreens")) {
+                        showInstructionScreens = instructionScreenConfig.getBoolean("showInstructionScreens");
+                    }
+                }
+            }
+
+            VerifaiNfcResultSingleton.getInstance().setResult(null); // Reset possible previous result
+            VerifaiNfc.start(activity, result, retrieveImage, nfcResultListener, showInstructionScreens);
+        } catch (Throwable e) {
+            _onError.invoke(e.getMessage());
+        }
     }
 }

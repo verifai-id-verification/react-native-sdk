@@ -1,7 +1,6 @@
 {
-  "name": "verifai-react-native-sdk",
-  "version": "0.1.0",
-  "description": "Verifai Core module binding for React Native",
+  "name": "@verifai/react-native-sdk",
+  "description": "Verifai React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -34,15 +33,26 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "verifai",
+    "sdk",
+    "id",
+    "passport",
+    "mrz",
+    "identity",
+    "verification",
+    "check",
+    "authentication",
+    "face matching",
+    "digital"
   ],
-  "repository": "https://github.com/verifai-id-verification/verifai-core-react-native",
-  "author": "Jeroen Oomkes <jeroen.oomkes@verifai.com> (https://github.com/verifai-id-verification)",
-  "license": "MIT",
+  "repository": "https://github.com/verifai-id-verification/example-react-native",
+  "author": "Verifai",
+  "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/verifai-id-verification/verifai-core-react-native/issues"
+    "url": "https://support.verifai.com/"
   },
-  "homepage": "https://github.com/verifai-id-verification/verifai-core-react-native#readme",
+  "homepage": "https://docs.verifai.com/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

@@ -101,24 +101,52 @@ public class CoreModule extends ReactContextBaseJavaModule {
         return NAME;
     }
 
+    // This has to match the TypeScript enum in react native js part
+    enum VerifaiValidatorType {
+        DocumentCountryWhitelist,
+        DocumentCountryBlackList,
+        DocumentHasMrz,
+        DocumentTypes,
+        MrzAvailable,
+        NFCKeyWhenAvailable
+    }
+
+    enum VerifaiDocumentFilterType {
+        DocumentTypeWhiteList,
+        DocumentWhiteList,
+        DocumentBlackList,
+    }
+
+    enum VerifaiDocumentType {
+        IdCard,
+        DriversLicence,
+        Passport,
+        Refugee,
+        EmergencyPassport,
+        ResidencePermitTypeI,
+        ResidencePermitTypeII,
+        Visa,
+        Unknown
+    }
+
     private ArrayList<DocumentType> createDocumentTypeList(ReadableArray documentTypes) {
         ArrayList<DocumentType> documentTypesList = new ArrayList<>();
         if (documentTypes != null) {
             for (int j = 0; j < documentTypes.size(); ++j) {
-                switch (documentTypes.getString(j)) {
-                    case "PASSPORT":
+                switch (VerifaiDocumentType.values()[documentTypes.getInt(j)]) {
+                    case Passport:
                         documentTypesList.add(DocumentType.PASSPORT);
-                    case "IDENTITY_CARD":
+                    case IdCard:
                         documentTypesList.add(DocumentType.IDENTITY_CARD);
-                    case "REFUGEE_TRAVEL_DOCUMENT":
+                    case Refugee:
                         documentTypesList.add(DocumentType.REFUGEE_TRAVEL_DOCUMENT);
-                    case "EMERGENCY_PASSPORT":
+                    case EmergencyPassport:
                         documentTypesList.add(DocumentType.EMERGENCY_PASSPORT);
-                    case "RESIDENCE_PERMIT_I":
+                    case ResidencePermitTypeI:
                         documentTypesList.add(DocumentType.RESIDENCE_PERMIT_I);
-                    case "RESIDENCE_PERMIT_II":
+                    case ResidencePermitTypeII:
                         documentTypesList.add(DocumentType.RESIDENCE_PERMIT_II);
-                    case "VISA":
+                    case Visa:
                         documentTypesList.add(DocumentType.VISA);
                 }
             }
@@ -130,44 +158,45 @@ public class CoreModule extends ReactContextBaseJavaModule {
     public void configure(ReadableMap rnConfig) {
         try {
             boolean requireDocumentCopy = true;
-            if (rnConfig.hasKey("require_document_copy")) {
-                requireDocumentCopy = rnConfig.getBoolean("require_document_copy");
+            if (rnConfig.hasKey("requireDocumentCopy")) {
+                requireDocumentCopy = rnConfig.getBoolean("requireDocumentCopy");
             }
             boolean enablePostCropping = true;
-            if (rnConfig.hasKey("enable_post_cropping")) {
-                enablePostCropping = rnConfig.getBoolean("enable_post_cropping");
+            if (rnConfig.hasKey("enablePostCropping")) {
+                enablePostCropping = rnConfig.getBoolean("enablePostCropping");
             }
             boolean enableManual = true;
-            if (rnConfig.hasKey("enable_manual")) {
-                enableManual = rnConfig.getBoolean("enable_manual");
+            if (rnConfig.hasKey("enableManual")) {
+                enableManual = rnConfig.getBoolean("enableManual");
             }
             boolean requireMrzContents = false;
-            if (rnConfig.hasKey("require_mrz_contents")) {
-                requireMrzContents = rnConfig.getBoolean("require_mrz_contents");
+            if (rnConfig.hasKey("requireMRZContents")) {
+                requireMrzContents = rnConfig.getBoolean("requireMRZContents");
             }
             boolean requireNfcWhenAvailable = false;
-            if (rnConfig.hasKey("require_nfc_when_available")) {
-                requireNfcWhenAvailable = rnConfig.getBoolean("require_nfc_when_available");
+            if (rnConfig.hasKey("requireNFCWhenAvailable")) {
+                requireNfcWhenAvailable = rnConfig.getBoolean("requireNFCWhenAvailable");
             }
             boolean readMrzContents = true;
-            if (rnConfig.hasKey("read_mrz_contents")) {
-                readMrzContents = rnConfig.getBoolean("read_mrz_contents");
-            }
-            double scanDuration = 5.0;
-            if (rnConfig.hasKey("scanDuration")) {
-                scanDuration = rnConfig.getDouble("scanDuration");
+            if (rnConfig.hasKey("readMRZContents")) {
+                readMrzContents = rnConfig.getBoolean("readMRZContents");
             }
             boolean documentFiltersAutoCreateValidators = true;
-            if (rnConfig.hasKey("document_filters_auto_create_validators")) {
-                documentFiltersAutoCreateValidators = rnConfig.getBoolean("document_filters_auto_create_validators");
+            if (rnConfig.hasKey("documentFiltersAutoCreateValidators")) {
+                documentFiltersAutoCreateValidators = rnConfig.getBoolean("documentFiltersAutoCreateValidators");
             }
             boolean isScanHelpEnabled = true;
-            if (rnConfig.hasKey("is_scan_help_enabled")) {
-                isScanHelpEnabled = rnConfig.getBoolean("is_scan_help_enabled");
+            if (rnConfig.hasKey("scanHelpConfiguration")) {
+                ReadableMap scanHelpMap = rnConfig.getMap("scanHelpConfiguration");
+                if (scanHelpMap != null) {
+                    if (scanHelpMap.hasKey("isScanHelpEnabled")) {
+                        isScanHelpEnabled = scanHelpMap.getBoolean("isScanHelpEnabled");
+                    }
+                }
             }
             boolean requireCroppedImage = true;
-            if (rnConfig.hasKey("require_cropped_image")) {
-                requireCroppedImage = rnConfig.getBoolean("require_cropped_image");
+            if (rnConfig.hasKey("requireCroppedImage")) {
+                requireCroppedImage = rnConfig.getBoolean("requireCroppedImage");
             }
             boolean enableVisualInspection = false;
             if (rnConfig.hasKey("enableVisualInspection")) {
@@ -175,15 +204,15 @@ public class CoreModule extends ReactContextBaseJavaModule {
             }
 
             ArrayList<VerifaiValidatorInterface> validators = new ArrayList<>();
-            if (rnConfig.hasKey("extraValidators")) {
-                ReadableArray extraValidatorsArray = rnConfig.getArray("extraValidators");
+            if (rnConfig.hasKey("validators")) {
+                ReadableArray extraValidatorsArray = rnConfig.getArray("validators");
                 if (extraValidatorsArray != null) {
                     for (int i = 0; i < extraValidatorsArray.size(); ++i) {
                         ReadableMap extraValidatorMap = extraValidatorsArray.getMap(i);
-                        String validatorType = extraValidatorMap.getString("type");
-                        if (validatorType != null) {
-                            switch (validatorType) {
-                                case "VerifaiDocumentCountryBlacklistValidator": {
+                        if (extraValidatorMap.hasKey("type")) {
+                            int validatorType = extraValidatorMap.getInt("type");
+                            switch (VerifaiValidatorType.values()[validatorType]) {
+                                case DocumentCountryBlackList: {
                                     ReadableArray countryList = extraValidatorMap.getArray("countryList");
                                     ArrayList<String> countryStringList = new ArrayList<>();
                                     if (countryList != null) {
@@ -194,7 +223,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
                                     validators.add(new VerifaiDocumentCountryBlackListValidator(null, countryStringList));
                                     break;
                                 }
-                                case "VerifaiDocumentCountryWhitelistValidator": {
+                                case DocumentCountryWhitelist: {
                                     ReadableArray countryList = extraValidatorMap.getArray("countryList");
                                     ArrayList<String> countryStringList = new ArrayList<>();
                                     if (countryList != null) {
@@ -205,31 +234,19 @@ public class CoreModule extends ReactContextBaseJavaModule {
                                     validators.add(new VerifaiDocumentCountryWhiteListValidator(null, countryStringList));
                                     break;
                                 }
-                                case "VerifaiDocumentHasMrzValidator":
+                                case DocumentHasMrz:
                                     validators.add(new VerifaiDocumentHasMrzValidator());
                                     break;
-                                case "VerifaiDocumentIsDrivingLicenceValidator":
-                                    validators.add(new VerifaiDocumentIsDrivingLicenceValidator());
-                                    break;
-                                case "VerifaiDocumentIsTravelDocumentValidator":
-                                    validators.add(new VerifaiDocumentIsTravelDocumentValidator());
-                                    break;
-                                case "VerifaiDocumentTypesValidator": {
-                                    ReadableArray documentTypes = extraValidatorMap.getArray("documentTypes");
+                                case DocumentTypes: {
+                                    ReadableArray documentTypes = extraValidatorMap.getArray("validDocumentTypes");
                                     ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
                                     validators.add(new VerifaiDocumentTypesValidator(null, null, documentTypesList));
                                     break;
                                 }
-                                case "VerifaiMrzAvailableValidator":
+                                case MrzAvailable:
                                     validators.add(new VerifaiMrzAvailableValidator(null));
                                     break;
-                                case "VerifaiMrzCorrectValidator":
-                                    validators.add(new VerifaiMrzCorrectValidator());
-                                    break;
-                                case "VerifaiNfcKeyRequiredValidator":
-                                    validators.add(new VerifaiNfcKeyRequiredValidator());
-                                    break;
-                                case "VerifaiNFCKeyWhenAvailableValidator":
+                                case NFCKeyWhenAvailable:
                                     validators.add(new VerifaiNFCKeyWhenAvailableValidator());
                                     break;
                             }
@@ -244,37 +261,35 @@ public class CoreModule extends ReactContextBaseJavaModule {
                 if (documentFiltersArray != null) {
                     for (int i = 0; i < documentFiltersArray.size(); ++i) {
                         ReadableMap documentFilterMap = documentFiltersArray.getMap(i);
-                        String filterType = documentFilterMap.getString("type");
-                        if (filterType != null) {
-                            switch (filterType) {
-                                case "VerifaiDocumentBlackListFilter": {
-                                    ReadableArray countryList = documentFilterMap.getArray("countryList");
-                                    ArrayList<String> countryStringList = new ArrayList<>();
-                                    if (countryList != null) {
-                                        for (int j = 0; j < countryList.size(); ++j) {
-                                            countryStringList.add(countryList.getString(j));
-                                        }
+                        int filterType = documentFilterMap.getInt("type");
+                        switch (VerifaiDocumentFilterType.values()[filterType]) {
+                            case DocumentBlackList: {
+                                ReadableArray countryList = documentFilterMap.getArray("countryList");
+                                ArrayList<String> countryStringList = new ArrayList<>();
+                                if (countryList != null) {
+                                    for (int j = 0; j < countryList.size(); ++j) {
+                                        countryStringList.add(countryList.getString(j));
                                     }
-                                    documentFilters.add(new VerifaiDocumentBlackListFilter(countryStringList));
-                                    break;
                                 }
-                                case "VerifaiDocumentWhiteListFilter": {
-                                    ReadableArray countryList = documentFilterMap.getArray("countryList");
-                                    ArrayList<String> countryStringList = new ArrayList<>();
-                                    if (countryList != null) {
-                                        for (int j = 0; j < countryList.size(); ++j) {
-                                            countryStringList.add(countryList.getString(j));
-                                        }
+                                documentFilters.add(new VerifaiDocumentBlackListFilter(countryStringList));
+                                break;
+                            }
+                            case DocumentWhiteList: {
+                                ReadableArray countryList = documentFilterMap.getArray("countryList");
+                                ArrayList<String> countryStringList = new ArrayList<>();
+                                if (countryList != null) {
+                                    for (int j = 0; j < countryList.size(); ++j) {
+                                        countryStringList.add(countryList.getString(j));
                                     }
-                                    documentFilters.add(new VerifaiDocumentWhiteListFilter(countryStringList));
-                                    break;
                                 }
-                                case "VerifaiDocumentTypeWhiteListFilter": {
-                                    ReadableArray documentTypes = documentFilterMap.getArray("documentTypes");
-                                    ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
-                                    documentFilters.add(new VerifaiDocumentTypeWhiteListFilter(documentTypesList));
-                                    break;
-                                }
+                                documentFilters.add(new VerifaiDocumentWhiteListFilter(countryStringList));
+                                break;
+                            }
+                            case DocumentTypeWhiteList: {
+                                ReadableArray documentTypes = documentFilterMap.getArray("documentTypes");
+                                ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
+                                documentFilters.add(new VerifaiDocumentTypeWhiteListFilter(documentTypesList));
+                                break;
                             }
                         }
                     }
@@ -289,26 +304,26 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     if (screenConfig.hasKey("showInstructionScreens")) {
                         showInstructionScreens = screenConfig.getBoolean("showInstructionScreens");
                     }
-                    if (screenConfig.hasKey("instructionScreens")) {
-                        ReadableArray instructionScreensList = screenConfig.getArray("instructionScreens");
-                        if (instructionScreensList != null) {
-                            HashMap<VerifaiInstructionScreenId, VerifaiSingleInstructionScreen> instructionSceenMap = new HashMap<>();
-                            for (int i = 0; i < instructionScreensList.size(); ++i) {
-                                ReadableMap screenMap = instructionScreensList.getMap(i);
-                                int screenId = screenMap.getInt("screenId");
-                                int type = screenMap.getInt("type");
-                                ReadableArray argList = screenMap.getArray("args");
-                                ArrayList<Object> argArray = new ArrayList<>();
-                                if (argList != null) {
-                                    argArray = argList.toArrayList();
-                                }
-                                VerifaiSingleInstructionScreen singleScreen =
-                                        new VerifaiSingleInstructionScreen(VerifaiInstructionType.values()[type], argArray.toArray(new Object[0]));
-                                instructionSceenMap.put(VerifaiInstructionScreenId.values()[screenId], singleScreen);
-                            }
-                            instructionScreenConfig.setInstructionScreens(instructionSceenMap);
-                        }
-                    }
+//                    if (screenConfig.hasKey("instructionScreens")) {
+//                        ReadableArray instructionScreensList = screenConfig.getArray("instructionScreens");
+//                        if (instructionScreensList != null) {
+//                            HashMap<VerifaiInstructionScreenId, VerifaiSingleInstructionScreen> instructionSceenMap = new HashMap<>();
+//                            for (int i = 0; i < instructionScreensList.size(); ++i) {
+//                                ReadableMap screenMap = instructionScreensList.getMap(i);
+//                                int screenId = screenMap.getInt("screen");
+//                                int type = screenMap.getInt("type");
+//                                ReadableArray argList = screenMap.getArray("args");
+//                                ArrayList<Object> argArray = new ArrayList<>();
+//                                if (argList != null) {
+//                                    argArray = argList.toArrayList();
+//                                }
+//                                VerifaiSingleInstructionScreen singleScreen =
+//                                        new VerifaiSingleInstructionScreen(VerifaiInstructionType.values()[type], argArray.toArray(new Object[0]));
+//                                instructionSceenMap.put(VerifaiInstructionScreenId.values()[screenId], singleScreen);
+//                            }
+//                            instructionScreenConfig.setInstructionScreens(instructionSceenMap);
+//                        }
+//                    }
                     instructionScreenConfig.setShowInstructionScreens(showInstructionScreens);
                 }
             }
@@ -319,7 +334,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     requireMrzContents, // if set to true, it disables all documents without MRZ and adds the MrzValidator.
                     requireNfcWhenAvailable,  // if set to true, the NfcKeyWhenAvailableValidator is added and if there are several results in J1 that contain different chips, it should be shown. If all the same it can be skipped.
                     readMrzContents, // if set true the whole MRZ will be read, if false it only reads the prefix
-                    scanDuration,
+                    5.0, // REDUNDANT was used in automatic flow
                     true, // DEPRECATED: show_instruction_screens
                     validators, // extraValidators
                     documentFilters, // document_filters
@@ -330,7 +345,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     enableVisualInspection  // If set to false, no VIZ processing
             );
             Verifai.configure(configuration);
-        } catch (UnexpectedNativeTypeException e) {
+        } catch (Throwable e) {
             if (_onError != null) {
                 _onError.invoke(e.getMessage());
             }
