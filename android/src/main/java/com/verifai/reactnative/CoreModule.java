@@ -1,10 +1,7 @@
 package com.verifai.reactnative;
 
-import static java.util.Collections.emptyList;
-
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
@@ -17,7 +14,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.UnexpectedNativeTypeException;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.google.gson.Gson;
@@ -102,22 +98,22 @@ public class CoreModule extends ReactContextBaseJavaModule {
     }
 
     // This has to match the TypeScript enum in react native js part
-    enum VerifaiValidatorType {
-        DocumentCountryWhitelist,
-        DocumentCountryBlackList,
+    enum ValidatorType {
+        DocumentCountryAllowList,
+        DocumentCountryBlockList,
         DocumentHasMrz,
         DocumentTypes,
         MrzAvailable,
         NFCKeyWhenAvailable
     }
 
-    enum VerifaiDocumentFilterType {
-        DocumentTypeWhiteList,
-        DocumentWhiteList,
-        DocumentBlackList,
+    enum DocumentFilterType {
+        DocumentTypeAllowList,
+        DocumentAllowList,
+        DocumentBlockList,
     }
 
-    enum VerifaiDocumentType {
+    enum DocumentType {
         IdCard,
         DriversLicence,
         Passport,
@@ -129,25 +125,25 @@ public class CoreModule extends ReactContextBaseJavaModule {
         Unknown
     }
 
-    private ArrayList<DocumentType> createDocumentTypeList(ReadableArray documentTypes) {
-        ArrayList<DocumentType> documentTypesList = new ArrayList<>();
+    private ArrayList<com.verifai.core.internal.DocumentType> createDocumentTypeList(ReadableArray documentTypes) {
+        ArrayList<com.verifai.core.internal.DocumentType> documentTypesList = new ArrayList<>();
         if (documentTypes != null) {
             for (int j = 0; j < documentTypes.size(); ++j) {
-                switch (VerifaiDocumentType.values()[documentTypes.getInt(j)]) {
+                switch (DocumentType.values()[documentTypes.getInt(j)]) {
                     case Passport:
-                        documentTypesList.add(DocumentType.PASSPORT);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.PASSPORT);
                     case IdCard:
-                        documentTypesList.add(DocumentType.IDENTITY_CARD);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.IDENTITY_CARD);
                     case Refugee:
-                        documentTypesList.add(DocumentType.REFUGEE_TRAVEL_DOCUMENT);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.REFUGEE_TRAVEL_DOCUMENT);
                     case EmergencyPassport:
-                        documentTypesList.add(DocumentType.EMERGENCY_PASSPORT);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.EMERGENCY_PASSPORT);
                     case ResidencePermitTypeI:
-                        documentTypesList.add(DocumentType.RESIDENCE_PERMIT_I);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.RESIDENCE_PERMIT_I);
                     case ResidencePermitTypeII:
-                        documentTypesList.add(DocumentType.RESIDENCE_PERMIT_II);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.RESIDENCE_PERMIT_II);
                     case Visa:
-                        documentTypesList.add(DocumentType.VISA);
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.VISA);
                 }
             }
         }
@@ -211,8 +207,8 @@ public class CoreModule extends ReactContextBaseJavaModule {
                         ReadableMap extraValidatorMap = extraValidatorsArray.getMap(i);
                         if (extraValidatorMap.hasKey("type")) {
                             int validatorType = extraValidatorMap.getInt("type");
-                            switch (VerifaiValidatorType.values()[validatorType]) {
-                                case DocumentCountryBlackList: {
+                            switch (ValidatorType.values()[validatorType]) {
+                                case DocumentCountryBlockList: {
                                     ReadableArray countryList = extraValidatorMap.getArray("countryList");
                                     ArrayList<String> countryStringList = new ArrayList<>();
                                     if (countryList != null) {
@@ -223,7 +219,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
                                     validators.add(new VerifaiDocumentCountryBlackListValidator(null, countryStringList));
                                     break;
                                 }
-                                case DocumentCountryWhitelist: {
+                                case DocumentCountryAllowList: {
                                     ReadableArray countryList = extraValidatorMap.getArray("countryList");
                                     ArrayList<String> countryStringList = new ArrayList<>();
                                     if (countryList != null) {
@@ -239,7 +235,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
                                     break;
                                 case DocumentTypes: {
                                     ReadableArray documentTypes = extraValidatorMap.getArray("validDocumentTypes");
-                                    ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
+                                    ArrayList<com.verifai.core.internal.DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
                                     validators.add(new VerifaiDocumentTypesValidator(null, null, documentTypesList));
                                     break;
                                 }
@@ -262,8 +258,8 @@ public class CoreModule extends ReactContextBaseJavaModule {
                     for (int i = 0; i < documentFiltersArray.size(); ++i) {
                         ReadableMap documentFilterMap = documentFiltersArray.getMap(i);
                         int filterType = documentFilterMap.getInt("type");
-                        switch (VerifaiDocumentFilterType.values()[filterType]) {
-                            case DocumentBlackList: {
+                        switch (DocumentFilterType.values()[filterType]) {
+                            case DocumentBlockList: {
                                 ReadableArray countryList = documentFilterMap.getArray("countryList");
                                 ArrayList<String> countryStringList = new ArrayList<>();
                                 if (countryList != null) {
@@ -274,7 +270,7 @@ public class CoreModule extends ReactContextBaseJavaModule {
                                 documentFilters.add(new VerifaiDocumentBlackListFilter(countryStringList));
                                 break;
                             }
-                            case DocumentWhiteList: {
+                            case DocumentAllowList: {
                                 ReadableArray countryList = documentFilterMap.getArray("countryList");
                                 ArrayList<String> countryStringList = new ArrayList<>();
                                 if (countryList != null) {
@@ -285,9 +281,9 @@ public class CoreModule extends ReactContextBaseJavaModule {
                                 documentFilters.add(new VerifaiDocumentWhiteListFilter(countryStringList));
                                 break;
                             }
-                            case DocumentTypeWhiteList: {
+                            case DocumentTypeAllowList: {
                                 ReadableArray documentTypes = documentFilterMap.getArray("documentTypes");
-                                ArrayList<DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
+                                ArrayList<com.verifai.core.internal.DocumentType> documentTypesList = createDocumentTypeList(documentTypes);
                                 documentFilters.add(new VerifaiDocumentTypeWhiteListFilter(documentTypesList));
                                 break;
                             }

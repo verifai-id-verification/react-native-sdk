@@ -45,8 +45,8 @@ enum InstructionType {
 
 // Enum that describes a document Validator type
 enum ValidatorType {
-  DocumentCountryWhitelist = 0, // Validator that only allows documents from the countries provided
-  DocumentCountryBlackList, // Validator that blocks the documents from the countries provided
+  DocumentCountryAllowList = 0, // Validator that only allows documents from the countries provided
+  DocumentCountryBlockList, // Validator that blocks the documents from the countries provided
   DocumentHasMrz, // Validator that checks if document has an MRZ
   DocumentTypes, // Validator that only validates certain document types
   MrzAvailable, // Validator that requires the MRZ to be correct
@@ -55,9 +55,9 @@ enum ValidatorType {
 
 // Enum that describes document filters that filter the available documents in the manual document selection flow
 enum DocumentFilterType {
-  DocumentTypeWhiteList = 0, // Filter that only allows certain document types
-  DocumentWhiteList, // Filter that only allows documents from certain provided countries
-  DocumentBlackList, // Filter that blocks certain document countries
+  DocumentTypeAllowList = 0, // Filter that only allows certain document types
+  DocumentAllowList, // Filter that only allows documents from certain provided countries
+  DocumentBlockList, // Filter that blocks certain document countries
 }
 
 // Enum that describes certain document types

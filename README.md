@@ -387,12 +387,11 @@ following validator types:
 
 ```ts
 // Enum that describes a document Validator type
-enum VerifaiValidatorType {
+enum ValidatorType {
   // Validator that only allows documents from the countries provided
-  // Validator that only allows documents from the countries provided
-  DocumentCountryWhitelist = 0,
+  DocumentCountryAllowList = 0,
   // Validator that blocks the documents from the countries provided   
-  DocumentCountryBlackList, 
+  DocumentCountryBlockList, 
   // Validator that checks if document has an MRZ
   DocumentHasMrz, 
   // Validator that only validates certain document types  
@@ -411,33 +410,33 @@ aware that if setup incorrectly validators can cancel each other out.
 // Example of adding validators
 "validators": [
   {
-    "type": VerifaiValidatorType.DocumentCountryWhitelist,
+    "type": ValidatorType.DocumentCountryAllowList,
     "countryList": [
       "NL"
     ]
   },
   {
-    "type": VerifaiValidatorType.DocumentCountryBlackList,
+    "type": ValidatorType.DocumentCountryBlockList,
     "countryList": [
       "BE"
     ]
   },
   {
-    "type": VerifaiValidatorType.DocumentHasMrz
+    "type": ValidatorType.DocumentHasMrz
   },
   {
-    "type": VerifaiValidatorType.DocumentTypes,
+    "type": ValidatorType.DocumentTypes,
     "validDocumentTypes": [
-      VerifaiDocumentType.IdCard,
-      VerifaiDocumentType.Passport,
-      VerifaiDocumentType.DriversLicence
+      DocumentType.IdCard,
+      DocumentType.Passport,
+      DocumentType.DriversLicence
     ]
   },
   {
-    "type": VerifaiValidatorType.MrzAvailable,
+    "type": ValidatorType.MrzAvailable,
   },
   {
-    "type": VerifaiValidatorType.NFCKeyWhenAvailable,
+    "type": ValidatorType.NFCKeyWhenAvailable,
   }
 ],
 ```
@@ -454,13 +453,13 @@ We provide the following document filters:
 ```ts
 // Enum that describes document filters that filter the available documents in
 // the manual document selection flow
-enum VerifaiDocumentFilterType {
+enum DocumentFilterType {
   // Filter that only allows certain document types
-  DocumentTypeWhiteList = 0, 
+  DocumentTypeAllowList = 0, 
   // Filter that only allows documents from certain provided countries
-  DocumentWhiteList, 
+  DocumentAllowList, 
   // Filter that blocks certain document countries
-  DocumentBlackList, 
+  DocumentBlockList, 
 }
 ```
 
@@ -471,21 +470,21 @@ Here's an example on how to set the document filters, pass these values in the
 // Setting document filters example
 "documentFilters": [
   {
-    "type": VerifaiDocumentFilterType.DocumentTypeWhiteList,
+    "type": DocumentFilterType.DocumentTypeAllowList,
     "validDocumentTypes": [
-      VerifaiDocumentType.IdCard,
-      VerifaiDocumentType.Passport,
-      VerifaiDocumentType.DriversLicence
+      DocumentType.IdCard,
+      DocumentType.Passport,
+      DocumentType.DriversLicence
     ]
   },
   {
-    "type": VerifaiDocumentFilterType.DocumentWhiteList,
+    "type": DocumentFilterType.DocumentAllowList,
     "countryCodes": [
       "NL"
     ]
   },
   {
-    "type": VerifaiDocumentFilterType.DocumentBlackList,
+    "type": DocumentFilterType.DocumentBlockList,
     "countryCodes": [
       "BE"
     ]

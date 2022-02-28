@@ -12,7 +12,7 @@ import VerifaiCommonsKit
 struct CoreConfiguration {
     // Properties
     let globalConfiguration = VerifaiConfiguration()
-    
+
     init(configuration: NSDictionary) throws {
         // Main settings
         if let requireDocumentCopy = configuration.value(forKey: "requireDocumentCopy") as? Bool {
@@ -82,7 +82,7 @@ struct CoreConfiguration {
                                                                       customScanHelpScreenMp4FileName: customScanHelpScreenMp4FileName)
         }
     }
-    
+
     // MARK: - Instruction screen
     /// Process the instruction screen provided into something the Verifai SDK can understand
     /// - Parameters:
@@ -126,7 +126,7 @@ struct CoreConfiguration {
         }
         throw RNError.invalidValuesSupplied
     }
-    
+
     /// Get the Core instruction screen enum value
     /// - Parameter settings: The settings dictionary
     /// - Returns: the enum matched or nil
@@ -144,7 +144,7 @@ struct CoreConfiguration {
         // Illegal value
         return nil
     }
-    
+
     /// Get the instruction screen values for a native instruction screen
     /// - Parameter settings: The settings dictionary that was passed
     /// - Returns: A screen configuration for a native instruction screen
@@ -164,7 +164,7 @@ struct CoreConfiguration {
         // We can return the instruction screen object
         return .customLocal(screenValues: screenValues)
     }
-    
+
     /// Get the instruction screen values for a web based instruction screen
     /// - Parameter settings: The settings dictionary that was passed
     /// - Returns: A screen configuration for a web based instruction screen
@@ -183,9 +183,9 @@ struct CoreConfiguration {
                                                               loader: .webView)
         return .customWeb(screenValues: webValues)
     }
-    
+
     // MARK: - Validators
-    
+
     /// Process validators sent via react native in a string based dictionary / array system
     /// - Parameter validatorArray: The array with values coming from react native
     /// - Returns: An array of native validators
@@ -200,11 +200,11 @@ struct CoreConfiguration {
                 }
                 switch type {
                 case 0:
-                    // VerifaiDocumentCountryWhitelistValidator
+                    // VerifaiDocumentCountryAllowListValidator
                     let countryList = validator.value(forKey: "countryList") as? [String] ?? []
                     validatorHolder.append(VerifaiDocumentCountryWhiteListValidator(countries: countryList))
                 case 1:
-                    // VerifaiDocumentCountryBlackListValidator
+                    // VerifaiDocumentCountryBlockListValidator
                     let countryList = validator.value(forKey: "countryList") as? [String] ?? []
                     validatorHolder.append(VerifaiDocumentCountryBlackListValidator(countries: countryList))
                 case 2:
@@ -228,8 +228,8 @@ struct CoreConfiguration {
         }
         return validatorHolder
     }
-    
-    /// Process an array of string based document types coming from react native
+
+    /// Process an array of int (enum) based document types coming from react native
     /// - Parameter validDocumentTypes: An array of ints representing the document types
     /// - Returns: An array of native document types, or an invalid validator error
     private func getNativeDocumentTypes(in validDocumentTypes: [Int]) throws -> [VerifaiDocumentType] {
@@ -260,9 +260,9 @@ struct CoreConfiguration {
         }
         return typesHolder
     }
-    
+
     // MARK: Document Filters
-    
+
     /// Process document filters dictionary coming from the react native side into
     /// something the native SDK can understand
     /// - Parameter documentFilterArray: The array with values coming from the react native side
@@ -277,17 +277,17 @@ struct CoreConfiguration {
                 }
                 switch type {
                 case 0:
-                    // VerifaiDocumentTypeWhiteListFilter
+                    // VerifaiDocumentTypeAllowListFilter
                     let validDocumentTypes = documentFilter.value(forKey: "validDocumentTypes") as? [Int] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
                     let documentTypeFilter = VerifaiDocumentTypeWhiteListFilter(validDocumentTypes: nativeValidTypes)
                     documentFilterHolder.append(documentTypeFilter)
                 case 1:
-                    // VerifaiDocumentWhiteListFilter
+                    // VerifaiDocumentAllowListFilter
                     let countryCodes = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
                     documentFilterHolder.append(VerifaiDocumentWhiteListFilter(countryCodes: countryCodes))
                 case 2:
-                    // VerifaiDocumentBlackListFilter
+                    // VerifaiDocumentBlockListFilter
                     let countryCodes = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
                     documentFilterHolder.append(VerifaiDocumentBlackListFilter(countryCodes: countryCodes))
                 default:
