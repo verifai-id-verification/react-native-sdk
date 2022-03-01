@@ -13,9 +13,9 @@ target 'VerifaiCoreReactNativeExample' do
   )
   
   pod 'verifai-react-native', :path => '../../'
-  pod 'Verifai', '~> 5.1.1'
+  pod 'Verifai', '~> 5.2.0'
   pod 'VerifaiNFC', :podspec => 'VerifaiNFC.podspec'
-  pod 'VerifaiLiveness', '~> 5.1.1'
+  pod 'VerifaiLiveness', '~> 5.2.0'
   
   # Liveness module needs FS access if you're planning on saving the file locally
   pod 'RNFS', :path => '../node_modules/react-native-fs'
@@ -30,6 +30,7 @@ target 'VerifaiCoreReactNativeExample' do
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] =  "arm64"
       end
     end
     react_native_post_install(installer)

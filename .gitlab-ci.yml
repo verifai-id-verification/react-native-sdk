@@ -37,13 +37,19 @@ ios build sdk:
   tags:
     - ios
   stage: build
-  dependencies: []
+  dependencies: 
+    - install npm dependencies
   artifacts:
+    when: always
     expire_in: 8 hours
-    # paths:
-    #   -
+    paths: 
+    - xcodebuild.log
   script:
-    - echo 'TODO'
+    - npm version --no-git-tag-version from-git
+    - yarn
+    - cd example/ios
+    - xcodebuild clean build -workspace VerifaiCoreReactNativeExample.xcworkspace -scheme Release | tee ../../xcodebuild.log | xcpretty
+    - echo "** BUILD SUCCEEDED **"
 
 
 # --- Publish --- #
