@@ -1,0 +1,71 @@
+buildscript {
+    if (project == rootProject) {
+        repositories {
+            google()
+            mavenCentral()
+            jcenter()
+        }
+
+        dependencies {
+            classpath 'com.android.tools.build:gradle:7.1.1'
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+android {
+    compileSdkVersion safeExtGet('compileSdkVersion', 31)
+    // Only set buildToolsVersion if in rootproject, use default from AGP otherwise
+    if (rootProject.ext.has('buildToolsVersion')) {
+        buildToolsVersion rootProject.ext.get('buildToolsVersion')
+    }
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', 21)
+        targetSdkVersion safeExtGet('targetSdkVersion', 31)
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lint {
+        disable 'GradleCompatible'
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+        url("$rootDir/../node_modules/react-native/android")
+    }
+    maven {
+        url = 'https://dashboard.verifai.com/downloads/sdk/maven/'
+    }
+    google()
+    mavenCentral()
+    jcenter()
+}
+
+ext {
+    verifai_version = "4.9.0"
+}
+
+dependencies {
+    //noinspection GradleDynamicVersion
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    api "com.verifai:core:$verifai_version"
+    implementation "com.verifai:liveness-check:$verifai_version"
+    implementation "com.verifai:nfc:$verifai_version"
+}
