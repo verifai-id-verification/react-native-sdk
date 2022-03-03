@@ -256,8 +256,8 @@ inside `Core.configure`:
   "showInstructionScreens": false,
   "instructionScreens": [
     {
-      "screen": VerifaiInstructionScreenId.MrzPresentFlowInstruction,
-      "type": VerifaiInstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
+      "screen": InstructionScreenId.MrzPresentFlowInstruction,
+      "type": InstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
       // Values for both MEDIA and WEB based instruction screens
       "title": "Custom Instruction",
       "continueButtonLabel": "Let's do it!",
@@ -276,8 +276,8 @@ You can also use a web based instruction screen:
   "showInstructionScreens": false,
   "instructionScreens": [
     {
-      "screen": VerifaiInstructionScreenId.MrzPresentFlowInstruction,
-      "type": VerifaiInstructionType.Web, 
+      "screen": InstructionScreenId.MrzPresentFlowInstruction,
+      "type": InstructionType.Web, 
       // Values for both MEDIA and WEB based instruction screens
       "title": "Custom Instruction",
       "continueButtonLabel": "Let's do it!",
@@ -304,7 +304,7 @@ place these values inside `NFC.start`:
   "instructionScreens": [
     {
       "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
-      "type": VerifaiInstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
+      "type": InstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
       // Values for both MEDIA and WEB based instruction screens
       "title": "Custom NFC Instruction",
       "continueButtonLabel": "Let's do it!",
@@ -326,7 +326,7 @@ You could also use a web based instruction screen:
   "instructionScreens": [
     {
       "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
-      "type": VerifaiInstructionType.Web, 
+      "type": InstructionType.Web, 
       // Values for both MEDIA and WEB based instruction screens
       "title": "Custom NFC Instruction",
       "continueButtonLabel": "Let's do it!",
