@@ -46,7 +46,7 @@
     "face matching",
     "digital"
   ],
-  "repository": "https://github.com/verifai-id-verification/example-react-native",
+  "repository": "https://github.com/verifai-id-verification/react-native-sdk",
   "author": "Verifai",
   "license": "UNLICENSED",
   "bugs": {
