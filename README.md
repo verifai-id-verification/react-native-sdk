@@ -101,7 +101,8 @@ org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryErro
 When using Cocoapods, add the following to your `Podfile`:
 
 ```shell
-pod 'verifai-react-native', :path => '../node_modules/verifai-react-native'
+  pod 'VerifaiNFC', :podspec => '../node_modules/@verifai/react-native-sdk/VerifaiNFC.podspec'
+  pod 'verifai-react-native', :path => '../node_modules/@verifai/react-native-sdk'
 ```
 
 Afterwards you can run `pod install`. That's all it takes!
