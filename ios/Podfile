@@ -11,9 +11,9 @@ target 'VerifaiReactNative' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
-  pod 'Verifai', '~> 5.2.1'
-  pod 'VerifaiNFC', '~> 5.2.1'
-  pod 'VerifaiLiveness', '~> 5.2.1'
+  pod 'Verifai', '~> 5.2.2'
+  pod 'VerifaiNFC', '~> 5.2.2'
+  pod 'VerifaiLiveness', '~> 5.2.2'
 
   # Enables Flipper.
   #
