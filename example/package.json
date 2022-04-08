@@ -8,6 +8,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start"
   },
+  "resolutions": {
+    "minimist": "^1.2.6"
+  },
   "dependencies": {
     "@babel/preset-env": "^7.1.6",
     "@types/react-native-dotenv": "^0.2.0",

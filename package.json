@@ -22,6 +22,9 @@
     "!**/__fixtures__",
     "!**/__mocks__"
   ],
+  "resolutions": {
+    "minimist": "^1.2.6"
+  },
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",

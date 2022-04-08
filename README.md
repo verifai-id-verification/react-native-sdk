@@ -190,7 +190,6 @@ import { Liveness } from '@verifai/react-native-sdk';
 Liveness.setOnSuccess((result: Object) => { 
   console.log(JSON.stringify(result, null, 2)) 
 })
-Liveness.setOnCancelled(() => console.log("Cancelled"))
 Liveness.setOnError(message => console.error(message))
 // Now we can start the liveness check, this shows the liveness check screen
 // There are a few things we can setup while starting the liveness check to see
