@@ -257,8 +257,8 @@ inside `Core.configure`:
   "instructionScreens": [
     {
       "screen": InstructionScreenId.MrzPresentFlowInstruction,
-      "type": InstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
-      // Values for both MEDIA and WEB based instruction screens
+      "type": InstructionType.Media,
+      // Values for MEDIA based instruction screens
       "title": "Custom Instruction",
       "continueButtonLabel": "Let's do it!",
       "header": "Check out the video below",
@@ -278,10 +278,9 @@ You can also use a web based instruction screen:
     {
       "screen": InstructionScreenId.MrzPresentFlowInstruction,
       "type": InstructionType.Web, 
-      // Values for both MEDIA and WEB based instruction screens
+      // Values for WEB based instruction screens
       "title": "Custom Instruction",
       "continueButtonLabel": "Let's do it!",
-      // Web only instruction screen values (type = WEB)
       "url": "https://www.verifai.com/en/support/supported-documents/",
     }
   ]
@@ -551,3 +550,23 @@ You can set these values by passing them in the `Liveness.start` function.
 For additional support remember to consult our
 [documentation](https://docs.verifai.com) or reach out to us via our
 [support channels](https://support.verifai.com).
+
+## Change log
+
+### 1.0.4
+* Updated iOS SDK to version 5.3.0
+    * Adds 21 languages to the SDK      
+* Support for iOS 11 dropped
+
+### 1.0.3
+* Updates dependancy package that has a vulnerability
+
+### 1.0.2
+* Updated iOS SDK to 5.2.2
+
+### 1.0.1
+* Improved README 
+* Fixed issue where pod installation could fail
+
+### 1.0.0
+* Initial release
