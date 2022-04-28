@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
 
 
   s.name         = "VerifaiNFC"
-  s.version      = "5.2.2"
+  s.version      = "5.3.0"
   s.summary      = "Verifai NFC component part of Verifai. ID verification SDK"
 
   s.description  = <<-DESC
@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   s.license      = { :type => "Commercial", :file => "LICENSE" }
   s.author             = { "Verifai" => "info@verifai.com" }
   s.platform     = :ios
-  s.ios.deployment_target = "11.0"
+  s.ios.deployment_target = "12.0"
 
-  s.source       = { :http => "https://dashboard.verifai.com/downloads/sdk/nfc/5.2.2/verifai_sdk_nfc_5_2_2.zip", :sha1 => "fc5eb7fad3b4700ef3a10ba19823e0b3ffe62d15" }
+  s.source       = { :http => "https://dashboard.verifai.com/downloads/sdk/nfc/5.3.0/verifai_sdk_nfc_5_3_0.zip", :sha1 => "f99ec356fb6e7e45156fb208f218c1fd4759849e" }
   s.ios.vendored_frameworks = 'VerifaiNFCKit.xcframework'
 end
