@@ -10,14 +10,14 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "11.0" }
+  s.platforms    = { :ios => "12.0" }
   s.source       = { :git => "https://github.com/verifai-id-verification/react-native-sdk", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift,podspec}"
 
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.dependency 'React-Core'
-  s.dependency 'Verifai', '~> 5.2.2'
+  s.dependency 'Verifai', '~> 5.3.0'
   s.dependency 'VerifaiNFC'
-  s.dependency 'VerifaiLiveness', '~> 5.2.2'
+  s.dependency 'VerifaiLiveness', '~> 5.3.0'
 end

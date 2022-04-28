@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 
 target 'VerifaiCoreReactNativeExample' do
   config = use_native_modules!
@@ -13,9 +13,9 @@ target 'VerifaiCoreReactNativeExample' do
   )
   
   pod 'verifai-react-native', :path => '../../'
-  pod 'Verifai', '~> 5.2.0'
+  pod 'Verifai', '~> 5.3.0'
   pod 'VerifaiNFC', :podspec => 'VerifaiNFC.podspec'
-  pod 'VerifaiLiveness', '~> 5.2.0'
+  pod 'VerifaiLiveness', '~> 5.3.0'
   
   # Liveness module needs FS access if you're planning on saving the file locally
   pod 'RNFS', :path => '../node_modules/react-native-fs'
@@ -29,7 +29,7 @@ target 'VerifaiCoreReactNativeExample' do
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
       config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] =  "arm64"
       end
     end
