@@ -149,7 +149,7 @@ Core.start()
 
 An example on how to run the most basic NFC functionality. The NFC module can
 only be run after a scan from the Core module has been performed. Also you need
-to make sure the licence has been setup by the Core before running the Liveness
+to make sure the licence has been setup by the Core before running the NFC
 module.
 
 ```ts
@@ -493,7 +493,7 @@ Here's an example on how to set the document filters, pass these values in the
 
 ### Liveness checks
 
-We also offer a bridge to the liveness checks tat the SDK provides. The
+We also offer a bridge to the liveness checks that the SDK provides. The
 following Liveness checks are available:
 
 ```ts
@@ -552,6 +552,10 @@ For additional support remember to consult our
 [support channels](https://support.verifai.com).
 
 ## Change log
+
+### 1.0.5
+* Updates dependancy packages that have vulnerabilities
+* Improvements to README
 
 ### 1.0.4
 * Updated iOS SDK to version 5.3.0
