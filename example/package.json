@@ -9,7 +9,10 @@
     "start": "react-native start"
   },
   "resolutions": {
-    "minimist": "^1.2.6"
+    "minimist": "^1.2.6",
+    "plist": "^3.0.5",
+    "ansi-regex":"^4.1.1",
+    "async":"^2.6.4"
   },
   "dependencies": {
     "@babel/preset-env": "^7.1.6",
