@@ -35,7 +35,7 @@ android build sdk:
 
 ios build sdk:
   tags:
-    - ios
+    - bs-mini-01-waag
   stage: build
   dependencies: 
     - install npm dependencies

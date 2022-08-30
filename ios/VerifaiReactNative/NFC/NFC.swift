@@ -12,7 +12,12 @@ import VerifaiNFCKit
 public class NFC: NSObject {
     
     // MARK: - Properties
-    private let encoder = JSONEncoder()
+    private var encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        // Setup the encoder before returning it
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }()
     
     // MARK: - Listeners
     private var onSuccessListener: RCTResponseSenderBlock?
@@ -30,7 +35,9 @@ public class NFC: NSObject {
     /// - Parameter message: The response message to be sent trough the listener
     private func handleSuccess(message: NSDictionary) {
         guard let onSuccessListener = onSuccessListener else {
+#if DEBUG
             print("No success listener has been set, please set one")
+#endif
             return
         }
         onSuccessListener([message])
@@ -54,7 +61,9 @@ public class NFC: NSObject {
     /// - Parameter message: The response message to be sent trough the listener
     private func handleError(message: String) {
         guard let onErrorListener = onErrorListener else {
+#if DEBUG
             print("No error listener has been set, please set one")
+#endif
             return
         }
         onErrorListener([message])
@@ -119,5 +128,11 @@ public class NFC: NSObject {
             throw RNError.unableToCreateResult
         }
         return NSDictionary(dictionary: dictionary)
+    }
+    
+    // Main queue setup not required
+    @objc(requiresMainQueueSetup)
+    public static func requiresMainQueueSetup() -> Bool {
+        return false
     }
 }

@@ -12,5 +12,7 @@
 
 // Clear result object
 RCT_EXTERN_METHOD(clearResult);
+// Main queue setup
+RCT_EXTERN_METHOD(requiresMainQueueSetup);
 
 @end

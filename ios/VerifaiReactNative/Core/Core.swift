@@ -13,7 +13,12 @@ import VerifaiKit
 public class Core: NSObject {
     
     // MARK: - Properties
-    private let encoder = JSONEncoder()
+    private var encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        // Setup the encoder before returning it
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
+    }()
     
     // MARK: - Listeners
     private var onSuccessListener: RCTResponseSenderBlock?
@@ -31,7 +36,9 @@ public class Core: NSObject {
     /// - Parameter message: The response message to be sent trough the listener
     private func handleSuccess(message: NSDictionary) {
         guard let onSuccessListener = onSuccessListener else {
+#if DEBUG
             print("No success listener has been set, please set one")
+#endif
             return
         }
         onSuccessListener([message])
@@ -55,7 +62,9 @@ public class Core: NSObject {
     /// - Parameter message: The response message to be sent trough the listener
     private func handleError(message: String) {
         guard let onErrorListener = onErrorListener else {
+#if DEBUG
             print("No error listener has been set, please set one")
+#endif
             return
         }
         onErrorListener([message])
@@ -68,7 +77,9 @@ public class Core: NSObject {
     public func setLicence(_ licence: String) {
         switch VerifaiCommons.setLicence(licence) {
         case .success(_):
+#if DEBUG
             dump("Successfully configured Verifai")
+#endif
         case .failure(let error):
             // Error setting the licence inform the listener
             handleError(message: "🚫 Error: \(error)")
@@ -136,5 +147,11 @@ public class Core: NSObject {
             throw RNError.unableToCreateResult
         }
         return NSDictionary(dictionary: dictionary)
+    }
+    
+    // Main queue setup not required
+    @objc(requiresMainQueueSetup)
+    public static func requiresMainQueueSetup() -> Bool {
+        return false
     }
 }
