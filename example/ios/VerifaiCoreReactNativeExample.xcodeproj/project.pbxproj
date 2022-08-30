@@ -29,7 +29,6 @@
 		E3142DCF27AD3B97006D46C1 /* DemoMp4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DemoMp4.mp4; sourceTree = "<group>"; };
 		E3DC8C9E27A04F3D0055E75C /* VerifaiCoreReactNativeExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VerifaiCoreReactNativeExample.entitlements; path = VerifaiCoreReactNativeExample/VerifaiCoreReactNativeExample.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				B56D53BC3BDF34F6C42E62F5 /* libPods-VerifaiCoreReactNativeExample.a */,
 			);
 			name = Frameworks;
