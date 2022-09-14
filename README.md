@@ -22,6 +22,14 @@
     - [Document Filters](#document-filters)
     - [Liveness checks](#liveness-checks)
   - [Support](#support)
+  - [Change log](#change-log)
+    - [1.0.6](#106)
+    - [1.0.5](#105)
+    - [1.0.4](#104)
+    - [1.0.3](#103)
+    - [1.0.2](#102)
+    - [1.0.1](#101)
+    - [1.0.0](#100)
 
 ## Getting started
 
@@ -101,8 +109,7 @@ org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryErro
 When using Cocoapods, add the following to your `Podfile`:
 
 ```shell
-  pod 'VerifaiNFC', :podspec => '../node_modules/@verifai/react-native-sdk/VerifaiNFC.podspec'
-  pod 'verifai-react-native', :path => '../node_modules/@verifai/react-native-sdk'
+pod 'verifai-react-native', :path => '../node_modules/@verifai/react-native-sdk'
 ```
 
 Afterwards you can run `pod install`. That's all it takes!
@@ -552,6 +559,11 @@ For additional support remember to consult our
 [support channels](https://support.verifai.com).
 
 ## Change log
+
+### 1.0.6
+* Updated iOS SDK to version 5.4.1
+  * This adds support for PACE
+  * Adds support for renamed OpenSSL library
 
 ### 1.0.5
 * Updates dependancy packages that have vulnerabilities
