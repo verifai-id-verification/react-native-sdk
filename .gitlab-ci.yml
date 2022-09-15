@@ -3,6 +3,8 @@ stages:
   - build
   - publish
 
+before_script:
+  - echo 'export const licence = `dummy`' > example/src/licence.js
 
 # -- Prepare ---
 

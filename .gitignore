@@ -95,3 +95,6 @@ xcodebuild.log/VerifaiCoreReactNativeExample-VerifaiReactNativeExample.log
 *.certSigningRequest
 
 *.p12
+
+# Ignore licence
+example/src/licence.js

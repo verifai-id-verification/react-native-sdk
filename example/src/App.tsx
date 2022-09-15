@@ -12,7 +12,7 @@ import {
   FaceMatchImageSource
 } from '@verifai/react-native-sdk';
 
-import { VERIFAI_LICENCE } from 'react-native-dotenv';
+import { licence } from './licence.js'
 
 var RNFS = require('react-native-fs');
 
@@ -52,7 +52,7 @@ export default function App() {
     onError: (message: String) => { console.error(message) },
   }
 
-  const [ imgProp, setImgProp ] = React.useState({
+  const [imgProp, setImgProp] = React.useState({
     aspectRatio: 1,
     uri: "data:image/png;base64,",
   });
@@ -61,7 +61,6 @@ export default function App() {
     <View style={styles.container}>
       <VerifaiButton
         title="Start"
-        color="#ff576d"
         onPress={
           () => {
             // Example of setting up the Core SDK
@@ -70,7 +69,7 @@ export default function App() {
             Core.setOnCancelled(coreListener.onCancelled)
             Core.setOnError(coreListener.onError)
             // Set the licence (more info in the documentation)
-            Core.setLicence(VERIFAI_LICENCE)
+            Core.setLicence(licence)
             // Optional: Configure the SDK, for possible values please check the documentation
             Core.configure({
               "enablePostCropping": true,
@@ -90,7 +89,6 @@ export default function App() {
 
       <VerifaiButton
         title="Start Liveness"
-        color="#ff576d"
         onPress={
           () => {
             // Example of setting up the Liveness check SDK
@@ -120,7 +118,6 @@ export default function App() {
 
       <VerifaiButton
         title="Start NFC"
-        color="#ff576d"
         onPress={
           () => {
             // Example of setting up the NFC SDK
@@ -156,10 +153,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    flex:1,
+    flex: 1,
     flexDirection: "column",
-    justifyContent: "space-around"
   },
   buttonContainer: {
     alignItems: 'center',
@@ -167,7 +162,7 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: '#FF576D',
+    backgroundColor: '#ff576d',
     height: 50,
     width: 300
   },
@@ -175,12 +170,12 @@ const styles = StyleSheet.create({
 
 // Custom Verifai button for ease of testing
 function VerifaiButton(props) {
-  const { onPress, title = 'Name me'} = props;
+  const { onPress, title = 'Name me' } = props;
   return (
     <Pressable
-        onPress={onPress}
-        style={styles.buttonContainer}
-      >
+      onPress={onPress}
+      style={styles.buttonContainer}
+    >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );

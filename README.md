@@ -15,9 +15,9 @@
     - [Liveness](#liveness)
   - [Customization](#customization)
     - [Core settings](#core-settings)
-    - [Core - Instruction screens](#core---instruction-screens)
-    - [NFC - Instruction screens](#nfc---instruction-screens)
-    - [Scan help](#scan-help)
+    - [Core - Instruction screens (iOS only)](#core---instruction-screens-ios-only)
+    - [NFC - Instruction screens (iOS only)](#nfc---instruction-screens-ios-only)
+    - [Scan help (iOS only)](#scan-help-ios-only)
     - [Validators](#validators)
     - [Document Filters](#document-filters)
     - [Liveness checks](#liveness-checks)
@@ -252,7 +252,7 @@ out documentation. YOu can set these values in the `Core.configure` function.
 "customDismissButtonTitle": null,
 ```
 
-### Core - Instruction screens
+### Core - Instruction screens (iOS only)
 
 There are several ways of customizing the instruction screens. The easiest way
 is to use our own design but customize the values yourself, place these values
@@ -296,7 +296,7 @@ You can also use a web based instruction screen:
 
 For exact options and possible values check out our documetation.
 
-### NFC - Instruction screens
+### NFC - Instruction screens (iOS only)
 
 It's also possible to setup the NFC's instruction screens.
 
@@ -343,7 +343,7 @@ You could also use a web based instruction screen:
 }
 ```
 
-### Scan help
+### Scan help (iOS only)
 
 When a scan fails or if we detect the user is having difficulties scanning we
 offer help screens that give more detailed information about scanning.
@@ -561,9 +561,12 @@ For additional support remember to consult our
 ## Change log
 
 ### 1.0.6
+
 * Updated iOS SDK to version 5.4.1
   * This adds support for PACE
   * Adds support for renamed OpenSSL library
+* Updated Android SDK to version 4.11.1
+  * This adds support for PACE
 
 ### 1.0.5
 * Updates dependancy packages that have vulnerabilities
