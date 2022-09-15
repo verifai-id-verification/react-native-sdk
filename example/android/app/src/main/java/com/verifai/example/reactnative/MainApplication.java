@@ -1,4 +1,4 @@
-package com.verifai.corereactnativeexample;
+package com.verifai.example.reactnative;
 
 import android.app.Application;
 import android.content.Context;
@@ -61,7 +61,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.verifai.corereactnativeexample.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.verifai.example.reactnative.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

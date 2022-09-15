@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.verifai.corereactnativeexample"
+        applicationId "com.verifai.example.reactnative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

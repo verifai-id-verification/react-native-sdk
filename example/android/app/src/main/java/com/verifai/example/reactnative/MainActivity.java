@@ -1,4 +1,4 @@
-package com.verifai.corereactnativeexample;
+package com.verifai.example.reactnative;
 
 import com.facebook.react.ReactActivity;
 

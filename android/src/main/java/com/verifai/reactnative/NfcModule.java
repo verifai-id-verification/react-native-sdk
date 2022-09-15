@@ -1,11 +1,11 @@
 package com.verifai.reactnative;
 
 import android.app.Activity;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -16,7 +16,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.google.gson.Gson;
-import com.verifai.core.Verifai;
 import com.verifai.core.result.DocumentSpecificData;
 import com.verifai.core.result.VerifaiResult;
 import com.verifai.nfc.VerifaiNfc;
@@ -27,6 +26,8 @@ import com.verifai.nfc.result.VerifaiNfcResult;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Wrapper class for the nfc module
@@ -83,6 +84,7 @@ public class NfcModule extends ReactContextBaseJavaModule {
         map.putBoolean("mrzMatch", result.getMrzMatch());
         map.putBoolean("comSodMatch", result.getComSodMatch());
         map.putString("bacStatus", result.getBacStatus().name());
+        map.putString("paceStatus", result.getPaceStatus().name());
         map.putString("activeAuthenticationStatus", result.getActiveAuthenticationStatus().name());
 
         map.putBoolean("documentCertificateValid", result.getDocumentCertificateValid());
@@ -93,18 +95,29 @@ public class NfcModule extends ReactContextBaseJavaModule {
         map.putString("chipAuthenticationStatus", result.getChipAuthenticationStatus().name());
         map.putBoolean("documentSignatureCorrect", result.getDocumentSignatureCorrect());
 
-        // photo: Bitmap? = null
+        Bitmap photo = result.getPhoto();
+        if (photo != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            map.putString("photo", Base64.encodeToString(byteArray, Base64.DEFAULT));
+        }
+
         try {
             String jsonMrz = gson.toJson(result.getMrzData());
             WritableMap mrzMap = utils.convertJsonToMap(new JSONObject(jsonMrz));
             map.putMap("mrzData", mrzMap);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        } catch (JSONException ignored) {
         }
 
         // dataGroups: HashMap<Int, NfcDocument.LdsFile>? = null
-        // documentCertificate: X509Certificate? = null
-        // documentSpecificData: DocumentSpecificData? = null
+        try {
+            if (result.getDocumentCertificate() != null) {
+                map.putMap("documentCertificate", ConvertTypesToRNMap.convertX509toMap(result.getDocumentCertificate()));
+            }
+        } catch (Exception ignored) {
+        }
+
         try {
             DocumentSpecificData docData = result.getDocumentSpecificData();
             if (docData instanceof EdlData) {
@@ -136,12 +149,17 @@ public class NfcModule extends ReactContextBaseJavaModule {
         if (result.getChipAuthenticationPublicKeyAlgorithm() != null) {
             map.putString("chipAuthenticationAgreementAlgorithm", result.getChipAuthenticationPublicKeyAlgorithm());
         } else map.putNull("chipAuthenticationAgreementAlgorithm");
-        // signingCertificate: X509Certificate? = null
+
+        try {
+            if (result.getSigningCertificate() != null) {
+                map.putMap("signingCertificate", ConvertTypesToRNMap.convertX509toMap(result.getSigningCertificate()));
+            }
+        } catch (Exception ignored) {
+        }
 
         return map;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
     public void start(ReadableMap args) {
         Activity activity = getCurrentActivity();

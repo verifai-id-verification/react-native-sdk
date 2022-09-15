@@ -7,7 +7,7 @@ buildscript {
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:7.1.1'
+            classpath 'com.android.tools.build:gradle:7.2.2'
         }
     }
 }
@@ -19,14 +19,14 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('compileSdkVersion', 31)
+    compileSdkVersion safeExtGet('compileSdkVersion', 33)
     // Only set buildToolsVersion if in rootproject, use default from AGP otherwise
     if (rootProject.ext.has('buildToolsVersion')) {
         buildToolsVersion rootProject.ext.get('buildToolsVersion')
     }
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
-        targetSdkVersion safeExtGet('targetSdkVersion', 31)
+        targetSdkVersion safeExtGet('targetSdkVersion', 33)
     }
 
     buildTypes {
@@ -58,7 +58,7 @@ repositories {
 }
 
 ext {
-    verifai_version = "4.9.0"
+    verifai_version = "4.11.1"
 }
 
 dependencies {

@@ -2,12 +2,10 @@ package com.verifai.reactnative;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -358,7 +356,6 @@ public class CoreModule extends ReactContextBaseJavaModule {
         Verifai.setLicence(activity, licence);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
     public void start() {
         Activity activity = getCurrentActivity();

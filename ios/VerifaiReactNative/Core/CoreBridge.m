@@ -20,5 +20,7 @@ RCT_EXTERN_METHOD(setOnError:(RCTResponseSenderBlock *));
 RCT_EXTERN_METHOD(configure:(NSDictionary *));
 // Core
 RCT_EXTERN_METHOD(start);
+// Main queue setup
+RCT_EXTERN_METHOD(requiresMainQueueSetup);
 
 @end

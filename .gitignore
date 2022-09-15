@@ -74,3 +74,27 @@ lib/
 example/.env
 
 example/ios/Podfile.lock
+
+example/ios/fastlane/
+
+example/ios/Gemfile
+
+example/ios/Gemfile.lock
+
+*.mobileprovision
+
+example/ios/xcodebuild.log/VerifaiCoreReactNativeExample-VerifaiReactNativeExample.log
+
+
+
+
+xcodebuild.log/VerifaiCoreReactNativeExample-VerifaiReactNativeExample.log
+
+*.cer
+
+*.certSigningRequest
+
+*.p12
+
+# Ignore licence
+example/src/licence.js

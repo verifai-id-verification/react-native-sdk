@@ -24,4 +24,10 @@ class VerifaiResultSingleton: NSObject {
         currentResult = nil
         nfcImage = nil
     }
+    
+    // Main queue setup not required
+    @objc(requiresMainQueueSetup)
+    public static func requiresMainQueueSetup() -> Bool {
+        return false
+    }
 }

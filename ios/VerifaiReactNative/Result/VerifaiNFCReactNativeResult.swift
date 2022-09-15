@@ -24,6 +24,7 @@ class VerifaiNFCReactNativeResult: Codable {
     var signingCertificateMatchesWithParent: VerifaiRootCertificateStatus
     var scanCompleted: Bool
     var bacStatus: VerifaiBacStatus
+    var paceStatus: VerifaiPACEStatus
     var activeAuthenticationStatus: VerifaiActiveAuthStatus
     var chipAuthenticationStatus: VerifaiChipAuthStatus
     var photo: VerifaiReactNativeImageResult?
@@ -61,6 +62,7 @@ class VerifaiNFCReactNativeResult: Codable {
         self.signingCertificateMatchesWithParent = nfcResult.signingCertificateMatchesWithParent
         self.scanCompleted = nfcResult.scanCompleted
         self.bacStatus = nfcResult.bacStatus
+        self.paceStatus = nfcResult.paceStatus
         self.activeAuthenticationStatus = nfcResult.activeAuthenticationStatus
         self.chipAuthenticationStatus = nfcResult.chipAuthenticationStatus
         self.mrzData = nfcResult.mrzData

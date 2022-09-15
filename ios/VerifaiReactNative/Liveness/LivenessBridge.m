@@ -17,4 +17,7 @@ RCT_EXTERN_METHOD(setOnError:(RCTResponseSenderBlock *));
 // Liveness module functions
 RCT_EXTERN_METHOD(start:(NSDictionary *))
 
+// Main queue setup
+RCT_EXTERN_METHOD(requiresMainQueueSetup);
+
 @end
