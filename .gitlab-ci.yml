@@ -9,7 +9,7 @@ before_script:
 # -- Prepare ---
 
 install npm dependencies:
-  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:node-0.1
+  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:node-0.2
   stage: prepare
   artifacts:
     expire_in: 8 hours
@@ -23,7 +23,7 @@ install npm dependencies:
 # --- Build ---
 
 android build sdk:
-  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:android-0.1
+  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:android-0.2
   stage: build
   dependencies:
     - install npm dependencies
