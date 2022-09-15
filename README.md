@@ -23,7 +23,7 @@
     - [Liveness checks](#liveness-checks)
   - [Support](#support)
   - [Change log](#change-log)
-    - [1.0.6](#106)
+    - [1.1.0](#110)
     - [1.0.5](#105)
     - [1.0.4](#104)
     - [1.0.3](#103)
@@ -560,7 +560,7 @@ For additional support remember to consult our
 
 ## Change log
 
-### 1.0.6
+### 1.1.0
 
 * Updated iOS SDK to version 5.4.1
   * This adds support for PACE
