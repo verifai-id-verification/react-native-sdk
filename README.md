@@ -432,7 +432,7 @@ aware that if setup incorrectly validators can cancel each other out.
   },
   {
     "type": ValidatorType.DocumentTypes,
-    "validDocumentTypes": [
+    "documentTypes": [
       DocumentType.IdCard,
       DocumentType.Passport,
       DocumentType.DriversLicence
@@ -477,7 +477,7 @@ Here's an example on how to set the document filters, pass these values in the
 "documentFilters": [
   {
     "type": DocumentFilterType.DocumentTypeAllowList,
-    "validDocumentTypes": [
+    "documentTypes": [
       DocumentType.IdCard,
       DocumentType.Passport,
       DocumentType.DriversLicence

@@ -1,23 +1,9 @@
 stages:
-  - prepare
   - build
   - publish
 
 before_script:
   - echo 'export const licence = `dummy`' > example/src/licence.js
-
-# -- Prepare ---
-
-install npm dependencies:
-  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:node-0.2
-  stage: prepare
-  artifacts:
-    expire_in: 8 hours
-    paths:
-      - node_modules
-      - example/node_modules
-  script:
-    - yarn
 
 
 # --- Build ---
@@ -25,13 +11,12 @@ install npm dependencies:
 android build sdk:
   image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:android-0.2
   stage: build
-  dependencies:
-    - install npm dependencies
   artifacts:
     expire_in: 8 hours
     paths:
       - example/android/app/build/outputs/apk/release
   script:
+    - yarn
     - cd example/android
     - ./gradlew app:build
 
@@ -39,14 +24,13 @@ android build sdk:
 # --- Publish --- #
 
 publish to npm:
-  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:node-0.1
+  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:node-0.2
   stage: publish
-  dependencies:
-    - install npm dependencies
   only:
     - /^v(\d+\.){2}(\d+)$/
   when: manual
   script:
+    - yarn
     - npm version --no-git-tag-version from-git
     - npm set //registry.npmjs.org/:_authToken=$NPM_RELEASE_TOKEN
     - npm publish --access public

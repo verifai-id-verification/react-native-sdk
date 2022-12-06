@@ -278,7 +278,7 @@ struct CoreConfiguration {
                 switch type {
                 case 0:
                     // VerifaiDocumentTypeAllowListFilter
-                    let validDocumentTypes = documentFilter.value(forKey: "validDocumentTypes") as? [Int] ?? []
+                    let validDocumentTypes = documentFilter.value(forKey: "documentTypes") as? [Int] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
                     let documentTypeFilter = VerifaiDocumentTypeWhiteListFilter(validDocumentTypes: nativeValidTypes)
                     documentFilterHolder.append(documentTypeFilter)

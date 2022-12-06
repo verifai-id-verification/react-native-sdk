@@ -128,20 +128,30 @@ public class CoreModule extends ReactContextBaseJavaModule {
         if (documentTypes != null) {
             for (int j = 0; j < documentTypes.size(); ++j) {
                 switch (DocumentType.values()[documentTypes.getInt(j)]) {
-                    case Passport:
-                        documentTypesList.add(com.verifai.core.internal.DocumentType.PASSPORT);
                     case IdCard:
                         documentTypesList.add(com.verifai.core.internal.DocumentType.IDENTITY_CARD);
+                        break;
+                    case DriversLicence:
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.DRIVING_LICENCE);
+                        break;
+                    case Passport:
+                        documentTypesList.add(com.verifai.core.internal.DocumentType.PASSPORT);
+                        break;
                     case Refugee:
                         documentTypesList.add(com.verifai.core.internal.DocumentType.REFUGEE_TRAVEL_DOCUMENT);
+                        break;
                     case EmergencyPassport:
                         documentTypesList.add(com.verifai.core.internal.DocumentType.EMERGENCY_PASSPORT);
+                        break;
                     case ResidencePermitTypeI:
                         documentTypesList.add(com.verifai.core.internal.DocumentType.RESIDENCE_PERMIT_I);
+                        break;
                     case ResidencePermitTypeII:
                         documentTypesList.add(com.verifai.core.internal.DocumentType.RESIDENCE_PERMIT_II);
+                        break;
                     case Visa:
                         documentTypesList.add(com.verifai.core.internal.DocumentType.VISA);
+                        break;
                 }
             }
         }
