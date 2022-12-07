@@ -1,7 +1,6 @@
 {
-  "name": "verifai-core-react-native",
-  "version": "0.1.0",
-  "description": "Verifai Core module binding for React Native",
+  "name": "@verifai/react-native-sdk",
+  "description": "Verifai React Native SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -13,7 +12,9 @@
     "android",
     "ios",
     "cpp",
-    "verifai-core-react-native.podspec",
+    "verifai-react-native.podspec",
+    "VerifaiNFC.podspec",
+    "LICENSE",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",
@@ -21,6 +22,17 @@
     "!**/__fixtures__",
     "!**/__mocks__"
   ],
+  "resolutions": {
+    "minimist": "^1.2.6",
+    "plist": "^3.0.5",
+    "ansi-regex": "^4.1.1",
+    "async": "^2.6.4",
+    "simple-plist": "^1.3.1",
+    "parse-url": "^6.0.1",
+    "hermes-engine": "^0.10.0",
+    "parse-path": "^5.0.0",
+    "got": "^11.8.5"
+  },
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",
@@ -34,15 +46,26 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "verifai",
+    "sdk",
+    "id",
+    "passport",
+    "mrz",
+    "identity",
+    "verification",
+    "check",
+    "authentication",
+    "face matching",
+    "digital"
   ],
-  "repository": "https://github.com/verifai-id-verification/verifai-core-react-native",
-  "author": "Jeroen Oomkes <jeroen.oomkes@verifai.com> (https://github.com/verifai-id-verification)",
-  "license": "MIT",
+  "repository": "https://github.com/verifai-id-verification/react-native-sdk",
+  "author": "Verifai",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/verifai-id-verification/verifai-core-react-native/issues"
+    "url": "https://support.verifai.com/"
   },
-  "homepage": "https://github.com/verifai-id-verification/verifai-core-react-native#readme",
+  "homepage": "https://docs.verifai.com/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -61,8 +84,8 @@
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
     "prettier": "^2.0.5",
-    "react": "16.13.1",
-    "react-native": "0.63.4",
+    "react": "18.1.0",
+    "react-native": "0.70.6",
     "react-native-builder-bob": "^0.18.2",
     "release-it": "^14.2.2",
     "typescript": "^4.1.3"
@@ -143,5 +166,9 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "@babel/core": "^7.0.0-0",
+    "@babel/preset-env": "^7.16.4"
   }
 }
