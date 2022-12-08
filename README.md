@@ -23,6 +23,7 @@
     - [Liveness checks](#liveness-checks)
   - [Support](#support)
   - [Change log](#change-log)
+    - [1.2.0](#120)
     - [1.1.0](#110)
     - [1.0.5](#105)
     - [1.0.4](#104)
@@ -560,32 +561,43 @@ For additional support remember to consult our
 
 ## Change log
 
+### 1.2.0
+
+- Updated React Native to version 0.70.6
+- Fixed document filters interface inconsistency between Android and iOS
+
 ### 1.1.0
 
-* Updated iOS SDK to version 5.4.1
-  * This adds support for PACE
-  * Adds support for renamed OpenSSL library
-* Updated Android SDK to version 4.11.1
-  * This adds support for PACE
+- Updated iOS SDK to version 5.4.1
+  - This adds support for PACE
+  - Adds support for renamed OpenSSL library
+- Updated Android SDK to version 4.11.1
+  - This adds support for PACE
 
 ### 1.0.5
-* Updates dependancy packages that have vulnerabilities
-* Improvements to README
+
+- Updates dependancy packages that have vulnerabilities
+- Improvements to README
 
 ### 1.0.4
-* Updated iOS SDK to version 5.3.0
-    * Adds 21 languages to the SDK      
-* Support for iOS 11 dropped
+
+- Updated iOS SDK to version 5.3.0
+  - Adds 21 languages to the SDK
+- Support for iOS 11 dropped
 
 ### 1.0.3
-* Updates dependancy package that has a vulnerability
+
+- Updates dependancy package that has a vulnerability
 
 ### 1.0.2
-* Updated iOS SDK to 5.2.2
+
+- Updated iOS SDK to 5.2.2
 
 ### 1.0.1
-* Improved README 
-* Fixed issue where pod installation could fail
+
+- Improved README
+- Fixed issue where pod installation could fail
 
 ### 1.0.0
-* Initial release
+
+- Initial release
