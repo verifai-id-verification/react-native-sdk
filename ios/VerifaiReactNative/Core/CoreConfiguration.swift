@@ -212,8 +212,8 @@ struct CoreConfiguration {
                     validatorHolder.append(VerifaiDocumentHasMrzValidator())
                 case 3:
                     // VerifaiDocumentTypesValidator
-                    let validDocumentTypes = validator.value(forKey: "validDocumentTypes") as? [Int] ?? []
-                    let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
+                    let documentTypes = validator.value(forKey: "documentTypes") as? [Int] ?? []
+                    let nativeValidTypes = try getNativeDocumentTypes(in: documentTypes)
                     validatorHolder.append(VerifaiDocumentTypesValidator(validDocumentTypes: nativeValidTypes))
                 case 4:
                     // VerifaiMrzAvailableValidator
@@ -284,12 +284,12 @@ struct CoreConfiguration {
                     documentFilterHolder.append(documentTypeFilter)
                 case 1:
                     // VerifaiDocumentAllowListFilter
-                    let countryCodes = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
-                    documentFilterHolder.append(VerifaiDocumentWhiteListFilter(countryCodes: countryCodes))
+                    let countryList = documentFilter.value(forKey: "countryList") as? [String] ?? []
+                    documentFilterHolder.append(VerifaiDocumentWhiteListFilter(countryCodes: countryList))
                 case 2:
                     // VerifaiDocumentBlockListFilter
-                    let countryCodes = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
-                    documentFilterHolder.append(VerifaiDocumentBlackListFilter(countryCodes: countryCodes))
+                    let countryList = documentFilter.value(forKey: "countryList") as? [String] ?? []
+                    documentFilterHolder.append(VerifaiDocumentBlackListFilter(countryCodes: countryList))
                 default:
                     throw RNError.invalidDocumentFilter
                 }

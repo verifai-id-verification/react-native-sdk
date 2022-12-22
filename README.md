@@ -451,7 +451,7 @@ aware that if setup incorrectly validators can cancel each other out.
 ### Document Filters
 
 We've also opened up the possibility to setup document filters via the react
-native bridge. Document filters allow you to cntrol which dcuments a uer can
+native bridge. Document filters allow you to control which dcuments a user can
 choose when using the manual flow of the SDK. More information about this is
 available in the documentation.
 
@@ -486,13 +486,13 @@ Here's an example on how to set the document filters, pass these values in the
   },
   {
     "type": DocumentFilterType.DocumentAllowList,
-    "countryCodes": [
+    "countryList": [
       "NL"
     ]
   },
   {
     "type": DocumentFilterType.DocumentBlockList,
-    "countryCodes": [
+    "countryList": [
       "BE"
     ]
   }
