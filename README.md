@@ -23,6 +23,7 @@
     - [Liveness checks](#liveness-checks)
   - [Support](#support)
   - [Change log](#change-log)
+    - [1.3.0](#130)
     - [1.2.0](#120)
     - [1.1.0](#110)
     - [1.0.5](#105)
@@ -561,10 +562,16 @@ For additional support remember to consult our
 
 ## Change log
 
+### 1.3.0
+
+- Fixed document filters interface inconsistency between Android and iOS.
+`countryCodes` to `countryList`.
+
 ### 1.2.0
 
 - Updated React Native to version 0.70.6
 - Fixed document filters interface inconsistency between Android and iOS
+`validDocumentTypes` to `documentTypes`.
 
 ### 1.1.0
 
