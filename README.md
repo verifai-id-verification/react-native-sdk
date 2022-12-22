@@ -23,6 +23,7 @@
     - [Liveness checks](#liveness-checks)
   - [Support](#support)
   - [Change log](#change-log)
+    - [1.3.0](#130)
     - [1.2.0](#120)
     - [1.1.0](#110)
     - [1.0.5](#105)
@@ -451,7 +452,7 @@ aware that if setup incorrectly validators can cancel each other out.
 ### Document Filters
 
 We've also opened up the possibility to setup document filters via the react
-native bridge. Document filters allow you to cntrol which dcuments a uer can
+native bridge. Document filters allow you to control which dcuments a user can
 choose when using the manual flow of the SDK. More information about this is
 available in the documentation.
 
@@ -486,13 +487,13 @@ Here's an example on how to set the document filters, pass these values in the
   },
   {
     "type": DocumentFilterType.DocumentAllowList,
-    "countryCodes": [
+    "countryList": [
       "NL"
     ]
   },
   {
     "type": DocumentFilterType.DocumentBlockList,
-    "countryCodes": [
+    "countryList": [
       "BE"
     ]
   }
@@ -561,10 +562,16 @@ For additional support remember to consult our
 
 ## Change log
 
+### 1.3.0
+
+- Fixed document filters interface inconsistency between Android and iOS.
+`countryCodes` to `countryList`.
+
 ### 1.2.0
 
 - Updated React Native to version 0.70.6
 - Fixed document filters interface inconsistency between Android and iOS
+`validDocumentTypes` to `documentTypes`.
 
 ### 1.1.0
 
