@@ -11,75 +11,64 @@ import VerifaiCommonsKit
 
 struct CoreConfiguration {
     // Properties
-    let globalConfiguration = VerifaiConfiguration()
+    var nativeConfiguration = VerifaiCoreConfiguration()
 
     init(configuration: NSDictionary) throws {
         // Main settings
         if let requireDocumentCopy = configuration.value(forKey: "requireDocumentCopy") as? Bool {
-            globalConfiguration.requireDocumentCopy = requireDocumentCopy
+            nativeConfiguration.requireDocumentCopy = requireDocumentCopy
         }
-        if let requireCroppedImage = configuration.value(forKey: "requireCroppedImage") as? Bool {
-            globalConfiguration.requireCroppedImage = requireCroppedImage
+        if let enableCropping = configuration.value(forKey: "enableCropping") as? Bool {
+            nativeConfiguration.enableCropping = enableCropping
         }
-        if let enablePostCropping = configuration.value(forKey: "enablePostCropping") as? Bool {
-            globalConfiguration.enablePostCropping = enablePostCropping
+        if let enableManualFlow = configuration.value(forKey: "enableManualFlow") as? Bool {
+            nativeConfiguration.enableManualFlow = enableManualFlow
         }
-        if let enableManual = configuration.value(forKey: "enableManual") as? Bool {
-            globalConfiguration.enableManual = enableManual
+        if let requireMrz = configuration.value(forKey: "requireMrz") as? Bool {
+            nativeConfiguration.requireMrz = requireMrz
         }
-        if let requireMRZContents = configuration.value(forKey: "requireMRZContents") as? Bool {
-            globalConfiguration.requireMRZContents = requireMRZContents
+        if let requireNFCWhenAvailable = configuration.value(forKey: "requireNfcWhenAvailable") as? Bool {
+            nativeConfiguration.requireNFCWhenAvailable = requireNFCWhenAvailable
         }
-        if let readMRZContents = configuration.value(forKey: "readMRZContents") as? Bool {
-            globalConfiguration.readMRZContents = readMRZContents
-        }
-        if let requireNFCWhenAvailable = configuration.value(forKey: "requireNFCWhenAvailable") as? Bool {
-            globalConfiguration.requireNFCWhenAvailable = requireNFCWhenAvailable
-        }
-        if let enableVisualInspection = configuration.value(forKey: "enableVisualInspection") as? Bool {
-            globalConfiguration.enableVisualInspection = enableVisualInspection
-        }
-        if let documentFiltersAutoCreateValidators = configuration.value(
-            forKey: "documentFiltersAutoCreateValidators") as? Bool {
-            globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
-        }
-        if let customDismissButtonTitle = configuration.value(forKey: "customDismissButtonTitle") as? String {
-            globalConfiguration.customDismissButtonTitle = customDismissButtonTitle
-        }
-        if let documentFiltersAutoCreateValidators = configuration.value(
-            forKey: "documentFiltersAutoCreateValidators") as? Bool {
-            globalConfiguration.documentFiltersAutoCreateValidators = documentFiltersAutoCreateValidators
-        }
-        // Validator configuration
         if let validators = configuration.value(forKey: "validators") as? NSArray {
-            globalConfiguration.validators = try processValidators(validatorArray: validators)
+            nativeConfiguration.validators = try processValidators(validatorArray: validators)
         }
-        // Document filter configuration
         if let documentFilters = configuration.value(forKey: "documentFilters") as? NSArray {
-            globalConfiguration.documentFilters = try processDocumentFilters(documentFilterArray:documentFilters)
+            nativeConfiguration.documentFilters = try processDocumentFilters(documentFilterArray:documentFilters)
         }
-        // Instruction screen configuration
-        if let instructionConfiguration = configuration.value(forKey: "instructionScreenConfiguration") as? NSDictionary {
-            // Whether the instruction screens should be shown (default is yes)
-            let showInstructionScreens = instructionConfiguration.value(forKey: "showInstructionScreens") as? Bool ?? true
-            // Build the instruction configuration
-            globalConfiguration.instructionScreenConfiguration =
-            try getInstructionScreenConfiguration(for: instructionConfiguration,
-                                                     showInstructionScreens: showInstructionScreens)
+        if let autoCreateValidators = configuration.value(forKey: "autoCreateValidators") as? Bool {
+            nativeConfiguration.autoCreateValidators = autoCreateValidators
         }
-        // Scan help configuration
         if let scanHelpConfiguration = configuration.value(forKey: "scanHelpConfiguration") as? NSDictionary {
             // Find the values
             let isScanHelpEnabled = scanHelpConfiguration.value(forKey: "isScanHelpEnabled") as? Bool ?? true
             let customScanHelpScreenInstructions = scanHelpConfiguration.value(
                 forKey: "customScanHelpScreenInstructions") as? String ?? ""
-            let customScanHelpScreenMp4FileName = scanHelpConfiguration.value(
-                forKey: "customScanHelpScreenMp4FileName") as? String ?? ""
+            let customScanHelpScreenMp4VideoResource = scanHelpConfiguration.value(
+                forKey: "customScanHelpScreenMediaResource") as? String ?? ""
             // Create a scan help configuration object
-            globalConfiguration.scanHelpConfiguration = VerifaiScanHelpConfiguration(isScanHelpEnabled: isScanHelpEnabled,
-                                                                      customScanHelpScreenInstructions:
-                        NSAttributedString(string: customScanHelpScreenInstructions),
-                                                                      customScanHelpScreenMp4FileName: customScanHelpScreenMp4FileName)
+            nativeConfiguration.scanHelpConfiguration = VerifaiScanHelpConfiguration(isScanHelpEnabled: isScanHelpEnabled,
+                                                                                     customScanHelpScreenInstructions: NSAttributedString(string: customScanHelpScreenInstructions),
+                                                                                     customScanHelpScreenMp4VideoResource: customScanHelpScreenMp4VideoResource)
+        }
+        if let requireCroppedImage = configuration.value(forKey: "requireCroppedImage") as? Bool {
+            nativeConfiguration.requireCroppedImage = requireCroppedImage
+        }
+        if let instructionConfiguration = configuration.value(forKey: "instructionScreenConfiguration") as? NSDictionary {
+            if instructionConfiguration.count > 0 {
+                // Whether the instruction screens should be shown (default is yes)
+                let showInstructionScreens = instructionConfiguration.value(forKey: "showInstructionScreens") as? Bool ?? true
+                // Build the instruction configuration
+                nativeConfiguration.instructionScreenConfiguration =
+                    try getInstructionScreenConfiguration(for: instructionConfiguration,
+                                                          showInstructionScreens: showInstructionScreens)
+            }
+        }
+        if let enableVisualInspection = configuration.value(forKey: "enableVisualInspection") as? Bool {
+            nativeConfiguration.enableVisualInspection = enableVisualInspection
+        }
+        if let customDismissButtonTitle = configuration.value(forKey: "customDismissButtonTitle") as? String {
+            nativeConfiguration.customDismissButtonTitle = customDismissButtonTitle
         }
     }
 
@@ -92,27 +81,33 @@ struct CoreConfiguration {
     /// - Returns: The instruction screen configuration or an error if the configuration contains invalid arguments
     private func getInstructionScreenConfiguration(for instructionConfiguration: NSDictionary,
                                                    showInstructionScreens: Bool) throws -> VerifaiInstructionScreenConfiguration {
+        var screenConfigurations: [VerifaiInstructionScreen: VerifaiSingleInstructionScreenConfiguration] = [:]
+      
         // Find the settings array that holds the settings for each screen
-        if let instructionConfigurationArray = instructionConfiguration.value(forKey: "instructionScreens") as? NSArray {
+        if let instructionConfigurationDict = instructionConfiguration.value(forKey: "instructionScreens") as? NSDictionary {
             // Setup screen dictionary holder
-            var screenConfigurations: [VerifaiInstructionScreen: VerifaiSingleInstructionScreenConfiguration] = [:]
             // Go trough each screen and set it up
-            for dictionary in instructionConfigurationArray {
-                if let settings = dictionary as? NSDictionary,
-                   let type = settings.value(forKey: "type") as? Int,
-                   let instructionScreen = getInstructionScreen(in: settings) {
+            for (key, value) in instructionConfigurationDict {
+                if let settings =  value as? NSDictionary,
+                   let type = settings.value(forKey: "type") as? String,
+                   let id = key as? String,
+                   let instructionScreen = getInstructionScreen(instructionScreenId: id) {
                     // Create the screen values
                     switch type {
-                    case 0:
+                    case "DefaultScreen":
                         // Default values
-                        screenConfigurations[instructionScreen] = .defaultMode
-                    case 1:
+                        screenConfigurations[instructionScreen] = .defaultScreen
+                    case "Custom":
                         // Native based configuration screen
-                        screenConfigurations[instructionScreen] = try nativeScreenValues(in: settings)
-                    case 2:
+                        if let arguments = settings.value(forKey: "arguments") as? NSDictionary {
+                            screenConfigurations[instructionScreen] = try nativeScreenValues(in: arguments)
+                        }
+                    case "Web":
                         // Web based instruction values
-                        screenConfigurations[instructionScreen] = try getWebScreenValues(in: settings)
-                    case 3:
+                        if let arguments = settings.value(forKey: "arguments") as? NSDictionary {
+                            screenConfigurations[instructionScreen] = try getWebScreenValues(in: arguments)
+                        }
+                    case "Hidden":
                         // Hide the specific instruction screen
                         screenConfigurations[instructionScreen] = .hidden
                     default:
@@ -120,29 +115,25 @@ struct CoreConfiguration {
                         throw RNError.invalidValuesSupplied
                     }
                 }
+                throw RNError.invalidValuesSupplied
             }
-            return try VerifaiInstructionScreenConfiguration(showInstructionScreens: showInstructionScreens,
-                                                             instructionScreens: screenConfigurations)
         }
-        throw RNError.invalidValuesSupplied
+        return try VerifaiInstructionScreenConfiguration(showInstructionScreens: showInstructionScreens,
+                                                         instructionScreens: screenConfigurations)
     }
 
     /// Get the Core instruction screen enum value
     /// - Parameter settings: The settings dictionary
     /// - Returns: the enum matched or nil
-    private func getInstructionScreen(in settings: NSDictionary) -> VerifaiInstructionScreen? {
-        if let screen = settings.value(forKey: "screen") as? Int {
-            switch screen {
-            case 0: return .mrzPresentFlowInstruction
-            case 1: return .mrzScanFlowInstruction
-            case 3: return .documentChooserTabBarInstruction
-            default:
-                // Illegal value
-                return nil
-            }
+    private func getInstructionScreen(instructionScreenId: String) -> VerifaiInstructionScreen? {
+        switch instructionScreenId {
+        case "MrzPresentFlowInstruction": return .mrzPresentFlowInstruction
+        case "MrzScanFlowInstruction": return .mrzScanFlowInstruction
+        case "DocumentPickerInstruction": return .documentPickerInstruction
+        default:
+            // Illegal value
+            return nil
         }
-        // Illegal value
-        return nil
     }
 
     /// Get the instruction screen values for a native instruction screen
@@ -152,27 +143,27 @@ struct CoreConfiguration {
         // Find the values
         let title = settings.value(forKey: "title") as? String ?? ""
         let header = settings.value(forKey: "header") as? String ?? ""
-        let mp4FileName = settings.value(forKey: "mp4FileName") as? String ?? ""
+        let mp4VideoResource = settings.value(forKey: "mediaResource") as? String ?? ""
         let instruction = settings.value(forKey: "instruction") as? String ?? ""
         let continueButtonLabel = settings.value(forKey: "continueButtonLabel") as? String ?? ""
         // Build the screen values object
         let screenValues = try VerifaiInstructionScreenValues(title: title,
                                                               header: header,
-                                                              mp4FileName: mp4FileName,
+                                                              mediaResource: mp4VideoResource,
                                                               instruction: NSAttributedString(string: instruction),
                                                               continueButtonLabel: continueButtonLabel)
         // We can return the instruction screen object
-        return .customLocal(screenValues: screenValues)
+        return .custom(screenValues: screenValues)
     }
 
     /// Get the instruction screen values for a web based instruction screen
     /// - Parameter settings: The settings dictionary that was passed
     /// - Returns: A screen configuration for a web based instruction screen
-    private func getWebScreenValues(in settings: NSDictionary) throws -> VerifaiSingleInstructionScreenConfiguration {
+    private func getWebScreenValues(in arguments: NSDictionary) throws -> VerifaiSingleInstructionScreenConfiguration {
         // Find the values
-        let title = settings.value(forKey: "title") as? String ?? ""
-        let urlString = settings.value(forKey: "url") as? String ?? ""
-        let continueButtonLabel = settings.value(forKey: "continueButtonLabel") as? String ?? ""
+        let title = arguments.value(forKey: "title") as? String ?? ""
+        let urlString = arguments.value(forKey: "url") as? String ?? ""
+        let continueButtonLabel = arguments.value(forKey: "continueButtonLabel") as? String ?? ""
         // Ensure the url is valid
         guard let url = URL(string: urlString) else {
             throw RNError.invalidUrl
@@ -181,7 +172,7 @@ struct CoreConfiguration {
                                                               url: url,
                                                               continueButtonLabel: continueButtonLabel,
                                                               loader: .webView)
-        return .customWeb(screenValues: webValues)
+        return .web(screenValues: webValues)
     }
 
     // MARK: - Validators
@@ -195,31 +186,25 @@ struct CoreConfiguration {
         for i in validatorArray {
             if let validator = i as? NSDictionary {
                 // Get the type of validator
-                guard let type = validator.value(forKey: "type") as? Int else {
+                guard let type = validator.value(forKey: "type") as? String else {
                     throw RNError.invalidValidator
                 }
                 switch type {
-                case 0:
-                    // VerifaiDocumentCountryAllowListValidator
-                    let countryList = validator.value(forKey: "countryList") as? [String] ?? []
-                    validatorHolder.append(VerifaiDocumentCountryWhiteListValidator(countries: countryList))
-                case 1:
-                    // VerifaiDocumentCountryBlockListValidator
-                    let countryList = validator.value(forKey: "countryList") as? [String] ?? []
-                    validatorHolder.append(VerifaiDocumentCountryBlackListValidator(countries: countryList))
-                case 2:
-                    // VerifaiDocumentHasMrzValidator
+                case "DocumentCountryAllowlistValidator":
+                    let countryList = validator.value(forKey: "countryCodes") as? [String] ?? []
+                    validatorHolder.append(VerifaiDocumentCountryAllowlistValidator(countries: countryList))
+                case "DocumentCountryBlocklistValidator":
+                    let countryList = validator.value(forKey: "countryCodes") as? [String] ?? []
+                    validatorHolder.append(VerifaiDocumentCountryBlocklistValidator(countries: countryList))
+                case "DocumentHasMrzValidator":
                     validatorHolder.append(VerifaiDocumentHasMrzValidator())
-                case 3:
-                    // VerifaiDocumentTypesValidator
-                    let documentTypes = validator.value(forKey: "documentTypes") as? [Int] ?? []
+                case "DocumentTypesValidator":
+                    let documentTypes = validator.value(forKey: "documentTypes") as? [String] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: documentTypes)
                     validatorHolder.append(VerifaiDocumentTypesValidator(validDocumentTypes: nativeValidTypes))
-                case 4:
-                    // VerifaiMrzAvailableValidator
+                case "MrzAvailableValidator":
                     validatorHolder.append(VerifaiMrzAvailableValidator())
-                case 5:
-                    // VerifaiNFCKeyWhenAvailableValidator
+                case "NfcKeyWhenAvailableValidator":
                     validatorHolder.append(VerifaiNFCKeyWhenAvailableValidator())
                 default:
                     throw RNError.invalidValidator
@@ -232,27 +217,27 @@ struct CoreConfiguration {
     /// Process an array of int (enum) based document types coming from react native
     /// - Parameter validDocumentTypes: An array of ints representing the document types
     /// - Returns: An array of native document types, or an invalid validator error
-    private func getNativeDocumentTypes(in validDocumentTypes: [Int]) throws -> [VerifaiDocumentType] {
+    private func getNativeDocumentTypes(in validDocumentTypes: [String]) throws -> [VerifaiDocumentType] {
         var typesHolder: [VerifaiDocumentType] = []
         for validType in validDocumentTypes {
             switch validType {
-            case 0:
+            case "IdentityCard":
                 typesHolder.append(.idCard)
-            case 1:
-                typesHolder.append(.driversLicence)
-            case 2:
+            case "DrivingLicense":
+                typesHolder.append(.driversLicense)
+            case "Passport":
                 typesHolder.append(.passport)
-            case 3:
+            case "RefugeeTravelDocument":
                 typesHolder.append(.refugee)
-            case 4:
+            case "EmergencyPassport":
                 typesHolder.append(.emergencyPassport)
-            case 5:
+            case "ResidencePermitTypeI":
                 typesHolder.append(.residencePermitTypeI)
-            case 6:
+            case "ResidencePermitTypeII":
                 typesHolder.append(.residencePermitTypeII)
-            case 7:
+            case "Visa":
                 typesHolder.append(.visa)
-            case 8:
+            case "Unknown":
                 typesHolder.append(.unknown)
             default:
                 throw RNError.invalidValidator
@@ -272,24 +257,21 @@ struct CoreConfiguration {
         // Go trough the validator list and convert them to their native counterparts
         for i in documentFilterArray {
             if let documentFilter = i as? NSDictionary {
-                guard let type = documentFilter.value(forKey: "type") as? Int else {
+                guard let type = documentFilter.value(forKey: "type") as? String else {
                     throw RNError.invalidDocumentFilter
                 }
                 switch type {
-                case 0:
-                    // VerifaiDocumentTypeAllowListFilter
-                    let validDocumentTypes = documentFilter.value(forKey: "documentTypes") as? [Int] ?? []
+                case "DocumentTypeAllowlistFilter":
+                    let validDocumentTypes = documentFilter.value(forKey: "documentTypes") as? [String] ?? []
                     let nativeValidTypes = try getNativeDocumentTypes(in: validDocumentTypes)
-                    let documentTypeFilter = VerifaiDocumentTypeWhiteListFilter(validDocumentTypes: nativeValidTypes)
+                    let documentTypeFilter = VerifaiDocumentTypeAllowlistFilter(validDocumentTypes: nativeValidTypes)
                     documentFilterHolder.append(documentTypeFilter)
-                case 1:
-                    // VerifaiDocumentAllowListFilter
-                    let countryList = documentFilter.value(forKey: "countryList") as? [String] ?? []
-                    documentFilterHolder.append(VerifaiDocumentWhiteListFilter(countryCodes: countryList))
-                case 2:
-                    // VerifaiDocumentBlockListFilter
-                    let countryList = documentFilter.value(forKey: "countryList") as? [String] ?? []
-                    documentFilterHolder.append(VerifaiDocumentBlackListFilter(countryCodes: countryList))
+                case "DocumentAllowlistFilter":
+                    let countryList = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
+                    documentFilterHolder.append(VerifaiDocumentAllowlistFilter(countryCodes: countryList))
+                case "DocumentBlocklistFilter":
+                    let countryList = documentFilter.value(forKey: "countryCodes") as? [String] ?? []
+                    documentFilterHolder.append(VerifaiDocumentBlocklistFilter(countryCodes: countryList))
                 default:
                     throw RNError.invalidDocumentFilter
                 }

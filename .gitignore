@@ -73,8 +73,6 @@ lib/
 # Env variables (keys etc)
 example/.env
 
-example/ios/Podfile.lock
-
 example/ios/fastlane/
 
 example/ios/Gemfile
@@ -97,4 +95,4 @@ xcodebuild.log/VerifaiCoreReactNativeExample-VerifaiReactNativeExample.log
 *.p12
 
 # Ignore licence
-example/src/licence.js
+example/src/License.tsx

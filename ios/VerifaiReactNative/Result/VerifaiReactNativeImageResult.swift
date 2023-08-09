@@ -8,7 +8,7 @@
 import Foundation
 
 struct VerifaiReactNativeImageResult: Codable {
-  let data: String
-  let mWidth: CGFloat
-  let mHeight: CGFloat
+  let base64: String
+  let width: CGFloat
+  let height: CGFloat
 }

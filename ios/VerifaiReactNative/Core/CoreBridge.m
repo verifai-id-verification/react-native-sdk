@@ -10,17 +10,20 @@
 
 @interface RCT_EXTERN_MODULE(Core, NSObject)
 
-// Licence
-RCT_EXTERN_METHOD(setLicence:(NSString *));
-// Listeners
-RCT_EXTERN_METHOD(setOnSuccess:(RCTResponseSenderBlock *));
-RCT_EXTERN_METHOD(setOnCancelled:(RCTResponseSenderBlock *));
-RCT_EXTERN_METHOD(setOnError:(RCTResponseSenderBlock *));
+// License
+RCT_EXTERN_METHOD(setLicense:(NSString *)license resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject);
+
 // Configuration
-RCT_EXTERN_METHOD(configure:(NSDictionary *));
+RCT_EXTERN_METHOD(configure:(NSDictionary *)configuration resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject);
+
 // Core
-RCT_EXTERN_METHOD(start);
+RCT_EXTERN_METHOD(startLocal:(RCTPromiseResolveBlock)resolve rejecter: (RCTPromiseRejectBlock)reject);
+
+// Core API
+RCT_EXTERN_METHOD(start:(NSString *)internalReference resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject);
+
 // Main queue setup
 RCT_EXTERN_METHOD(requiresMainQueueSetup);
 
 @end
+ 

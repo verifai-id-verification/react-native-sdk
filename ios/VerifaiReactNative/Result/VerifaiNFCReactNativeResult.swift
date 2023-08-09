@@ -11,71 +11,45 @@ import VerifaiNFCKit
 
 class VerifaiNFCReactNativeResult: Codable {
     
+    var originality: Bool
     var authenticity: Bool
     var confidentiality: Bool
-    var originality: Bool
-    var mrzMatch: Bool
-    var dataGroupHashesValid: Bool
-    var bacSuccess: Bool
-    var activeAuthenticationSuccess: Bool
-    var chipAuthenticationSuccess: Bool
-    var documentSignatureCorrect: Bool
-    var documentCertificateValid: Bool
-    var signingCertificateMatchesWithParent: VerifaiRootCertificateStatus
-    var scanCompleted: Bool
     var bacStatus: VerifaiBacStatus
     var paceStatus: VerifaiPACEStatus
     var activeAuthenticationStatus: VerifaiActiveAuthStatus
     var chipAuthenticationStatus: VerifaiChipAuthStatus
-    var photo: VerifaiReactNativeImageResult?
+    var isMrzMatch: Bool
     var mrzData: VerifaiMRZModel?
-    var dataGroups: [UInt8 : Data]?
-    var dataGroupHashes: [UInt8 : Data]?
+    var faceImage: VerifaiReactNativeImageResult?
+    var areDataChecksumsValid: Bool
+    var isDocumentSignatureCorrect: Bool
+    var isDocumentCertificateValid: Bool
+    var countrySignatureStatus: VerifaiRootCertificateStatus
     var documentSpecificData: VerifaiNFCDocumentSpecificData?
-    var documentCertificate: String?
-    var type: VerifaiApplicationSelectionType
-    var sodHashes: [UInt8 : Data]?
-    var sodData: Data?
-    var aaDigestAlgorithm: String?
-    var chipAuthenticationOid: String?
-    var signingCertificate: String?
+    var documentNfcIdentifier: VerifaiApplicationSelectionType
     
-    
-    init(nfcResult: VerifaiNFCResult) {
+    init(nfcResult: VerifaiLocalNFCResult) {
         // Define react native user image
-        if let image = nfcResult.photo {
-            photo = VerifaiReactNativeImageResult(data: image.pngData()?.base64EncodedString() ?? "",
-                                                  mWidth: image.size.width,
-                                                  mHeight: image.size.height)
+        if let image = nfcResult.faceImage {
+            faceImage = VerifaiReactNativeImageResult(base64: image.pngData()?.base64EncodedString() ?? "",
+                                                      width: image.size.width,
+                                                      height: image.size.height)
         }
         // Set the rest of the values to be equal to the normal result
         self.authenticity = nfcResult.authenticity
         self.confidentiality = nfcResult.confidentiality
         self.originality = nfcResult.originality
-        self.mrzMatch = nfcResult.mrzMatch
-        self.dataGroupHashesValid = nfcResult.dataGroupHashesValid
-        self.bacSuccess = nfcResult.bacSuccess
-        self.activeAuthenticationSuccess = nfcResult.activeAuthenticationSuccess
-        self.chipAuthenticationSuccess = nfcResult.chipAuthenticationSuccess
-        self.documentSignatureCorrect = nfcResult.documentSignatureCorrect
-        self.documentCertificateValid = nfcResult.documentCertificateValid
-        self.signingCertificateMatchesWithParent = nfcResult.signingCertificateMatchesWithParent
-        self.scanCompleted = nfcResult.scanCompleted
+        self.isMrzMatch = nfcResult.isMRZMatch
+        self.areDataChecksumsValid = nfcResult.areDataChecksumsValid
+        self.isDocumentSignatureCorrect = nfcResult.isDocumentSignatureCorrect
+        self.isDocumentCertificateValid = nfcResult.isDocumentCertificateValid
+        self.countrySignatureStatus = nfcResult.countrySignatureStatus
         self.bacStatus = nfcResult.bacStatus
         self.paceStatus = nfcResult.paceStatus
         self.activeAuthenticationStatus = nfcResult.activeAuthenticationStatus
         self.chipAuthenticationStatus = nfcResult.chipAuthenticationStatus
         self.mrzData = nfcResult.mrzData
-        self.dataGroups = nfcResult.dataGroups
-        self.dataGroupHashes = nfcResult.dataGroupHashes
         self.documentSpecificData = nfcResult.documentSpecificData
-        self.documentCertificate = nfcResult.documentCertificate
-        self.type = nfcResult.type
-        self.sodHashes = nfcResult.sodHashes
-        self.sodData = nfcResult.sodData
-        self.aaDigestAlgorithm = nfcResult.aaDigestAlgorithm
-        self.chipAuthenticationOid = nfcResult.chipAuthenticationOid
-        self.signingCertificate = nfcResult.signingCertificate
-        
+        self.documentNfcIdentifier = nfcResult.documentNfcIdentifier
     }
 }

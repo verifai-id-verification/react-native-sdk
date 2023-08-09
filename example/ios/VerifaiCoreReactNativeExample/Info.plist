@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>VerifaiCoreReactNative Example</string>
+	<string>Verifai RN Example</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -24,6 +24,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>NFC usage permission text in info.plist</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -37,6 +39,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera usage permission text in info.plist</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone usage permission text in info.plist</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech recognition usage permission text in info.plist</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,14 +59,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera usage permission text in info.plist</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Microphone usage permission text in info.plist</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Speech recognition usage permission text in info.plist</string>
-	<key>NFCReaderUsageDescription</key>
-	<string>NFC usage permission text in info.plist</string>
 	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
 	<array>
 		<string>A0000002471001</string>

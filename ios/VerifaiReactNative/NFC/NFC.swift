@@ -7,10 +7,12 @@
 
 import Foundation
 import VerifaiNFCKit
+import VerifaiCommonsKit
+import VerifaiKit
 
 @objc(NFC)
 public class NFC: NSObject {
-    
+
     // MARK: - Properties
     private var encoder: JSONEncoder = {
         let encoder = JSONEncoder()
@@ -18,118 +20,111 @@ public class NFC: NSObject {
         encoder.dateEncodingStrategy = .iso8601
         return encoder
     }()
-    
-    // MARK: - Listeners
-    private var onSuccessListener: RCTResponseSenderBlock?
-    private var onErrorListener: RCTResponseSenderBlock?
-    
-    /// On success listener for the Core
-    /// - Parameter listener: The success listener
-    @objc(setOnSuccess:)
-    public func setOnSuccess(_ listener: @escaping RCTResponseSenderBlock) {
-        self.onSuccessListener = listener
-    }
-    
-    /// Handle the success call by checking if there's a listener and otherwise informing
-    /// the dev via a print if this is not the case
-    /// - Parameter message: The response message to be sent trough the listener
-    private func handleSuccess(message: NSDictionary) {
-        guard let onSuccessListener = onSuccessListener else {
-#if DEBUG
-            print("No success listener has been set, please set one")
-#endif
-            return
+
+    // MARK: - License
+    /// Set the Verifai License
+    /// - Parameter license: The license registered to the company
+    @objc
+    public func setLicense(_ license: String, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+        switch VerifaiCommons.setLicense(license) {
+        case .success(_):
+            resolve(nil)
+        case .failure(let error):
+            reject(ErrorType.license, "🚫 \(error)", error)
         }
-        onSuccessListener([message])
     }
-    
-    /// On cancel listener for the Core, iOS does not currently use this but we have it to have ensure interface equality
-    /// with android. Otherwise a react crash could occur
-    /// - Parameter listener: The cancel listener
-    @objc(setOnCancelled:)
-    public func setOnCancelled(_ listener: @escaping RCTResponseSenderBlock) { }
-    
-    /// Set On Error listener for the Core
-    /// - Parameter listener: The error listener
-    @objc(setOnError:)
-    public func setOnError(_ listener: @escaping RCTResponseSenderBlock) {
-        self.onErrorListener = listener
-    }
-    
-    /// Handle the error call by checking if there's a listener and otherwise informing
-    /// the dev via a print if this is not the case
-    /// - Parameter message: The response message to be sent trough the listener
-    private func handleError(message: String) {
-        guard let onErrorListener = onErrorListener else {
-#if DEBUG
-            print("No error listener has been set, please set one")
-#endif
-            return
+
+    // MARK: - NFC Configuration
+    @objc
+    public func configure(_ configuration: NSDictionary, resolver resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+        do {
+            var coreConfiguration =  VerifaiCoreConfiguration()
+            if let coreConfigurationDict = configuration.value(forKey: "core") as? NSDictionary {
+                coreConfiguration = try CoreConfiguration(configuration: coreConfigurationDict).nativeConfiguration
+            }
+          
+            var nfcConfiguration = VerifaiNFCConfiguration()
+            if let nfcConfigurationDict = configuration.value(forKey: "nfc") as? NSDictionary {
+                nfcConfiguration = try NFCConfiguration(configuration: nfcConfigurationDict).nativeConfiguration
+            }
+          
+            try VerifaiNFC.configure(coreConfiguration: coreConfiguration, nfcConfiguration: nfcConfiguration)
+            resolve(nil)
+        } catch {
+            reject(ErrorType.configuration, "🚫 Verifai not correctly configured", error)
         }
-        onErrorListener([message])
     }
-    
-    // MARK: - NFC Module functions
-    @objc(start:)
-    public func start(_ configuration: NSDictionary) {
-        // Make sure there's a result
-        guard let currentResult = VerifaiResultSingleton.shared.currentResult else {
-            handleError(message: "🚫 No result yet, please do a normal scan first")
-            return
-        }
+
+    // MARK: - NFC
+    @objc
+    public func startLocal(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
         // Run NFC (on the main thread because it's going to be doing UI activities)
         DispatchQueue.main.async {
-            // Use React function to get current top view controller
-            guard let currentVC = RCTPresentedViewController() else {
-                self.handleError(message: "🚫 No current view controller found")
-                return
-            }
             do {
-                // NFC configuration from the dictionary
-                let settings = try NFCConfiguration(configuration: configuration)
+                // Use React function to get current top view controller
+                guard let currentVC = RCTPresentedViewController() else {
+                    reject(ErrorType.noView, "🚫 No current view controller found", nil)
+                    return
+                }
                 // Start the NFC module
-                try VerifaiNFC.start(over: currentVC,
-                                     documentData: currentResult,
-                                     retrieveImage: settings.retrieveImage,
-                                     showDismissButton: settings.showDismissButton,
-                                     customDismissButtonTitle: settings.customDismissButtonTitle,
-                                     instructionScreenConfiguration: settings.instructionScreenConfiguration,
-                                     scanHelpConfiguration: settings.scanHelpConfiguration)
-                { nfcResult in
+                try VerifaiNFC.startLocal(over: currentVC,
+                                          resultBlock: { nfcResult in
                     switch nfcResult {
                     case .failure(let error):
-                        self.handleError(message: "🚫 Error or cancellation: \(error)")
+                        var errorType = ErrorType.sdk
+                        if (error is VerifaiFlowCancelError) {
+                            errorType = ErrorType.canceled
+                        }
+                        reject(errorType, "🚫 \(error)", error)
                     case .success(let result):
                         do {
-                            // Keep the NFC image in singleton in case the liveness check needs it
-                            VerifaiResultSingleton.shared.nfcImage = result.photo
-                            // Process result to a format react-native can understand (JSON string)
-                            let preparedResult = try self.prepareNFCResult(result: result)
-                            self.handleSuccess(message: preparedResult)
+                            let preparedResult = try prepareNFCResult(result: result)
+                            resolve(preparedResult)
                         } catch {
-                            self.handleError(message: "🚫 Error parsing result: \(error)")
+                            reject(ErrorType.resultConversion, "🚫 Result conversion error: \(error)", error)
                         }
                     }
-                }
+                })
             } catch {
-                self.handleError(message: "🚫 Unhandled error: \(error)")
+                reject(ErrorType.unhandled, "🚫 Unhandled error: \(error)", error)
             }
         }
     }
-    
-    /// Prepare NFC result into something react native can understand
-    /// - Parameter result: The result coming from the NFC module
-    private func prepareNFCResult(result: VerifaiNFCResult) throws -> NSDictionary {
-        // Goal is to transform the codable object into JSON data and then use native iOS
-        // conversion to NSDictionary
-        let data = try self.encoder.encode(VerifaiNFCReactNativeResult(nfcResult: result))
-        guard let dictionary = try JSONSerialization.jsonObject(with: data,
-                                                                options: .fragmentsAllowed) as? [String: Any] else  {
-            throw RNError.unableToCreateResult
+
+    // MARK: - NFC API Flow
+    @objc
+    public func start(_ internalReference: String, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+        DispatchQueue.main.async {
+            do {
+                // Use React function to get current top view controller
+                guard let currentVC = RCTPresentedViewController() else {
+                    reject(ErrorType.noView, "🚫 No current view controller found", nil)
+                    return
+                }
+                // Start Verifai NFC API Route
+                try VerifaiNFC.start(over: currentVC, internalReference: internalReference, resultBlock: { result in
+                    switch result {
+                    case .failure(let error):
+                        var errorType = ErrorType.sdk
+                        if (error is VerifaiFlowCancelError) {
+                            errorType = ErrorType.canceled
+                        }
+                        reject(errorType, "🚫 \(error)", error)
+                    case .success(let verifaiNfcAPIResult):
+                        do {
+                            let preparedResult = try prepareAPINFCResult(nfcAPIResult: verifaiNfcAPIResult)
+                            resolve(preparedResult)
+                        } catch {
+                            reject(ErrorType.resultConversion, "🚫 Result conversion error: \(error)", error)
+                        }
+                    }
+                })
+            } catch {
+                reject(ErrorType.unhandled, "🚫 Unhandled error: \(error)", error)
+            }
         }
-        return NSDictionary(dictionary: dictionary)
     }
-    
+
     // Main queue setup not required
     @objc(requiresMainQueueSetup)
     public static func requiresMainQueueSetup() -> Bool {

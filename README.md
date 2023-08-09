@@ -6,7 +6,7 @@
   - [Table of contents](#table-of-contents)
   - [Getting started](#getting-started)
     - [Install Verifai](#install-verifai)
-    - [Add licence](#add-licence)
+    - [Add license](#add-license)
     - [Android](#android)
     - [iOS](#ios)
   - [Usage](#usage)
@@ -15,14 +15,15 @@
     - [Liveness](#liveness)
   - [Customization](#customization)
     - [Core settings](#core-settings)
-    - [Core - Instruction screens (iOS only)](#core---instruction-screens-ios-only)
-    - [NFC - Instruction screens (iOS only)](#nfc---instruction-screens-ios-only)
+    - [Core - Instruction screens](#core---instruction-screens)
+    - [NFC - Instruction screens](#nfc---instruction-screens)
     - [Scan help (iOS only)](#scan-help-ios-only)
     - [Validators](#validators)
     - [Document Filters](#document-filters)
     - [Liveness checks](#liveness-checks)
   - [Support](#support)
   - [Change log](#change-log)
+    - [2.0.0](#200)
     - [1.3.0](#130)
     - [1.2.0](#120)
     - [1.1.0](#110)
@@ -35,10 +36,11 @@
 
 ## Getting started
 
-If you are new to React Native and want to start a new project, the official
-[React Native](https://reactnative.dev/docs/environment-setup) docs explain how
-to setup your develop environment. The Verifai sdk uses native modules which
-means the React Native CLI Quickstart has to be used, Expo is not possible.
+If you are new to React Native and want to start a new project,
+the official [React Native](https://reactnative.dev/docs/environment-setup)
+docs explain how to setup your develop environment.
+The Verifai sdk uses native modules which means the React Native CLI Quickstart has to be used,
+Expo is not possible.
 
 ### Install Verifai
 
@@ -50,44 +52,35 @@ yarn add @verifai/react-native-sdk
 npm install @verifai/react-native-sdk
 ```
 
-### Add licence
+### Add license
 
-The Verifai SDK does not work without a valid licence. The licence can be copied
-from the dashboard, and has to be set with the `Core.setLicence` method, see
-[usage](#core).
+The Verifai SDK does not work without a valid license.
+The license can be copied from the dashboard, and has to be set with the `Core.setLicense` method,
+see [usage](#core).
 
-An easy way to store the licence and keep it outside version control, is to copy
-it in a local `licence.js` file next to your `App.js`. Add `licence.js` to
-your `.gitignore` file. It can look approximately like this:
+An easy way to store the license and keep it outside version control,
+is to copy it in a local `License.tsx` file next to your `App.tsx`.
+Add `License.tsx` to your `.gitignore` file.
+Example:
 
-```js
-export const licence = `=== Verifai Licence file V2 ===
+```tsx
+const license: string = `=== Verifai Licence file V2 ===
 ...
 `
+export default license
 ```
 
-Then import the licence variable in your `App.js` like this:
+Then import the license variable in your `App.tsx` like this:
 
-```js
-import { licence } from './licence';
+```tsx
+import license from './License'
 ```
 
 ### Android
 
-In order for the sdk to find the native Android libraries add the Verifai maven
-repository in your root `build.gradle` file:
-
-```groovy
-allprojects {
-    repositories {
-        maven { url 'https://dashboard.verifai.com/downloads/sdk/maven/' }
-    }
-}
-```
-
-To avoid conflicts between native android runtime libraries, add the
-`packagingOptions` code snippet in the `build.gradle` file of your app, not in
-the root!
+To avoid conflicts between native android runtime libraries,
+add the `packagingOptions` code snippet in the `build.gradle` file of your app,
+not in the root!
 
 ```groovy
 android {
@@ -99,8 +92,8 @@ android {
 }
 ```
 
-If you run into memory errors during the build of your app, uncomment (or if it
-is not there add) the following line in your gradle.properties file:
+If you run into memory errors during the build of your app,
+uncomment (or if it is not there add) the following line in your gradle.properties file:
 
 ```ini
 org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
@@ -121,227 +114,245 @@ Afterwards you can run `pod install`. That's all it takes!
 The SDK has 3 modules:
 
 - Core: The core scanning functionality
-- NFC: Performs an NFC scan on the document (compatible device required)
+- NFC: Does the core scanning and a NFC scan on the document (compatible device required)
 - Liveness: Performs a liveness check and optionally a face matching check
+
+For both the Core and NFC modules there are two ways to use the SDK.
+The new preferred way of doing it is the API flow.
+This is the way explained in the code examples of this README.
+It will send the scan result to our `Identity Review` system.
+Verifai will review the scan, and the scan result will be made available through a web hook,
+and no longer in the app itself.
+This allows for more security and validity.
+In case you rather like to get the result locally in your app itself,
+the previous way of doing it is still available.
+Instead of using the `Core.start` or `NFC.start`, you'll have to use:
+`Core.startLocal` or `NFC.startLocal`.
+For more information, please consult the online documentation.
 
 ### Core
 
 An example on how to run the most basic core functionality
 
 ```ts
-import { Core } from '@verifai/react-native-sdk';
+import { Core } from '@verifai/react-native-sdk'
 
-// Import licence variable stored in a local licence.js file that is ignored by
+// Import license variable stored in a local license.js file that is ignored by
 // version control
-import { licence } from './licence';
+import license from './License'
 
-// When the SDK finishes, an action is cancelled or an error is given these
-// listeners will handle the returned object. The result object in the onSuccess
-// listener conforms to the VerifaiResult object. The image results have been
-// reworked to return something react native can understand. Read the
-// documentation for more info.
-
-// First set up the listeners
-Core.setOnSuccess(result => console.log("success"))
-Core.setOnCancelled(() => console.log("Cancelled"))
-Core.setOnError(message => console.error(message))
-
-// Set the licence (more info in the documentation)
-Core.setLicence(licence)
-Core.configure({ "enableVisualInspection": true })
-// Start the SDK, this displays the SDK on the screen. The result is returned
-// through the listeners
-Core.start()
+// Example async function for starting the sdk
+const startSdk = async () => {
+  try {
+    // Set the license (more info in the documentation)
+    await Core.setLicense(license)
+    // Set the confiuration options
+    await Core.configure({ enableVisualInspection: true })
+    // Start the SDK
+    const result = await Core.start('React Native Core') // Pass string argument: `internal reference`
+    // Process the result here
+  } catch (e) {
+    // Catch error
+    console.error(e)
+  }
+}
 ```
 
 ### NFC
 
-An example on how to run the most basic NFC functionality. The NFC module can
-only be run after a scan from the Core module has been performed. Also you need
-to make sure the licence has been setup by the Core before running the NFC
-module.
+An example on how to run the most basic NFC functionality.
+The NFC module can only be run after a scan from the Core module has been performed.
+Also you need to make sure the license has been setup by the Core before running the NFC module.
 
 ```ts
-import { NFC } from '@verifai/react-native-sdk';
+import { NFC } from '@verifai/react-native-sdk'
 
-// Listener for when the NFC process finishes or an error occurs. The result
-// object conforms to the structure of VerifaiNFCResult. The image results have
-// been reworked to return something react native can understand. Read the
-// documentation for more info.
-NFC.setOnSuccess((result: Object) => { 
-  console.log(JSON.stringify(result, null, 2)) 
-})
-NFC.setOnCancelled(() => console.log("Cancelled"))
-NFC.setOnError(message => console.error(message))
-// Now we can start the NFC SDK. This will present the scanning screen. There
-// are a few things we can setup while starting the NFC check to see the full
-// list check out the documentation. Important: For the NFC check to work
-// properly the main scan should have been performed.
-NFC.start({
-  "retrieveImage": true,
-  "showDismissButton": true,
-})
+// Import license variable stored in a local license.js file that is ignored by
+// version control
+import license from './License'
+
+// Example async function for starting the sdk
+const startSdk = async () => {
+  try {
+    // Set the license (more info in the documentation)
+    await NFC.setLicense(license)
+    // Set the confiuration options
+    await NFC.configure({
+      // Core config is exactly as the configuration for the Core module shown above
+      core: {
+        enableManualFlow: true,
+      },
+      nfc: {
+        retrieveFaceImage: true,
+        instructionScreenConfiguration: {}, // To use the example: instructionScreenConfiguration: instructionScreenConfig,
+      }
+    })
+    // Start the SDK
+    const result = await NFC.start('React Native NFC') // Pass string argument: `internal reference`
+    // Process the result here
+  } catch (e) {
+    // Catch error
+    console.error(e)
+  }
+}
 ```
 
 ### Liveness
 
-An example on how to run the most basic Liveness functionality. The Liveness
-module can only be run after a scan from the Core module has been performed.
-Also you need to make sure the licence has been setup by the Core before running
-the Liveness module.
+An example on how to run the most basic Liveness functionality.
+The Liveness module can only be run after a scan from the Core module has been performed.
+Also you need to make sure the license has been setup by the Core before running the Liveness module.
 
 ```ts
 import { Liveness } from '@verifai/react-native-sdk';
 
-// Listeners for when the liveness check finishes or an error occurs. The result
-// object conforms to the structure of VerifaiLivenessCheckResults. Please read
-// the documentation for more info.  
-Liveness.setOnSuccess((result: Object) => { 
-  console.log(JSON.stringify(result, null, 2)) 
-})
-Liveness.setOnError(message => console.error(message))
-// Now we can start the liveness check, this shows the liveness check screen
-// There are a few things we can setup while starting the liveness check to see
-// the full list check out the documentation. Important: For the liveness check
-// to work properly the main scan should have been performed
-Liveness.start({
-  "showDismissButton": true,
-  "checks": [
+
+const startLiveness = async () => {
+  // There are a few things we can setup while starting the liveness check to see
+  // the full list check out the documentation. Important: For the liveness check
+  // to work properly the main scan should have been performed
+  // Configure the module if you want to customize the default behaviour
+  await Liveness.configure({
+    showDismissButton: true,
+    customSkipButtonTitle: 'Close',
+    showSkipButton: true,
+  })
+
+  // Setup the liveness checks:
+  let checks: { [key: string]: any }[] = [
     {
-      "check": LivenessCheck.CloseEyes,
-      "numberOfSeconds": 3,
+      type: LivenessCheck.CloseEyes,
+      numberOfSeconds: 3,
+      instruction: 'Hi, please close your eyes.', // Optional for customization
     },
     {
-      "check": LivenessCheck.Tilt,
-      "faceAngleRequirement": 15,
-    }
+      type: LivenessCheck.Tilt,
+      faceAngle: 15,
+    },
+    {
+      // iOS only check, on Android it is ignored
+      type: LivenessCheck.Speech,
+      speechRequirement: 'Hi React Native example',
+      locale: 'en-US', // Underscore is not supported for locale string
+    },
   ]
-})
+
+  // Now we can start the liveness check, this shows the liveness check screen
+  // There are a few things we can setup while starting the liveness check
+  // to see the full list check out the documentation.
+  // Important: For the face match check, the Core or NFC scan should be done first
+  const result = await Liveness.start(checks)
+}
 ```
 
 ## Customization
 
 Each module has extensive custimzation options to control the SDK's behavior.
-You can customize options while scanning, scan help instruction, pre scan
-instruction. You can also customize what kind of documents are allowed or filter
-which options a user can choose from.
+You can customize options while scanning, scan help instruction, pre scan instruction.
+You can also customize what kind of documents are allowed or filter which options a user can choose from.
 
-Extensive documentation on this is available in our
-[documentation](https://docs.verifai.com).
+Extensive documentation on this is available in our [documentation](https://docs.verifai.com).
 
-Below you can find some examples on how to setup some components to give you an
-idea of what you can setup.
+Below you can find some examples on how to setup some components to give you an idea of what you can setup.
 
 ### Core settings
 
-The core offers several settings that allow you too better setup the SDK and
-which flows a user gets.
+The core offers several settings that allow you too better setup the SDK and which flows a user gets.
 
-Below is an example of the settings you can set, you can customize these to fit
-your own need. For extensive explanation of what eacht setting does please check
-out documentation. YOu can set these values in the `Core.configure` function.
+Below is an example of the settings you can set, you can customize these to fit your own needs.
+For extensive explanation of what eacht setting does please check out documentation.
+You can set these values in the `Core.configure` function.
 
 ```ts
-"enablePostCropping": true,
-"enableManual": true,
-"requireDocumentCopy": true,
-"requireCroppedImage": true,
-"requireMRZContents": false,
-"requireNFCWhenAvailable": false,
-"readMRZContents": true,
-"enableVisualInspection": true,
-"documentFiltersAutoCreateValidators": true,
-"customDismissButtonTitle": null,
+await Core.configure({
+  requireDocumentCopy: true,
+  enableCropping: true,
+  enableManualFlow: true,
+  requireMrz: false,
+  requireNfcWhenAvailable: false,
+  autoCreateValidators: true,
+  isScanHelpEnabled: true,
+  requireCroppedImage: true,
+  enableVisualInspection: false,
+  instructionScreenConfiguration: {}, // See section: Core - Instruction screens
+  validators: [], // See section: Validators
+  filters: [], // See section: Document filters
+  scanHelpConfiguration: {}, // iOS only
+})
 ```
 
-### Core - Instruction screens (iOS only)
+### Core - Instruction screens
 
-There are several ways of customizing the instruction screens. The easiest way
-is to use our own design but customize the values yourself, place these values
-inside `Core.configure`:
+There are several ways of customizing the instruction screens.
+The easiest way is to use our own design but customize the values yourself,
+place these values inside `Core.configure`:
 
 ```ts
-"instructionScreenConfiguration": {
-  "showInstructionScreens": false,
-  "instructionScreens": [
-    {
-      "screen": InstructionScreenId.MrzPresentFlowInstruction,
-      "type": InstructionType.Media,
-      // Values for MEDIA based instruction screens
-      "title": "Custom Instruction",
-      "continueButtonLabel": "Let's do it!",
-      "header": "Check out the video below",
-      "mp4FileName": "DemoMp4", // This file needs to be available in your main bundle
-      "instruction": "This is some custom instruction text that you can provide. In this example we're customizing the screen that asks if the document has an MRZ (Machine Readable Zone). So does the document have a MRZ? Answer below.",
+const instructionScreenConfig = {
+  showInstructionScreens: true,
+  instructionScreens: {
+    //... Other screens
+    [InstructionScreenId.MrzPresentFlowInstruction]: {
+      type: InstructionType.Custom,
+      arguments: {
+        type: InstructionArgument.Custom,
+        title: 'MRZ',
+        header: 'Does document have MRZ?',
+        mediaResource: "DemoMp4", // This file needs to be available in your main bundle (iOS), or resources (Android)
+        continueButtonLabel: 'Yes',
+        negativeButtonLabel: 'No',
+      }
     }
-  ]
+  }
 }
 ```
 
 You can also use a web based instruction screen:
 
 ```ts
-"instructionScreenConfiguration": {
-  "showInstructionScreens": false,
-  "instructionScreens": [
-    {
-      "screen": InstructionScreenId.MrzPresentFlowInstruction,
-      "type": InstructionType.Web, 
-      // Values for WEB based instruction screens
-      "title": "Custom Instruction",
-      "continueButtonLabel": "Let's do it!",
-      "url": "https://www.verifai.com/en/support/supported-documents/",
+const instructionScreenConfig = {
+  showInstructionScreens: true,
+  instructionScreens: {
+    //... Other screens
+    [InstructionScreenId.MrzScanFlowInstruction]: {
+      type: InstructionType.Web,
+      arguments: {
+        type: InstructionArgument.Web,
+        title: "Hi",
+        url: "https://www.verifai.com",
+        continueButtonLabel: "Test",
+        negativeButtonLabel: "Stop",
+      }
     }
-  ]
+  }
 }
 ```
 
-For exact options and possible values check out our documetation.
+For exact options and possible values check out our native documentation.
 
-### NFC - Instruction screens (iOS only)
+### NFC - Instruction screens
 
 It's also possible to setup the NFC's instruction screens.
 
-The most simple way is to use our own design but customize the values yourself,
-place these values inside `NFC.start`:
+The most simple way is to use our own design, but customize the values yourself.
+Put these values inside `NFC.start`:
 
 ```ts
 // Setup the NFC instruction screens, check out docs for more info
-"instructionScreenConfiguration": {
-  "showInstructionScreens": true,
-  "instructionScreens": [
-    {
-      "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
-      "type": InstructionType.Media, // Possible values "MEDIA", "HIDDEN", "DEFAULT" or "WEB"
-      // Values for both MEDIA and WEB based instruction screens
-      "title": "Custom NFC Instruction",
-      "continueButtonLabel": "Let's do it!",
-      // Native only instruction with local screen values (type = MEDIA)
-      "header": "Check out the video below",
-      "mp4FileName": "DemoMp4", // This file needs to be available in your main bundle
-      "instruction": "The US passport has the NFC chip in a very peculiar place. You need to open up the booklet and look for the image of a satellite looking spacecraft on the back (the voyager spacecraft). Place the top back part of your device in one swift motion on top of that spacecraft to start the NFC scan process.",
+const instructionScreenConfig = {
+  showInstructionScreens: true,
+  instructionScreens: {
+    [NfcInstructionScreenId.NfcScanFlowInstruction]: {
+      type: InstructionType.Web,
+      arguments: {
+        type: InstructionArgument.Web,
+        title: 'Hi',
+        url: 'https://www.verifai.com',
+        continueButtonLabel: 'Start',
+        negativeButtonLabel: 'Stop',
+      }
     }
-  ]
-}
-```
-
-You could also use a web based instruction screen:
-
-```ts
-// Setup the NFC instruction screens, check out docs for more info
-"instructionScreenConfiguration": {
-  "showInstructionScreens": true,
-  "instructionScreens": [
-    {
-      "screen": "nfcScanFlowInstruction", // Currently the only instruction screen in the NFC module
-      "type": InstructionType.Web, 
-      // Values for both MEDIA and WEB based instruction screens
-      "title": "Custom NFC Instruction",
-      "continueButtonLabel": "Let's do it!",
-      // Web only instruction screen values (type = WEB)
-      "url": "https://www.verifai.com/en/support/supported-documents/",
-    }
-  ]
+  },
 }
 ```
 
@@ -361,10 +372,10 @@ You can customize this screen in the following way, place these values inside
 ```ts
 // Setup scan help, scan help in this case gets shown when scanning fails,
 // check out docs for more info
-"scanHelpConfiguration": {
-  "isScanHelpEnabled": true,
-  "customScanHelpScreenInstructions": "Our own custom instruction",
-  "customScanHelpScreenMp4FileName": "DemoMp4"
+scanHelpConfiguration: {
+  isScanHelpEnabled: true,
+  customScanHelpScreenInstructions: 'Our own custom instruction',
+  customScanHelpScreenMp4FileName: 'DemoMp4'
 }
 ```
 
@@ -378,10 +389,10 @@ You can customize this screen in the following way, place these values inside
 ```ts
 // Setup scan help, scan help in this case gets shown when NFC scanning fails,
 // check out docs for more info
-"scanHelpConfiguration": {
-    "isScanHelpEnabled": true,
-    "customScanHelpScreenInstructions": "Our own custom instruction",
-    "customScanHelpScreenMp4FileName": "DemoMp4"
+scanHelpConfiguration: {
+  isScanHelpEnabled: true,
+  customScanHelpScreenInstructions: 'Our own custom instruction',
+  customScanHelpScreenMp4FileName: 'DemoMp4'
 }
 ```
 
@@ -396,57 +407,35 @@ following validator types:
 ```ts
 // Enum that describes a document Validator type
 enum ValidatorType {
-  // Validator that only allows documents from the countries provided
-  DocumentCountryAllowList = 0,
-  // Validator that blocks the documents from the countries provided   
-  DocumentCountryBlockList, 
-  // Validator that checks if document has an MRZ
-  DocumentHasMrz, 
-  // Validator that only validates certain document types  
-  DocumentTypes, 
-  // Validator that requires the MRZ to be correct
-  MrzAvailable, 
-  // Validators that ensure the NFC key if available is correct
-  NFCKeyWhenAvailable 
+  DocumentCountryAllowlist = 'DocumentCountryAllowlistValidator', // Only allows documents from the countries provided
+  DocumentCountryBlocklist = 'DocumentCountryBlocklistValidator', // Blocks the documents from the countries provided
+  DocumentHasMrz = 'DocumentHasMrzValidator',                     // Validates that the document has a MRZ
+  DocumentTypes = 'DocumentTypesValidator',                       // Validates certain document types
+  MrzAvailable = 'MrzAvailableValidator',                         // Validates that the MRZ has been read
+  NfcKeyWhenAvailable = 'NfcKeyWhenAvailableValidator'            // Validates that the NFC key if available is correct
 }
 ```
 
-In the example below we setup one of each validator as an example. Please be
-aware that if setup incorrectly validators can cancel each other out.
+In the example below we setup one of each validator as an example.
+Please be aware that if setup incorrectly validators can cancel each other out.
 
 ```ts
 // Example of adding validators
-"validators": [
+const validators = [
   {
-    "type": ValidatorType.DocumentCountryAllowList,
-    "countryList": [
-      "NL"
-    ]
+    type: ValidatorType.DocumentCountryBlocklist,
+    countryCodes: ["NL"],
   },
   {
-    "type": ValidatorType.DocumentCountryBlockList,
-    "countryList": [
-      "BE"
-    ]
+    type: ValidatorType.DocumentTypes,
+    documentTypes: [
+      DocumentType.DrivingLicense
+    ],
   },
   {
-    "type": ValidatorType.DocumentHasMrz
+    type: ValidatorType.NfcKeyWhenAvailable,
   },
-  {
-    "type": ValidatorType.DocumentTypes,
-    "documentTypes": [
-      DocumentType.IdCard,
-      DocumentType.Passport,
-      DocumentType.DriversLicence
-    ]
-  },
-  {
-    "type": ValidatorType.MrzAvailable,
-  },
-  {
-    "type": ValidatorType.NFCKeyWhenAvailable,
-  }
-],
+]
 ```
 
 ### Document Filters
@@ -459,99 +448,86 @@ available in the documentation.
 We provide the following document filters:
 
 ```ts
-// Enum that describes document filters that filter the available documents in
-// the manual document selection flow
+// Enum that describes document filters that filter the available documents in the manual document selection flow
 enum DocumentFilterType {
-  // Filter that only allows certain document types
-  DocumentTypeAllowList = 0, 
-  // Filter that only allows documents from certain provided countries
-  DocumentAllowList, 
-  // Filter that blocks certain document countries
-  DocumentBlockList, 
+  DocumentTypeAllowlist, // Filter that only allows certain document types
+  DocumentAllowlist,     // Filter that only allows documents from certain provided countries
+  DocumentBlocklist,     // Filter that blocks certain document countries
 }
 ```
 
-Here's an example on how to set the document filters, pass these values in the
-`Core.configure` function.
+Here's an example on how to set the document filters,
+pass these values to the filter fields in the `Core.configure` function.
 
 ```ts
 // Setting document filters example
-"documentFilters": [
+const filters = [
   {
-    "type": DocumentFilterType.DocumentTypeAllowList,
-    "documentTypes": [
-      DocumentType.IdCard,
-      DocumentType.Passport,
-      DocumentType.DriversLicence
-    ]
+    type: DocumentFilterType.DocumentAllowlist,
+    countryCodes: ['NL'],
   },
   {
-    "type": DocumentFilterType.DocumentAllowList,
-    "countryList": [
-      "NL"
-    ]
-  },
-  {
-    "type": DocumentFilterType.DocumentBlockList,
-    "countryList": [
-      "BE"
-    ]
+    type: DocumentFilterType.DocumentTypeAllowlist,
+    documentTypes: [DocumentType.Passport],
   }
-],
+]
 ```
 
 ### Liveness checks
 
-We also offer a bridge to the liveness checks that the SDK provides. The
-following Liveness checks are available:
+We also offer a bridge to the liveness checks that the SDK provides.
+The following code example shows how to configure the liveness module.
+
+```ts
+// Configure the module if you want to customize the default behaviour
+await Liveness.configure({
+  showDismissButton: true,
+  customSkipButtonTitle: 'Close',
+  showSkipButton: true,
+})
+```
+
+These Liveness checks are available:
 
 ```ts
 // Enum of possible liveness checks
 enum LivenessCheck {
-  // Check where a user is asked to close their eyes for x amount of time
-  CloseEyes = 0, 
-  // Check where a user is asked to tilt their head a certain amount of degrees
-  Tilt,
-  // Check where the user is asked to say certain words
-  Speech,   
-  // Check where the user is asked to take a selfie and the face is matched with
-  // the one on the document or NFC
-  FaceMatching
+  CloseEyes = LivenessCheckPlatformStrings[Platform.OS].CloseEyes,       // Check where a user is asked to close their eyes for x amount of time
+  Tilt = LivenessCheckPlatformStrings[Platform.OS].Tilt,                 // Check where a user is asked to tilt their head a certain amount of degrees
+  Speech = LivenessCheckPlatformStrings[Platform.OS].Speech,             // Check where the user is asked to say certain words (iOS only)
+  FaceMatching = LivenessCheckPlatformStrings[Platform.OS].FaceMatching, // Check where the user is asked to take a selfie and the face is matched with the one on the document or NFC
 }
 ```
 
-Below you can find an example of each liveness check, you can configure the
-values to match your needs or just pass an empty list and the SDK will use a
-default set of checks.
-
+Below you can find an example of each liveness check,
+you can configure the values to match your needs or just pass an empty list and the SDK will use a default set of checks.
 You can set these values by passing them in the `Liveness.start` function.
 
 ```ts
-"resultOutputDirectory": RNFS.DocumentDirectoryPath,
-"showDismissButton": true,
-"customDismissButtonTitle": "Close",
-"checks": [
-  {
-    "check": LivenessCheck.CloseEyes,
-    "numberOfSeconds": 5,
-    "instruction": "Close your eyes for at least 5 seconds"
-  },
-  {
-    "check": LivenessCheck.Tilt,
-    "faceAngleRequirement": 25,
-    "instruction": "Tilt your head until the green line is reached"
-  },
-  {
-    "check": LivenessCheck.Speech,
-    "speechRequirement": "apple banana pizza",
-    "locale": "en-US",
-    "instruction": "Please say the following words"
-  },
-  {
-    "check": LivenessCheck.FaceMatching,
-    "imageSource": FaceMatchImageSource.DocumentScan
-  }
-]
+const startLiveness = () => {
+  // Now we can start the liveness check, this shows the liveness check screen
+  // There are a few things we can setup while starting the liveness check
+  // to see the full list check out the documentation.
+  // Important: For the liveness check to work properly the main scan should have been performed
+  const checks: { [key: string]: any }[] = [
+    {
+      type: LivenessCheck.CloseEyes,
+      numberOfSeconds: 3,
+      instruction: 'Hi, please close your eyes.', // Optional for customization
+    },
+    {
+      type: LivenessCheck.Tilt,
+      faceAngle: 15,
+    },
+    {
+      // iOS only check, on Android it is ignored
+      type: LivenessCheck.Speech,
+      speechRequirement: 'Hi React Native example',
+      locale: 'en-US', // Underscore is not supported for locale string
+    },
+  ]
+  const result = await Liveness.start(checks)
+}
 ```
 
 ## Support
@@ -562,10 +538,17 @@ For additional support remember to consult our
 
 ## Change log
 
+### 2.0.0
+
+- New major release, backwards incompatible with v1.3.0
+- Refactoring the whole sdk to v6 of the native sdk's
+- Upgrade to iOS sdk v6.0.1
+- Upgrade to Android sdk v6.0.0
+- Make use of Promises for native functions
+
 ### 1.3.0
 
 - Fixed document filters interface inconsistency between Android and iOS.
-`countryCodes` to `countryList`.
 
 ### 1.2.0
 
