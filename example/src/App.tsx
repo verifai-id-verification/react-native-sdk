@@ -1,31 +1,23 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'verifai-core-react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './HomeScreen'
+import ScanResultScreen from './ScanResultScreen'
+import LivenessResultScreen from './LivenessResultScreen';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+const Stack = createNativeStackNavigator();
 
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name='Verifai Example Home' component={HomeScreen} />
+        <Stack.Screen name='Scan result' component={ScanResultScreen} />
+        <Stack.Screen name='Liveness result' component={LivenessResultScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
+export default App

@@ -121,6 +121,7 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -128,11 +129,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.verifaicorereactnative"
+        applicationId "com.verifai.example.reactnative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -148,6 +150,11 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+    }
+    packagingOptions {
+        jniLibs {
+            pickFirsts += ['**/*.so']
         }
     }
     buildTypes {
@@ -176,6 +183,7 @@ android {
 
         }
     }
+
 }
 
 dependencies {
@@ -204,13 +212,16 @@ dependencies {
         implementation jscFlavor
     }
 
-    implementation project(':verifaicorereactnative')
+    // https://stackoverflow.com/questions/48249633/errorcannot-fit-requested-classes-in-a-single-dex-file-try-supplying-a-main-dex
+    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation project(':android-bridge')
 }
 
 // Run this once to be able to run the application with BUCK
 // puts all compile dependencies into folder libs for BUCK to use
 task copyDownloadableDepsToLibs(type: Copy) {
-    from configurations.compile
+    from configurations.implementation
     into 'libs'
 }
 

@@ -1,0 +1,38 @@
+stages:
+  - build
+  - publish
+
+before_script:
+  - echo 'export const license = `dummy`' > example/src/License.tsx
+
+
+# --- Build ---
+
+android build sdk:
+  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:android-0.2
+  stage: build
+  artifacts:
+    expire_in: 8 hours
+    paths:
+      - example/android/app/build/outputs/apk/release
+  script:
+    - yarn --cwd example install --frozen-lockfile
+    - yarn install --frozen-lockfile
+    - cd example/android
+    - ./gradlew app:build
+
+
+# --- Publish --- #
+
+publish to npm:
+  image: $CI_REGISTRY/gomibo-group/verifai-mobile-sdk/react-native-sdk:node-0.2
+  stage: publish
+  only:
+    - /^v(\d+\.){2}(\d+)$/
+  when: manual
+  script:
+    - yarn --cwd example install --frozen-lockfile
+    - yarn install --frozen-lockfile
+    - npm version --no-git-tag-version from-git
+    - npm set //registry.npmjs.org/:_authToken=$NPM_RELEASE_TOKEN
+    - npm publish --access public
