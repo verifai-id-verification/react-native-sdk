@@ -1,18 +1,27 @@
 buildscript {
+    ext {
+        kotlin_version = "1.8.10"
+    }
+
     if (project == rootProject) {
         repositories {
             google()
             mavenCentral()
-            jcenter()
         }
 
         dependencies {
-            classpath 'com.android.tools.build:gradle:7.2.2'
+            classpath "com.android.tools.build:gradle:7.4.2"
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
         }
     }
 }
 
-apply plugin: 'com.android.library'
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+    id "kotlinx-serialization"
+}
 
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -24,6 +33,7 @@ android {
     if (rootProject.ext.has('buildToolsVersion')) {
         buildToolsVersion rootProject.ext.get('buildToolsVersion')
     }
+
     defaultConfig {
         minSdkVersion safeExtGet('minSdkVersion', 21)
         targetSdkVersion safeExtGet('targetSdkVersion', 33)
@@ -34,36 +44,39 @@ android {
             minifyEnabled false
         }
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     lint {
         disable 'GradleCompatible'
     }
 }
 
 repositories {
-    mavenLocal()
+    google()
+    mavenCentral()
+
     maven {
         // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
         url("$rootDir/../node_modules/react-native/android")
     }
-    maven {
-        url = 'https://dashboard.verifai.com/downloads/sdk/maven/'
-    }
-    google()
-    mavenCentral()
-    jcenter()
 }
 
 ext {
-    verifai_version = "4.11.1"
+    verifai_version = "6.0.0"
 }
 
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0"
 
     api "com.verifai:core:$verifai_version"
     implementation "com.verifai:liveness-check:$verifai_version"

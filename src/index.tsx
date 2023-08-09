@@ -19,73 +19,112 @@ NativeModules.Core
 
 const { Core, Liveness, NFC } = NativeModules;
 
+type ResultType = {
+  [key: string]: any
+};
+
+const LivenessCheckPlatformStrings: ResultType = {
+  ios: {
+    CloseEyes: 'CloseEyes',
+    Tilt: 'Tilt',
+    Speech: 'Speech',
+    FaceMatching: 'FaceMatching',
+  },
+  android: {
+    CloseEyes: 'com.verifai.liveness.pub.checks.CloseEyes',
+    Tilt: 'com.verifai.liveness.pub.checks.Tilt',
+    Speech: 'com.verifai.liveness.pub.checks.Speech',
+    FaceMatching: 'com.verifai.liveness.pub.checks.FaceMatching',
+  },
+};
+
+
 // Enum of possible liveness checks
 enum LivenessCheck {
-  CloseEyes = 0, // Check where a user is asked to close their eyes for x amount of time
-  Tilt, // Check where a user is asked to tilt their head a certain amount of degrees
-  Speech, // Check where the user is asked to say certain words
-  FaceMatching, // Check where the user is asked to take a selfie and the face is matched with the one on the document or NFC
+  CloseEyes = LivenessCheckPlatformStrings[Platform.OS].CloseEyes,       // Check where a user is asked to close their eyes for x amount of time
+  Tilt = LivenessCheckPlatformStrings[Platform.OS].Tilt,                 // Check where a user is asked to tilt their head a certain amount of degrees
+  Speech = LivenessCheckPlatformStrings[Platform.OS].Speech,             // Check where the user is asked to say certain words (iOS only)
+  FaceMatching = LivenessCheckPlatformStrings[Platform.OS].FaceMatching, // Check where the user is asked to take a selfie and the face is matched with the one on the document or NFC
 }
 
-// Enum that describes an instruction screen
+// Enum for the type of a instruction screen in the Core module
 enum InstructionScreenId {
-  MrzPresentFlowInstruction = 0, // Instruction screen that explains how to check if the document has an MRZ
-  MrzScanFlowInstruction, // Instruction screen explaining what the MRZ is and where to scan it
-  MrzNotDetectedHint, // The text inside the blue hint instruction screen (Android only)
-  DocumentPickerHelp // The question mark button in the document picker
+  MrzPresentFlowInstruction = 'MrzPresentFlowInstruction', // Instruction screen that explains how to check if the document has an MRZ
+  MrzScanFlowInstruction = 'MrzScanFlowInstruction',       // Instruction screen explaining what the MRZ is and where to scan it
+  MrzNotDetectedHint = 'MrzNotDetectedHint',               // The text inside the blue hint instruction screen (Android only)
+  DocumentPickerInstruction = 'DocumentPickerInstruction'  // The question mark button in the document picker
+}
+
+// Enum for the type of a instruction screen in the Nfc module
+enum NfcInstructionScreenId {
+  NfcScanFlowInstruction = 'NfcScanFlowInstruction'
 }
 
 // Enum that describes an instruction screen type
 enum InstructionType {
-  Default = 0, // The Verifai default instruction screen
-  Media, // A native instruction screen with your own custom values, check the docs for more info
-  Web, // A instruction screen that opens and displays a URL provided by you. More info about this in the docs.
-  Hidden // Do not display the instruction screen
+  DefaultScreen = 'DefaultScreen', // The Verifai default instruction screen
+  Custom = 'Custom',               // A native instruction screen with your own custom values, check the docs for more info
+  Web = 'Web',                     // A instruction screen that opens and displays a URL provided by you. More info about this in the docs.
+  Hidden = 'Hidden',               // Do not display the instruction screen
+}
+
+enum InstructionArgument {
+  Custom = 'com.verifai.core.pub.instructionScreens.InstructionScreenArguments.Custom', // Custom argument type
+  Web = 'com.verifai.core.pub.instructionScreens.InstructionScreenArguments.Web',       // Web argument type
 }
 
 // Enum that describes a document Validator type
 enum ValidatorType {
-  DocumentCountryAllowList = 0, // Validator that only allows documents from the countries provided
-  DocumentCountryBlockList, // Validator that blocks the documents from the countries provided
-  DocumentHasMrz, // Validator that checks if document has an MRZ
-  DocumentTypes, // Validator that only validates certain document types
-  MrzAvailable, // Validator that requires the MRZ to be correct
-  NFCKeyWhenAvailable // Validators that ensure the NFC key if available is correct
+  DocumentCountryAllowlist = 'DocumentCountryAllowlistValidator', // Only allows documents from the countries provided
+  DocumentCountryBlocklist = 'DocumentCountryBlocklistValidator', // Blocks the documents from the countries provided
+  DocumentHasMrz = 'DocumentHasMrzValidator',                     // Validates that the document has a MRZ
+  DocumentTypes = 'DocumentTypesValidator',                       // Validates certain document types
+  MrzAvailable = 'MrzAvailableValidator',                         // Validates that the MRZ has been read
+  NfcKeyWhenAvailable = 'NfcKeyWhenAvailableValidator'            // Validates that the NFC key if available is correct
 }
+
+const DocumentFilterPlatformStrings: ResultType
+ = {
+  ios: {
+    DocumentTypeAllowlist: 'DocumentTypeAllowlistFilter',
+    DocumentAllowlist: 'DocumentAllowlistFilter',
+    DocumentBlocklist: 'DocumentBlocklistFilter',
+  },
+  android: {
+    DocumentTypeAllowlist: 'com.verifai.core.pub.filters.DocumentTypeAllowlistFilter',
+    DocumentAllowlist: 'com.verifai.core.pub.filters.DocumentAllowlistFilter',
+    DocumentBlocklist: 'com.verifai.core.pub.filters.DocumentBlocklistFilter',
+  },
+};
 
 // Enum that describes document filters that filter the available documents in the manual document selection flow
 enum DocumentFilterType {
-  DocumentTypeAllowList = 0, // Filter that only allows certain document types
-  DocumentAllowList, // Filter that only allows documents from certain provided countries
-  DocumentBlockList, // Filter that blocks certain document countries
+  DocumentTypeAllowlist = DocumentFilterPlatformStrings[Platform.OS].DocumentTypeAllowlist, // Filter that only allows certain document types
+  DocumentAllowlist = DocumentFilterPlatformStrings[Platform.OS].DocumentAllowlist,         // Filter that only allows documents from certain provided countries
+  DocumentBlocklist = DocumentFilterPlatformStrings[Platform.OS].DocumentBlocklist,         // Filter that blocks certain document countries
 }
 
 // Enum that describes certain document types
 enum DocumentType {
-  IdCard = 0,
-  DriversLicence,
-  Passport,
-  Refugee,
-  EmergencyPassport,
-  ResidencePermitTypeI,
-  ResidencePermitTypeII,
-  Visa,
-  Unknown
-}
-
-// Enum that describes the face image source to compare agains the selvie in the liveness check
-enum FaceMatchImageSource {
-  DocumentScan = 0,
-  Nfc
+  Passport = 'Passport',
+  IdentityCard = 'IdentityCard',
+  DrivingLicense = 'DrivingLicense',
+  RefugeeTravelDocument = 'RefugeeTravelDocument',
+  EmergencyPassport = 'EmergencyPassport',
+  ResidencePermitTypeI = 'ResidencePermitTypeI',
+  ResidencePermitTypeII = 'ResidencePermitTypeII',
+  Visa = 'Visa',
+  Unknown = 'Unknown'
 }
 
 export {
   Core, Liveness, NFC,
   LivenessCheck,
   InstructionScreenId,
+  NfcInstructionScreenId,
   InstructionType,
+  InstructionArgument,
   ValidatorType,
   DocumentFilterType,
   DocumentType,
-  FaceMatchImageSource
 };

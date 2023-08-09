@@ -215,7 +215,7 @@ dependencies {
     // https://stackoverflow.com/questions/48249633/errorcannot-fit-requested-classes-in-a-single-dex-file-try-supplying-a-main-dex
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation project(':android-sdk')
+    implementation project(':android-bridge')
 }
 
 // Run this once to be able to run the application with BUCK

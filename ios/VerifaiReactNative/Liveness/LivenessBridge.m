@@ -10,12 +10,16 @@
 
 @interface RCT_EXTERN_MODULE(Liveness, NSObject)
 
-// Listeners
-RCT_EXTERN_METHOD(setOnSuccess:(RCTResponseSenderBlock *));
-RCT_EXTERN_METHOD(setOnError:(RCTResponseSenderBlock *));
+// Configuration
+RCT_EXTERN_METHOD(configure: (NSDictionary *)configuration
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject);
+
 
 // Liveness module functions
-RCT_EXTERN_METHOD(start:(NSDictionary *))
+RCT_EXTERN_METHOD(start: (NSArray *)checks
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject);
 
 // Main queue setup
 RCT_EXTERN_METHOD(requiresMainQueueSetup);

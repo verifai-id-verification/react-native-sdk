@@ -9,50 +9,41 @@ import Foundation
 import VerifaiNFCKit
 
 struct NFCConfiguration {
-    var retrieveImage: Bool = true
-    var showDismissButton: Bool = true
-    var customDismissButtonTitle: String? = nil
-    var scanHelpConfiguration: VerifaiScanHelpConfiguration = VerifaiScanHelpConfiguration()
-    var instructionScreenConfiguration: VerifaiNFCInstructionScreenConfiguration?
-    
+    var nativeConfiguration = VerifaiNFCConfiguration()
+
     init(configuration: NSDictionary) throws {
         // Whether the image of the passport should be fetched
-        if let retrieveImage = configuration.value(forKey: "retrieveImage") as? Bool {
-            self.retrieveImage = retrieveImage
+        if let retrieveImage = configuration.value(forKey: "retrieveFaceImage") as? Bool {
+            self.nativeConfiguration.retrieveFaceImage = retrieveImage
         }
-        // Whether the dismiss button should be shown
-        if let showDismissButton = configuration.value(forKey: "showDismissButton") as? Bool {
-            self.showDismissButton = showDismissButton
-        }
-        // Custom dismiss button title string
-        if let customDismissButtonTitle = configuration.value(forKey: "customDismissButtonTitle") as? String {
-            self.customDismissButtonTitle = customDismissButtonTitle
-        }
+
         // Instruction screen configuration
         if let instructionConfiguration = configuration.value(forKey: "instructionScreenConfiguration") as? NSDictionary {
-            // Whether the instruction screens should be shown (default is yes)
-            let showInstructionScreens = instructionConfiguration.value(forKey: "showInstructionScreens") as? Bool ?? true
-            // Build the instruction configuration
-            self.instructionScreenConfiguration =
-            try getInstructionScreenConfiguration(for: instructionConfiguration,
-                                                     showInstructionScreens: showInstructionScreens)
+            if instructionConfiguration.count > 0 {
+                // Whether the instruction screens should be shown (default is yes)
+                let showInstructionScreens = instructionConfiguration.value(forKey: "showInstructionScreens") as? Bool ?? true
+                // Build the instruction configuration
+                self.nativeConfiguration.instructionScreenConfiguration =
+                    try getInstructionScreenConfiguration(for: instructionConfiguration,
+                                                          showInstructionScreens: showInstructionScreens)
+            }
         }
-        // Scan help configuration
+
+      // Scan help configuration
         if let scanHelpConfiguration = configuration.value(forKey: "scanHelpConfiguration") as? NSDictionary {
             // Find the values
             let isScanHelpEnabled = scanHelpConfiguration.value(forKey: "isScanHelpEnabled") as? Bool ?? true
             let customScanHelpScreenInstructions = scanHelpConfiguration.value(
                 forKey: "customScanHelpScreenInstructions") as? String ?? ""
-            let customScanHelpScreenMp4FileName = scanHelpConfiguration.value(
-                forKey: "customScanHelpScreenMp4FileName") as? String ?? ""
+            let customScanHelpScreenMp4VideoResource = scanHelpConfiguration.value(
+                forKey: "customScanHelpScreenMediaResource") as? String ?? ""
             // Create a scan help configuration object
-            self.scanHelpConfiguration = VerifaiScanHelpConfiguration(isScanHelpEnabled: isScanHelpEnabled,
-                                                                      customScanHelpScreenInstructions:
-                        NSAttributedString(string: customScanHelpScreenInstructions),
-                                                                      customScanHelpScreenMp4FileName: customScanHelpScreenMp4FileName)
+            self.nativeConfiguration.scanHelpConfiguration = VerifaiScanHelpConfiguration(isScanHelpEnabled: isScanHelpEnabled,
+                                                                                       customScanHelpScreenInstructions: NSAttributedString(string: customScanHelpScreenInstructions),
+                                                                                       customScanHelpScreenMp4VideoResource: customScanHelpScreenMp4VideoResource)
         }
     }
-    
+
     // MARK: - Instruction screen
     /// Process the instruction screen provided into something the Verifai SDK can understand
     /// - Parameters:
@@ -63,26 +54,31 @@ struct NFCConfiguration {
     private func getInstructionScreenConfiguration(for instructionConfiguration: NSDictionary,
                                                    showInstructionScreens: Bool) throws -> VerifaiNFCInstructionScreenConfiguration {
         // Find the settings array that holds the settings for each screen
-        if let instructionConfigurationArray = instructionConfiguration.value(forKey: "instructionScreens") as? NSArray {
+        if let instructionConfigurationDict = instructionConfiguration.value(forKey: "instructionScreens") as? NSDictionary {
             // Setup screen dictionary holder
             var screenConfigurations: [VerifaiNFCInstructionScreen: VerifaiNFCSingleInstructionScreenConfiguration] = [:]
             // Go trough each screen and set it up
-            for dictionary in instructionConfigurationArray {
-                if let settings = dictionary as? NSDictionary,
-                   let type = settings.value(forKey: "type") as? Int,
-                   let instructionScreen = getInstructionScreen(in: settings) {
+            for (key, value) in instructionConfigurationDict {
+                if let settings = value as? NSDictionary,
+                   let type = settings.value(forKey: "type") as? String,
+                   let id = key as? String,
+                   let instructionScreen = getInstructionScreen(in: id) {
                     // Create the screen values
                     switch type {
-                    case 0:
+                    case "DefaultScreen":
                         // Default values
-                        screenConfigurations[instructionScreen] = .defaultMode
-                    case 1:
+                        screenConfigurations[instructionScreen] = .defaultScreen
+                    case "Custom":
                         // Native based configuration screen
-                        screenConfigurations[instructionScreen] = try nativeScreenValues(in: settings)
-                    case 2:
+                        if let arguments = settings.value(forKey: "arguments") as? NSDictionary {
+                            screenConfigurations[instructionScreen] = try nativeScreenValues(in: arguments)
+                        }
+                    case "Web":
                         // Web based instruction values
-                        screenConfigurations[instructionScreen] = try getWebScreenValues(in: settings)
-                    case 3:
+                        if let arguments = settings.value(forKey: "arguments") as? NSDictionary {
+                            screenConfigurations[instructionScreen] = try getWebScreenValues(in: arguments)
+                        }
+                    case "Hidden":
                         // Hide the specific instruction screen
                         screenConfigurations[instructionScreen] = .hidden
                     default:
@@ -96,7 +92,7 @@ struct NFCConfiguration {
         }
         throw RNError.invalidValuesSupplied
     }
-    
+
     /// Get the instruction screen values for a native instruction screen
     /// - Parameter settings: The settings dictionary that was passed
     /// - Returns: A screen configuration for a native instruction screen
@@ -104,19 +100,19 @@ struct NFCConfiguration {
         // Find the values
         let title = settings.value(forKey: "title") as? String ?? ""
         let header = settings.value(forKey: "header") as? String ?? ""
-        let mp4FileName = settings.value(forKey: "mp4FileName") as? String ?? ""
+        let mp4VideoResource = settings.value(forKey: "mediaResource") as? String ?? ""
         let instruction = settings.value(forKey: "instruction") as? String ?? ""
         let continueButtonLabel = settings.value(forKey: "continueButtonLabel") as? String ?? ""
         // Build the screen values object
         let screenValues = try VerifaiInstructionScreenValues(title: title,
                                                               header: header,
-                                                              mp4FileName: mp4FileName,
+                                                              mediaResource: mp4VideoResource,
                                                               instruction: NSAttributedString(string: instruction),
                                                               continueButtonLabel: continueButtonLabel)
         // We can return the instruction screen object
-        return .customLocal(screenValues: screenValues)
+        return .custom(screenValues: screenValues)
     }
-    
+
     /// Get the instruction screen values for a web based instruction screen
     /// - Parameter settings: The settings dictionary that was passed
     /// - Returns: A screen configuration for a web based instruction screen
@@ -133,23 +129,19 @@ struct NFCConfiguration {
                                                               url: url,
                                                               continueButtonLabel: continueButtonLabel,
                                                               loader: .webView)
-        return .customWeb(screenValues: webValues)
+        return .web(screenValues: webValues)
     }
-    
+
     /// Get the NFC instruction screen enum value
     /// - Parameter settings: The settings dictionary
     /// - Returns: the enum matched or nil
-    private func getInstructionScreen(in settings: NSDictionary) -> VerifaiNFCInstructionScreen? {
-        if let screen = settings.value(forKey: "screen") as? String {
-            switch screen {
-            case "nfcScanFlowInstruction":
-                return .nfcScanFlowInstruction
-            default:
-                // Illegal value
-                return nil
-            }
+    private func getInstructionScreen(in instructionScreenId: String) -> VerifaiNFCInstructionScreen? {
+        switch instructionScreenId {
+        case "NfcScanFlowInstruction":
+            return .nfcScanFlowInstruction
+        default:
+            // Illegal value
+            return nil
         }
-        // Illegal value
-        return nil
     }
 }

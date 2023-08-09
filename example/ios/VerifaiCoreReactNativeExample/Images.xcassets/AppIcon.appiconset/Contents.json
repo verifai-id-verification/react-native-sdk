@@ -2,37 +2,115 @@
   "images" : [
     {
       "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "20x20",
+      "filename" : "react-native-verifai-20x20@2x.png"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "20x20",
+      "filename" : "react-native-verifai-20x20@3x.png"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
       "size" : "29x29",
-      "scale" : "2x"
+      "filename" : "react-native-verifai-29x29@2x.png"
     },
     {
       "idiom" : "iphone",
+      "scale" : "3x",
       "size" : "29x29",
-      "scale" : "3x"
+      "filename" : "react-native-verifai-29x29@3x.png"
     },
     {
       "idiom" : "iphone",
+      "scale" : "2x",
       "size" : "40x40",
-      "scale" : "2x"
+      "filename" : "react-native-verifai-40x40@2x.png"
     },
     {
       "idiom" : "iphone",
+      "scale" : "3x",
       "size" : "40x40",
-      "scale" : "3x"
+      "filename" : "react-native-verifai-40x40@3x.png"
     },
     {
       "idiom" : "iphone",
+      "scale" : "2x",
       "size" : "60x60",
-      "scale" : "2x"
+      "filename" : "react-native-verifai-60x60@2x.png"
     },
     {
       "idiom" : "iphone",
+      "scale" : "3x",
       "size" : "60x60",
-      "scale" : "3x"
+      "filename" : "react-native-verifai-60x60@3x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "20x20",
+      "filename" : "react-native-verifai-20x20@1x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "20x20",
+      "filename" : "react-native-verifai-20x20@2x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "29x29",
+      "filename" : "react-native-verifai-29x29@1x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "29x29",
+      "filename" : "react-native-verifai-29x29@2x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "40x40",
+      "filename" : "react-native-verifai-40x40@1x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "40x40",
+      "filename" : "react-native-verifai-40x40@2x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "76x76",
+      "filename" : "react-native-verifai-76x76@1x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "76x76",
+      "filename" : "react-native-verifai-76x76@2x.png"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "83.5x83.5",
+      "filename" : "react-native-verifai-83.5x83.5@2x.png"
+    },
+    {
+      "idiom" : "ios-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024",
+      "filename" : "react-native-verifai-1024x1024@1x.png"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.dependency 'React-Core'
-  s.dependency 'Verifai', '~> 5.4.1'
-  s.dependency 'VerifaiNFC', '~> 5.4.1'
-  s.dependency 'VerifaiLiveness', '~> 5.4.1'
+  s.dependency 'Verifai', '~> 6.0.1'
+  s.dependency 'VerifaiNFC', '~> 6.0.1'
+  s.dependency 'VerifaiLiveness', '~> 6.0.1'
 end

@@ -3,7 +3,7 @@ stages:
   - publish
 
 before_script:
-  - echo 'export const licence = `dummy`' > example/src/licence.js
+  - echo 'export const license = `dummy`' > example/src/License.tsx
 
 
 # --- Build ---
@@ -16,7 +16,8 @@ android build sdk:
     paths:
       - example/android/app/build/outputs/apk/release
   script:
-    - yarn
+    - yarn --cwd example install --frozen-lockfile
+    - yarn install --frozen-lockfile
     - cd example/android
     - ./gradlew app:build
 
@@ -30,7 +31,8 @@ publish to npm:
     - /^v(\d+\.){2}(\d+)$/
   when: manual
   script:
-    - yarn
+    - yarn --cwd example install --frozen-lockfile
+    - yarn install --frozen-lockfile
     - npm version --no-git-tag-version from-git
     - npm set //registry.npmjs.org/:_authToken=$NPM_RELEASE_TOKEN
     - npm publish --access public
